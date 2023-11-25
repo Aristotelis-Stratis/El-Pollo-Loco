@@ -12,7 +12,7 @@ class MoveableObject {
     acceleration = 2;
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround())
+            if (this.isAboveGround()|| this.speedY > 0)
                 this.y -= this.speedY;
             this.speedY -= this.acceleration;
         }, 1000 / 25);
