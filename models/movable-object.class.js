@@ -1,16 +1,10 @@
-class MoveableObject {
-    x = 120;
-    y = 365;
-    height = 150;
-    width = 100;
-    img;
-    imageCache = {};
-    currentImage = 0;
+class MoveableObject extends DrawableObject {
     speed = 0.2;
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
     energy = 100;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -24,23 +18,6 @@ class MoveableObject {
         return this.y < 150;
     }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
     // character.isColliding(chicken)
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -54,25 +31,23 @@ class MoveableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        timePassed = timePassed / 1000; // Difference in seconds
+        return timePassed < 1;
     }
 
     isDead() {
         return this.energy == 0;
     }
 
-
-    loadImages(array) {
-        array.forEach((path) => {
-
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
