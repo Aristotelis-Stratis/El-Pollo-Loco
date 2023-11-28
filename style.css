@@ -1,9 +1,52 @@
+@font-face {
+    font-family: 'zabras';
+    src: url('../fonts/zabras.ttf') format('truetype');
+}
+
 body {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    background-image: url('./img/10_start_screen/start_bg-3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.title {
+    display: flex;
+    position: absolute;
+    top: 115px;
+}
+
+h1 {
+    font-size: 96px;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+    transform: scale(1.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 canvas {
     background-color: black;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 20px;
+    color: #eab668;
+    font-size: 32px;
+    letter-spacing: 2px;
 }
