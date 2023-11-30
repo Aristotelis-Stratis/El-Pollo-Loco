@@ -49,4 +49,14 @@ canvas {
     color: #eab668;
     font-size: 32px;
     letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/*mockup controls*/
+.menu_control_icon {
+    display:flex;
+    background-color: #eab668;
+    border-radius: 25px;
+    border: 2px solid;
+    height: 40px;
 }
