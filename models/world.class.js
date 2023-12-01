@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     canvas;
@@ -7,16 +6,25 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new Statusbar();
+
     coins = [
-        new Coin(200, 100),
+        new Coin(250, 100),
         new Coin(400, 150),
         new Coin(600, 160),
         new Coin(800, 90),
         new Coin(1000, 50),
         new Coin(1200, 140),
+        new Coin(1600, 200),
+        new Coin(2000, 220),
+        new Coin(2400, 180),
+        new Coin(2800, 120),
+        new Coin(3000, 160),
+        new Coin(3200, 190),
         // Weitere Münzen nach Bedarf hinzufügen
     ];
+    collectedCoins = 0;
     coinBar = new CoinBar();
+    
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -28,18 +36,20 @@ class World {
         this.run();
     }
 
-
-
     setWorld() {
         this.character.world = this;
+        this.coins.forEach(coin => coin.animate());
     }
 
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-            this.checkCoinCollisions(); // Füge diese Zeile hinzu
-        }, 1000);
+        }, 750);
+
+        setInterval(() =>{
+            this.checkCoinCollisions();
+        }, 50);
     }
 
 
