@@ -24,10 +24,10 @@ class MoveableObject extends DrawableObject {
 
     // character.isColliding(chicken)
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        return this.x + this.width > mo.x && // this.x + this.width - this.offset.right > mo.x + mo.offset.left
+            this.y + this.height > mo.y && // this.y + this.height - this.offset.bottom > mo.y + mo.offset.top
+            this.x < mo.x + mo.width &&    // this.x + this.offset.left < mo.x + mo.width - mo.offset.right
+            this.y < mo.y + mo.height      // this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom 
 
     }
 

@@ -24,7 +24,6 @@ class World {
 
     collectedCoins = 0;
     coinBar = new CoinBar();
-
     throwableObjects = [];
 
     constructor(canvas, keyboard) {

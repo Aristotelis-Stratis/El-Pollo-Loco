@@ -1,10 +1,16 @@
 class Character extends MoveableObject {
     y = -20;
-    height = 280;
+    height = 275;
     width = 100;
     speed = 8;
     idleTimer = 0;
     IDLE_THRESHOLD = 5000;
+    offset = {
+        top: 120,
+        bottom: 30,
+        left:40,
+        right: 30
+    };
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
