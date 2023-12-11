@@ -19,9 +19,9 @@ class World {
         new Coin(2400, 180),
         new Coin(2800, 120),
         new Coin(3000, 160),
-        new Coin(3200, 190),
-        // Weitere Münzen nach Bedarf hinzufügen
+        new Coin(3200, 190)
     ];
+    
     collectedCoins = 0;
     coinBar = new CoinBar();
     
