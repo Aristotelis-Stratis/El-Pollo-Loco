@@ -21,10 +21,10 @@ class World {
         new Coin(3000, 160),
         new Coin(3200, 190)
     ];
-    
+
     collectedCoins = 0;
     coinBar = new CoinBar();
-    
+
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -45,9 +45,9 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 750);
+        }, 50);
 
-        setInterval(() =>{
+        setInterval(() => {
             this.checkCoinCollisions();
         }, 50);
     }
@@ -67,9 +67,12 @@ class World {
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 // Der Charakter hat die Münze eingesammelt
+
                 this.coins.splice(index, 1); // Entferne die Münze aus dem Array
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
+
                 // Hier kannst du weitere Aktionen durchführen, z.B. Sound abspielen, Punkte erhöhen, etc.
+                this.playCoinSound();
             }
         });
     }
@@ -87,14 +90,14 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.character);  
+        this.addToMap(this.character);
         this.coins.forEach(coin => this.addToMap(coin));
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.coinBar.draw(this.ctx);
         this.ctx.translate(this.camera_x, 0);
-        
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
@@ -132,6 +135,12 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    playCoinSound() {
+        let coinSound = new Audio('audio/coin.mp3');
+        coinSound.volume = 0.2;
+        coinSound.play();
     }
 }
 

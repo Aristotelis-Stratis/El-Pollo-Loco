@@ -68,7 +68,7 @@ class Character extends MoveableObject {
 
     world;
     walking_sound = new Audio('audio/running_3.mp3');
-    hurt_sound = new Audio('audio/hurt.mp3')
+    hurt_sound = new Audio('audio/hurt.mp3');
 
 
     constructor() {
@@ -91,7 +91,6 @@ class Character extends MoveableObject {
                     this.idleTimer = 0;
                     this.playAnimation(this.IMAGES_WALKING);
                 }
-
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
                     this.otherDirection = false;
