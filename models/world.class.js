@@ -17,18 +17,35 @@ class World {
         new Coin(1600, 200),
         new Coin(2000, 220)
     ];
-
     collectedCoins = 0;
     coinBar = new CoinBar();
+
+    bottles = [
+        new Bottles(0,100),
+        new Bottles(0,200),
+        new Bottles(0,300),
+        new Bottles(0,400),
+        new Bottles(0,500),
+        new Bottles(0,600)
+        // Füge hier weitere Flaschen hinzu, wie benötigt
+    ];
+
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.createBottles();
         this.draw();
         this.setWorld();
         this.run();
+    }
+    createBottles() {
+        for (let i = 0; i < 5; i++) {
+            const bottle = new Bottles();
+            this.bottles.push(bottle);
+        }
     }
 
     setWorld() {
@@ -40,11 +57,9 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 100);
-
-        setInterval(() => {
+            this.checkBottleCollisions(); // Hinzugefügt
             this.checkCoinCollisions();
-        }, 50);
+        }, 100);
     }
 
 
@@ -72,6 +87,27 @@ class World {
         });
     }
 
+    checkBottleCollisions() {
+        this.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                // Der Charakter hat die Flasche eingesammelt
+
+                this.bottles.splice(index, 1); // Entferne die Flasche aus dem Array
+                this.collectBottle();
+            }
+        });
+    }
+
+    collectBottle() {
+        // Hier kannst du weitere Aktionen durchführen, z.B. Sound abspielen, Punkte erhöhen, etc.
+        // this.playCollectBottleSound();
+        // this.character.addPoints(10);
+    }
+
+    playCollectBottleSound() {
+        // Hier den Code zum Abspielen des Sounds einfügen
+    }
+
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -87,7 +123,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.coins.forEach(coin => this.addToMap(coin));
-
+        this.bottles.forEach(bottle => this.addToMap(bottle));
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.coinBar.draw(this.ctx);
