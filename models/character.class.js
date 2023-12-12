@@ -95,7 +95,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 if (this.idleTimer > this.IDLE_THRESHOLD) {
                     this.idleTimer = 0;
-                    this.playAnimation(this.IMAGES_WALKING);
+                    this.playAnimation(this.IMAGES_WALKING);            
                 }
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
@@ -138,7 +138,4 @@ class Character extends MoveableObject {
             }
         }, 80);
     }
-
-
-
 }

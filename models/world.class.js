@@ -15,11 +15,7 @@ class World {
         new Coin(1000, 50),
         new Coin(1200, 140),
         new Coin(1600, 200),
-        new Coin(2000, 220),
-        new Coin(2400, 180),
-        new Coin(2800, 120),
-        new Coin(3000, 160),
-        new Coin(3200, 190)
+        new Coin(2000, 220)
     ];
 
     collectedCoins = 0;
@@ -44,7 +40,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 50);
+        }, 100);
 
         setInterval(() => {
             this.checkCoinCollisions();
