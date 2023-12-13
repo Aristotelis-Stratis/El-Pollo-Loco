@@ -1,5 +1,4 @@
 class Bottles extends MoveableObject {
-  //  hat alle Eigenschaften von MovableObject da es vererbt wird!
 
   width = 60;
   height = 60;
@@ -11,7 +10,7 @@ class Bottles extends MoveableObject {
 
   constructor() {
     super().loadImage(this.IMAGES_BOTTLE[Math.round(Math.random())]);
-    this.x = 400 + Math.random() * 3200;
+    this.x = 400 + Math.random() * 2400;
     this.y = 370;
   }
 }

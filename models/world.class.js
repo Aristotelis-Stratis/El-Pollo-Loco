@@ -19,7 +19,7 @@ class World {
     ];
     collectedCoins = 0;
     coinBar = new CoinBar();
-
+    bottleBar = new BottleBar();
     bottles = [
         new Bottles(0,100),
         new Bottles(0,200),
@@ -36,17 +36,11 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.createBottles();
         this.draw();
         this.setWorld();
         this.run();
     }
-    createBottles() {
-        for (let i = 0; i < 5; i++) {
-            const bottle = new Bottles();
-            this.bottles.push(bottle);
-        }
-    }
+
 
     setWorld() {
         this.character.world = this;
@@ -91,8 +85,8 @@ class World {
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 // Der Charakter hat die Flasche eingesammelt
-
                 this.bottles.splice(index, 1); // Entferne die Flasche aus dem Array
+                this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
                 this.collectBottle();
             }
         });
@@ -126,6 +120,7 @@ class World {
         this.bottles.forEach(bottle => this.addToMap(bottle));
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.bottleBar);
         this.coinBar.draw(this.ctx);
         this.ctx.translate(this.camera_x, 0);
 
