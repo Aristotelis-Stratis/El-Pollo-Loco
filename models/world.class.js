@@ -64,7 +64,7 @@ class World {
 
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy) => {    // enemies
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 console.log(this.character.energy);
@@ -93,20 +93,10 @@ class World {
                 // Der Charakter hat die Flasche eingesammelt
                 this.bottles.splice(index, 1); // Entferne die Flasche aus dem Array
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
-                this.collectBottle();
             }
         });
     }
 
-    collectBottle() {
-        // Hier kannst du weitere Aktionen durchführen, z.B. Sound abspielen, Punkte erhöhen, etc.
-        // this.playCollectBottleSound();
-        // this.character.addPoints(10);
-    }
-
-    playCollectBottleSound() {
-        // Hier den Code zum Abspielen des Sounds einfügen
-    }
 
     checkThrowObjects() {
         if (this.keyboard.D && this.bottleBar.collectedBottles > 0) {
@@ -136,8 +126,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-
-        let self = this;
+        
         requestAnimationFrame(() => this.draw());
     }
 
