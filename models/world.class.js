@@ -26,8 +26,14 @@ class World {
         new Bottles(0,300),
         new Bottles(0,400),
         new Bottles(0,500),
-        new Bottles(0,600)
-        // Füge hier weitere Flaschen hinzu, wie benötigt
+        new Bottles(0,600),
+        new Bottles(0,800),
+        new Bottles(0,1000),
+        new Bottles(0,1200),
+        new Bottles(0,1400),
+        new Bottles(0,1600),
+        new Bottles(0,1800),
+        new Bottles(0,2000),
     ];
 
     throwableObjects = [];
@@ -51,7 +57,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-            this.checkBottleCollisions(); // Hinzugefügt
+            this.checkBottleCollisions();
             this.checkCoinCollisions();
         }, 100);
     }
@@ -103,9 +109,11 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        if (this.keyboard.D && this.bottleBar.collectedBottles > 0) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.bottleBar);
             this.throwableObjects.push(bottle);
+            this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
+            console.log(this.bottleBar.collectedBottles);
         }
     }
 
