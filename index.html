@@ -5,25 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El pollo loco</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="models/drawable-object.class.js"></script>
-    <script src="models/movable-object.class.js"></script>
-    <script src="models/character.class.js"></script>
-    <script src="models/chicken.class.js"></script>
-    <script src="models/cloud.class.js"></script>
-    <script src="models/status-bar.class.js"></script>
-    <script src="models/coin.class.js"></script>
-    <script src="models/bottles.class.js"></script>
-    <script src="models/coin-bar.class.js"></script>
-    <script src="models/bottle-bar.class.js"></script>
-    <script src="models/world.class.js"></script>
-    <script src="models/background-object.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
-    <script src="models/throwable-object.class.js"></script>
-    <script src="models/endboss.class.js"></script>
-    <script src="levels/level1.js"></script>
-    <script src="js/game.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./models/drawable-object.class.js"></script>
+    <script src="./models/movable-object.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/cloud.class.js"></script>
+    <script src="./models/status-bar.class.js"></script>
+    <script src="./models/coin.class.js"></script>
+    <script src="./models/bottles.class.js"></script>
+    <script src="./models/coin-bar.class.js"></script>
+    <script src="./models/bottle-bar.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./models/background-object.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./models/throwable-object.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./js/game.js"></script>
 
 </head>
 
@@ -34,12 +34,11 @@
     </div>
 
     <div class="content">
-        <canvas width="720" height="480" id="canvas"></canvas>
-        <div class="controls">
-            <div><img class="menu_control_icon" src="img/11_controls/controls.png"></div>
-            <div><img class="menu_control_icon" src="img/11_controls/gear.png"></div>
-            <div><img class="menu_control_icon" src="img/11_controls/sound_on.png"></div>
+        <div id="menu">
+            <button onclick="init()">Start Level</button>
         </div>
+
+        <canvas width="720" height="480" id="canvas"></canvas>
     </div>
 </body>
 

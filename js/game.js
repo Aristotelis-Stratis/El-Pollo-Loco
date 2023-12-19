@@ -1,12 +1,24 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+backgroundMusic = new Audio('audio/game.mp3');
+backgroundMusic.muted = true;
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
+    playBackgroundMusic();
 }
+
+function playBackgroundMusic(){
+    backgroundMusic.volume = 0.1;
+    backgroundMusic.muted = false;
+    backgroundMusic.play();
+}
+
+
+
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39) {
@@ -53,3 +65,5 @@ window.addEventListener("keyup", (event) => {
         keyboard.D = false;
     }
 });
+
+

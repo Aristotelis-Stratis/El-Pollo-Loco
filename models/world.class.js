@@ -21,21 +21,21 @@ class World {
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     bottles = [
-        new Bottles(0,100),
-        new Bottles(0,200),
-        new Bottles(0,300),
-        new Bottles(0,400),
-        new Bottles(0,500),
-        new Bottles(0,600),
-        new Bottles(0,800),
-        new Bottles(0,1000),
-        new Bottles(0,1200),
-        new Bottles(0,1400),
-        new Bottles(0,1600),
-        new Bottles(0,1800),
-        new Bottles(0,2000),
+        new Bottles(0, 100),
+        new Bottles(0, 200),
+        new Bottles(0, 300),
+        new Bottles(0, 400),
+        new Bottles(0, 500),
+        new Bottles(0, 600),
+        new Bottles(0, 800),
+        new Bottles(0, 1000),
+        new Bottles(0, 1200),
+        new Bottles(0, 1400),
+        new Bottles(0, 1600),
+        new Bottles(0, 1800),
+        new Bottles(0, 2000),
     ];
-
+    DKeyPressed = false;
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -47,7 +47,37 @@ class World {
         this.run();
     }
 
-
+    drawStartScreen() {
+        // Zeichne den Startbildschirm im Canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+        // Hintergrundbild des Startbildschirms
+        let startScreenImage = new Image();
+        startScreenImage.src = 'img/9_intro_outro_screens/start/startscreen_1.png';
+        this.ctx.drawImage(startScreenImage, 0, 0, this.canvas.width, this.canvas.height);
+    
+        // Start-Button
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        this.ctx.fillRect(100, 200, 150, 50);
+        this.ctx.fillStyle = 'black';
+        this.ctx.font = '20px Arial';
+        this.ctx.fillText('Start', 125, 235);
+    
+        // Controls-Button
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        this.ctx.fillRect(100, 270, 150, 50);
+        this.ctx.fillStyle = 'black';
+        this.ctx.font = '20px Arial';
+        this.ctx.fillText('Controls', 115, 305);
+    
+        // Settings-Button
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        this.ctx.fillRect(100, 340, 150, 50);
+        this.ctx.fillStyle = 'black';
+        this.ctx.font = '20px Arial';
+        this.ctx.fillText('Settings', 115, 375);
+    }
+    
     setWorld() {
         this.character.world = this;
         this.coins.forEach(coin => coin.animate());
@@ -56,9 +86,9 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
-            this.checkBottleCollisions();
             this.checkCoinCollisions();
+            this.checkBottleCollisions();
+            this.checkThrowObjects();
         }, 100);
     }
 
@@ -87,24 +117,26 @@ class World {
         });
     }
 
-    checkBottleCollisions() {
+    checkBottleCollisions() {       // Flaschen sammeln
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 // Der Charakter hat die Flasche eingesammelt
                 this.bottles.splice(index, 1); // Entferne die Flasche aus dem Array
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
+                this.playBottleCollectSound();
             }
         });
     }
 
 
-    checkThrowObjects() {
-        if (this.keyboard.D && this.bottleBar.collectedBottles > 0) {
+    checkThrowObjects() {       // Flaschen werfen
+        if (this.keyboard.D && !this.DKeyPressed && this.bottleBar.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.bottleBar);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
-            console.log(this.bottleBar.collectedBottles);
+            console.log('Remaining bottles:', this.bottleBar.collectedBottles);
         }
+        this.DKeyPressed = this.keyboard.D;
     }
 
     // draw() wird immer wieder aufgerufen
@@ -126,7 +158,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
-        
+
         requestAnimationFrame(() => this.draw());
     }
 
@@ -165,5 +197,20 @@ class World {
         coinSound.volume = 0.2;
         coinSound.play();
     }
-}
 
+    playBottleCollectSound() {
+        let bottleSound = new Audio('audio/bottle_collect.mp3');
+        bottleSound.play();
+    }
+
+    playBottleThrowSound() {
+        let bottleSound = new Audio('audio/bottle_throw.mp3');
+        bottleSound.play();
+    }
+
+    playBottleShatterSound() {
+        let bottleSound = new Audio('audio/bottle_shatter.mp3');
+        bottleSound.play();
+    }
+
+}
