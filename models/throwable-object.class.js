@@ -14,13 +14,12 @@ class ThrowableObject extends MoveableObject {
         this.throw(bottleBar);
     }
 
-    throw(bottleBar) {
+    throw() {
         this.speedY = 30;
         this.speedX = 20;
         this.applyGravity();
         setInterval( () => {
             this.x += 10;
         }, 60);
-        bottleBar.setCollectedBottles(bottleBar.collectedBottles - 1);
     }
 }

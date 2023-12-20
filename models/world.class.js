@@ -46,37 +46,6 @@ class World {
         this.setWorld();
         this.run();
     }
-
-    drawStartScreen() {
-        // Zeichne den Startbildschirm im Canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
-        // Hintergrundbild des Startbildschirms
-        let startScreenImage = new Image();
-        startScreenImage.src = 'img/9_intro_outro_screens/start/startscreen_1.png';
-        this.ctx.drawImage(startScreenImage, 0, 0, this.canvas.width, this.canvas.height);
-    
-        // Start-Button
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        this.ctx.fillRect(100, 200, 150, 50);
-        this.ctx.fillStyle = 'black';
-        this.ctx.font = '20px Arial';
-        this.ctx.fillText('Start', 125, 235);
-    
-        // Controls-Button
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        this.ctx.fillRect(100, 270, 150, 50);
-        this.ctx.fillStyle = 'black';
-        this.ctx.font = '20px Arial';
-        this.ctx.fillText('Controls', 115, 305);
-    
-        // Settings-Button
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        this.ctx.fillRect(100, 340, 150, 50);
-        this.ctx.fillStyle = 'black';
-        this.ctx.font = '20px Arial';
-        this.ctx.fillText('Settings', 115, 375);
-    }
     
     setWorld() {
         this.character.world = this;
@@ -134,7 +103,7 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.bottleBar);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
-            console.log('Remaining bottles:', this.bottleBar.collectedBottles);
+            console.log(this.keyboard.D); //'Remaining bottles:', this.bottleBar.collectedBottles
         }
         this.DKeyPressed = this.keyboard.D;
     }
