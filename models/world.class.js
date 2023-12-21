@@ -20,6 +20,7 @@ class World {
     collectedCoins = 0;
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
+    endbossHealthbar = new EndbossHealthbar();
     bottles = [
         new Bottles(0, 100),
         new Bottles(0, 200),
@@ -120,6 +121,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossHealthbar);
         this.coinBar.draw(this.ctx);
         this.ctx.translate(this.camera_x, 0);
 

@@ -14,7 +14,7 @@ function init() {
 function playBackgroundMusic(){
     backgroundMusic.volume = 0.1;
     backgroundMusic.muted = false;
-    backgroundMusic.play();
+    // backgroundMusic.play();
 }
 
 window.addEventListener("keydown", (event) => {
