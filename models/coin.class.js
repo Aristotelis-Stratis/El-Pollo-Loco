@@ -7,6 +7,12 @@ class Coin extends DrawableObject {
         this.y = y;
         this.width = 100;
         this.height = 100;
+        this.offset = {
+            top: 65,
+            right: 130,
+            bottom: 130,
+            left: 65
+        };
     }
 
     animate() {

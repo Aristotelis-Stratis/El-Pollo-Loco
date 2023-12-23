@@ -8,7 +8,7 @@ class Character extends MoveableObject {
     offset = {
         top: 120,
         bottom: 30,
-        left:40,
+        left: 40,
         right: 30
     };
 
@@ -88,6 +88,12 @@ class Character extends MoveableObject {
         this.animate();
         this.applyGravity();
         this.jumping = false;
+        this.offset = {
+            top: 120,
+            right: 50,
+            bottom: 130,
+            left: 20
+        };
     }
 
     animate() {
@@ -95,7 +101,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 if (this.idleTimer > this.IDLE_THRESHOLD) {
                     this.idleTimer = 0;
-                    this.playAnimation(this.IMAGES_WALKING);            
+                    this.playAnimation(this.IMAGES_WALKING);
                 }
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();

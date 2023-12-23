@@ -12,6 +12,12 @@ class Bottles extends MoveableObject {
     super().loadImage(this.IMAGES_BOTTLE[Math.round(Math.random())]);
     this.x = 400 + Math.random() * 2400;
     this.y = 370;
+    this.offset = {
+      top: 50,
+      right: 100, //Breite
+      bottom: 100, // Höhe
+      left: 50
+  };
   }
 
 
