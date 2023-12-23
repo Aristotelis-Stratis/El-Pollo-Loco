@@ -14,8 +14,8 @@ class Bottles extends MoveableObject {
     this.y = 370;
     this.offset = {
       top: 50,
-      right: 100, //Breite
-      bottom: 100, // Höhe
+      right: 100,
+      bottom: 100,
       left: 50
   };
   }

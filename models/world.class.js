@@ -64,11 +64,12 @@ class World {
 
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {    // enemies
+        this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 console.log(this.character.energy);
                 this.statusBar.setPercentage(this.character.energy);
+                console.log('Collision occurred!');
             }
         })
     }
@@ -76,22 +77,17 @@ class World {
     checkCoinCollisions() {
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                // Der Charakter hat die Münze eingesammelt
-
-                this.coins.splice(index, 1); // Entferne die Münze aus dem Array
+                this.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
-
-                // Hier kannst du weitere Aktionen durchführen, z.B. Sound abspielen, Punkte erhöhen, etc.
                 this.playCoinSound();
             }
         });
     }
 
-    checkBottleCollisions() {       // Flaschen sammeln
+    checkBottleCollisions() {
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                // Der Charakter hat die Flasche eingesammelt
-                this.bottles.splice(index, 1); // Entferne die Flasche aus dem Array
+                this.bottles.splice(index, 1);
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
                 this.playBottleCollectSound();
             }
@@ -99,19 +95,17 @@ class World {
     }
 
 
-    checkThrowObjects() {       // Flaschen werfen
+    checkThrowObjects() {
         if (this.keyboard.D && !this.DKeyPressed && this.bottleBar.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.bottleBar);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
-            console.log(this.keyboard.D); //'Remaining bottles:', this.bottleBar.collectedBottles
+            console.log(this.keyboard.D);
         }
         this.DKeyPressed = this.keyboard.D;
     }
 
-    // draw() wird immer wieder aufgerufen
     draw() {
-        // space for fixed objects
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -121,6 +115,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
+        // this.addToMap(this.coinBar);
         this.addToMap(this.endbossHealthbar);
         this.coinBar.draw(this.ctx);
         this.ctx.translate(this.camera_x, 0);
@@ -183,5 +178,4 @@ class World {
         let bottleSound = new Audio('audio/bottle_shatter.mp3');
         bottleSound.play();
     }
-
 }

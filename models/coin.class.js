@@ -18,7 +18,7 @@ class Coin extends DrawableObject {
     animate() {
         setInterval(() => {
             this.toggleImage();
-        }, 450); // Hier kannst du die Geschwindigkeit der Animation anpassen
+        }, 450);
     }
 
     toggleImage() {

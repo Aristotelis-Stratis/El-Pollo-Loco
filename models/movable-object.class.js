@@ -15,20 +15,18 @@ class MoveableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) {  //ThrowableObject should always fall
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 150;
         }
     }
 
-    // character.isColliding(chicken)
     isColliding(mo) {
-        return this.x + this.width > mo.x && // this.x + this.width - this.offset.right > mo.x + mo.offset.left
-            this.y + this.height > mo.y && // this.y + this.height - this.offset.bottom > mo.y + mo.offset.top
-            this.x < mo.x + mo.width &&    // this.x + this.offset.left < mo.x + mo.width - mo.offset.right
-            this.y < mo.y + mo.height      // this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom 
-
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&   // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&     // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&        // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;         // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
     }
 
     hit() {
