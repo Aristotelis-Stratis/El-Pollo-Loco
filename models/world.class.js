@@ -73,15 +73,22 @@ class World {
             }
         })
     }
-
+    
     checkCoinCollisions() {
+        console.log('Anzahl der Münzen vor Kollisionserkennung:', this.coins.length);
+
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
+                console.log('Coin Collision');
                 this.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
                 this.playCoinSound();
             }
         });
+        
+        // Nach dem Durchlaufen der Münzen in checkCoinCollisions
+        console.log('Anzahl der Münzen nach Kollisionserkennung:', this.coins.length);
+        
     }
 
     checkBottleCollisions() {
@@ -104,6 +111,15 @@ class World {
         }
         this.DKeyPressed = this.keyboard.D;
     }
+
+    removeEnemyFromCanvas(enemy) {
+        setTimeout(() => {
+          this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+          this.y -= 50;
+          this.x = this.x;
+        }, 1000);
+      }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

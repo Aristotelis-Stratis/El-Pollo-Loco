@@ -1,8 +1,10 @@
-class Coin extends DrawableObject {
+class Coin extends MoveableObject {
     percentage = 100;
+    animationInterval;
 
     constructor(x, y) {
-        super().loadImage('img/8_coin/coin_1.png');
+        super();
+        this.loadImage('img/8_coin/coin_1.png');
         this.x = 0 + Math.random() * 2400;
         this.y = y;
         this.width = 100;
@@ -13,10 +15,11 @@ class Coin extends DrawableObject {
             bottom: 130,
             left: 65
         };
+        this.animate();
     }
 
     animate() {
-        setInterval(() => {
+        this.animationInterval = setInterval(() => {
             this.toggleImage();
         }, 450);
     }
@@ -29,4 +32,7 @@ class Coin extends DrawableObject {
         }
     }
 
+    stopAnimation() {
+        clearInterval(this.animationInterval);
+    }
 }

@@ -49,8 +49,9 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 3800;
-        this.speed = 4.15 + Math.random() * 1.2;
+        this.x = 3250;
+        this.speed = 1.15 + Math.random() * 1.2;
+        
         this.animate();
         this.offset = {
             top: 70,    
@@ -62,7 +63,10 @@ class Endboss extends MoveableObject {
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
+            if (world.character.x > 1700) {
+                this.playAnimation(this.IMAGES_ALERT);
+                this.moveLeft();
+            }
         }, 15);
 
         setInterval(() => {

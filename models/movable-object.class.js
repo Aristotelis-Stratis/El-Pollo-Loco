@@ -23,10 +23,13 @@ class MoveableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&   // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&     // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&        // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;         // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
+        // Überprüfen, ob die untere Linie des Charakters über der oberen Linie des anderen Objekts liegt
+        return (
+            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&          // R->L // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&         // T->B // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&            // L->R // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom              // B->T // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
+        );
     }
 
     hit() {
