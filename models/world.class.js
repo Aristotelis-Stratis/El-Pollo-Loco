@@ -75,7 +75,7 @@ class World {
     }
     
     checkCoinCollisions() {
-        console.log('Anzahl der Münzen vor Kollisionserkennung:', this.coins.length);
+        // console.log('Anzahl der Münzen vor Kollisionserkennung:', this.coins.length);
 
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -87,13 +87,14 @@ class World {
         });
         
         // Nach dem Durchlaufen der Münzen in checkCoinCollisions
-        console.log('Anzahl der Münzen nach Kollisionserkennung:', this.coins.length);
+        // console.log('Anzahl der Münzen nach Kollisionserkennung:', this.coins.length);
         
     }
 
     checkBottleCollisions() {
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
+                console.log('Bottle Collision');
                 this.bottles.splice(index, 1);
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
                 this.playBottleCollectSound();

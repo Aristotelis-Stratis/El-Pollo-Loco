@@ -63,7 +63,7 @@ class Endboss extends MoveableObject {
 
     animate() {
         setInterval(() => {
-            if (world.character.x > 1700) {
+            if (world && world.character.x > 1700) {
                 this.playAnimation(this.IMAGES_ALERT);
                 this.moveLeft();
             }

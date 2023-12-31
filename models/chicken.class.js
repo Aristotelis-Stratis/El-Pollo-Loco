@@ -22,10 +22,10 @@ class Chicken extends MoveableObject {
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
         this.offset = {
-            top: 60,
-            right: 120,
-            bottom: 130,
-            left: 60
+            top: 5,
+            right: 5,
+            bottom: -55,
+            left: 5
         };
     }
 

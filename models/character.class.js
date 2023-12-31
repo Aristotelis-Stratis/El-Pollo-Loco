@@ -5,12 +5,6 @@ class Character extends MoveableObject {
     speed = 8;
     idleTimer = 0;
     IDLE_THRESHOLD = 5000;
-    offset = {
-        top: 120,
-        bottom: 30,
-        left: 40,
-        right: 30
-    };
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -89,9 +83,9 @@ class Character extends MoveableObject {
         this.applyGravity();
         this.jumping = false;
         this.offset = {
-            top: 120,
-            right: 50,
-            bottom: 130,
+            top: 80,
+            right: 20,
+            bottom: 40,
             left: 20
         };
     }
@@ -114,7 +108,7 @@ class Character extends MoveableObject {
                     this.walking_sound.pause();
                 }
             } else {
-                this.idleTimer += 1000 / 60;
+                this.idleTimer += 1000 / 120; //sleep while idle
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -142,6 +136,6 @@ class Character extends MoveableObject {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
             }
-        }, 80);
+        }, 100);
     }
 }
