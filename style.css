@@ -39,24 +39,31 @@ h1 {
 
 canvas {
     background-color: black;
-}
-
-.controls {
-    display: flex;
-    justify-content: space-between;
+    display:block;
     width: 100%;
-    padding-top: 20px;
-    color: #eab668;
-    font-size: 32px;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/*mockup controls*/
-.menu_control_icon {
+.start-screen {
+    background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 550px;
+    width: 825px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Startknopf-Styling */
+.start-screen button {
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
     display:flex;
-    background-color: #eab668;
-    border-radius: 25px;
-    border: 2px solid;
-    height: 40px;
+    position: absolute;
+    top: 20px;
+    background-color: #ff9600;
+    border-radius: 15px;
 }

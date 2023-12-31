@@ -8,14 +8,41 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
-    playBackgroundMusic();
+    playBackgroundMusic(); 
+    HideStartScreen();
 }
 
-function playBackgroundMusic(){
+function playBackgroundMusic() {
     backgroundMusic.volume = 0.1;
     backgroundMusic.muted = false;
-    // backgroundMusic.play();
+    backgroundMusic.play();
 }
+
+
+function HideStartScreen() {
+    // Verstecke den Startbildschirm
+    document.getElementById('startScreen').style.display = 'none';
+    // Zeige den Spielinhalt
+    document.getElementById('content').style.display = 'block';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39) {

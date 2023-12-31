@@ -28,17 +28,17 @@
 
 </head>
 
-<body onload="init()">
+<body>
 
     <div class="title">
         <h1>El Pollo Loco</h1>
     </div>
-
-    <div class="content">
-        <div id="menu">
-            <button onclick="init()">Start Level</button>
-        </div>
-
+    <!-- Startbildschirm Container -->
+    <div id="startScreen" class="start-screen" style="display:flex">
+        <button onclick="init()">Start Game</button>
+    </div>
+    
+    <div id="content" class="content" style="display:none">
         <canvas width="720" height="480" id="canvas"></canvas>
     </div>
 </body>
