@@ -1,4 +1,5 @@
-class EndbossHealthbar extends DrawableObject { 
+class EndbossHealthbar extends DrawableObject {
+    IMAGES_BOSS_HEALTH_FULL = ['img/7_statusbars/2_statusbar_endboss/blue.png'];
     IMAGES_BOSS_HEALTH = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
@@ -12,6 +13,7 @@ class EndbossHealthbar extends DrawableObject {
 
     constructor() {
         super();
+        this.loadImages(this.IMAGES_BOSS_HEALTH_FULL);
         this.loadImages(this.IMAGES_BOSS_HEALTH);
         this.x = 480;
         this.y = 0;
@@ -22,9 +24,15 @@ class EndbossHealthbar extends DrawableObject {
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES_BOSS_HEALTH[this.resolveImagesIndex()];
+        let path;
+        if (this.percentage === 100) {
+            path = this.IMAGES_BOSS_HEALTH_FULL[0];
+        } else {
+            path = this.IMAGES_BOSS_HEALTH[this.resolveImagesIndex()];
+        }
         this.img = this.imageCache[path];
     }
+    
 
     resolveImagesIndex() {
         if (this.percentage == 100) {
@@ -42,5 +50,3 @@ class EndbossHealthbar extends DrawableObject {
         }
     }
 }
-
-// STILL NEEDS FUNCTIONALITY
