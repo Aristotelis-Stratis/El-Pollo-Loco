@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
     width = 250;
     y = 55;
     energy = 100;
-
+    hadFirstContact = false;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -44,45 +44,57 @@ class Endboss extends MoveableObject {
     ];
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 3250;
-        this.speed = 2.15 + Math.random() * 1.2;
-
         this.animate();
+        this.x = 2550;
+        this.speed = 6.15 + Math.random() * 1.2;
         this.offset = {
-            top: 70,
-            right: 50,
+            top: 60,
+            right: 20,
             bottom: 90,
             left: 20
         };
     }
 
     animate() {
+        let i = 0;
         setInterval(() => {
-            if (this.energy > 0) {
+            console.log(i);
+            if (i < 10) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
+            } else if (this.bossIsHit()) {
+                this.playAnimation(this.IMAGES_HURT);
+                // this.hurt_sound.play(); //BOSS HURT SOUND 
+            } else if (this.energy <= 0) {
+                this.playAnimation(this.IMAGES_DEAD);
             }
-        }, 120);
+            i++;
 
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 120);
+            if (world && world.character.x > 1900 && !this.hadFirstContact) {
+                i = 0;
+                this.hadFirstContact = true;
+            }
+        }, 150);
     }
 
-    hitBoss() {
+    bossIsHit() {
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
+            // Boss dead i.e GAME WON
         } else {
             this.lastHit = new Date().getTime();
         }
     }
+
     endbossCollision(mo) {
         // Überprüfen, ob eine Kollision mit einem anderen Objekt (mo) stattfindet
         return (

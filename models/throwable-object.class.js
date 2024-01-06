@@ -1,7 +1,8 @@
 class ThrowableObject extends MoveableObject {
     speedY = 30;
     speedX = 20;
-
+    hasCollided;
+    rotationInterval; // Variable zum Speichern des Intervals für die Rotation
     //keyboard Taste D zum werfen
 
     IMAGES_BOTTLE_ROTATION = [
@@ -17,7 +18,7 @@ class ThrowableObject extends MoveableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
 
     ];
 
@@ -31,21 +32,36 @@ class ThrowableObject extends MoveableObject {
         this.width = 65;
         this.throw();
         this.animate();
+        this.offset = {
+            top: 10,
+            right: 10,
+            bottom: 20,
+            left: 10
+        };
     }
 
     throw() {
         this.speedY = 30;
-        this.speedX = 20;
+        this.speedX = 30;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 25;
         }, 60);
         this.playThrowSound();
     }
+
     animate() {
-        setInterval(() => {
+        this.rotationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
-        }, 120);
+        }, 30);
+    }
+
+    animateBottleSplash() {
+        clearInterval(this.rotationInterval); // Stoppt die Drehanimation
+        this.speedX = 0;
+        this.speedY = 0;
+        this.applyGravity(false); // Deaktiviert die Schwerkraft, falls vorhanden
+        this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
     }
 
     playThrowSound() {
