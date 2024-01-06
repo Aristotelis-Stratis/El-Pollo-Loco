@@ -64,7 +64,6 @@ class Endboss extends MoveableObject {
     animate() {
         let i = 0;
         setInterval(() => {
-            console.log(i);
             if (i < 10) {
                 this.playAnimation(this.IMAGES_ALERT);
             } else if (this.energy > 0) {
@@ -78,7 +77,7 @@ class Endboss extends MoveableObject {
             }
             i++;
 
-            if (world && world.character.x > 1900 && !this.hadFirstContact) {
+            if (world && world.character.x > 1300 && !this.hadFirstContact) {
                 i = 0;
                 this.hadFirstContact = true;
             }
@@ -86,22 +85,14 @@ class Endboss extends MoveableObject {
     }
 
     bossIsHit() {
-        this.energy -= 10;
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
             // Boss dead i.e GAME WON
         } else {
             this.lastHit = new Date().getTime();
         }
-    }
-
-    endbossCollision(mo) {
-        // Überprüfen, ob eine Kollision mit einem anderen Objekt (mo) stattfindet
-        return (
-            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&  // R->L // Überprüft, ob der rechte Rand des Endbosses rechts vom linken Rand des anderen Objekts liegt
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&  // T->B // Überprüft, ob der untere Rand des Endbosses unterhalb des oberen Rands des anderen Objekts liegt
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&  // L->R // Überprüft, ob der linke Rand des Endbosses links vom rechten Rand des anderen Objekts liegt
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom  // B->T // Überprüft, ob der obere Rand des Endbosses über dem unteren Rand des anderen Objekts liegt
-        );
+        // Aktualisieren der Endboss-Healthbar
+        world.endbossHealthbar.setPercentage(this.energy);
     }
 }

@@ -107,14 +107,14 @@ class World {
 
     checkEndbossCollisions() {
         this.throwableObjects.forEach((bottle, index) => {
-            if (!bottle.hasCollided && this.endboss.endbossCollision(bottle)) {
+            if (!bottle.hasCollided && this.endboss.isColliding(bottle)) {
                 bottle.hasCollided = true;
                 this.endboss.bossIsHit();
                 this.playBottleShatterSound();
                 bottle.animateBottleSplash();
                 console.log('REMAINING BOSS HP = ', this.endboss.energy);
                 if (this.endboss.energy <= 0) {
-                    console.log('THE BOSS IS DEAD NOW');
+                    console.log('<<<THE BOSS IS DEAD NOW>>>');
                 }
     
                 // Verzögerung, um die Flasche zu entfernen

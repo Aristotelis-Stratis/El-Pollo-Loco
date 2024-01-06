@@ -62,6 +62,7 @@ class ThrowableObject extends MoveableObject {
         this.speedY = 0;
         this.applyGravity(false); // Deaktiviert die Schwerkraft, falls vorhanden
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
+        
     }
 
     playThrowSound() {
