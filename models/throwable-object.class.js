@@ -21,7 +21,7 @@ class ThrowableObject extends MoveableObject {
 
     ];
 
-    constructor(x, y, bottleBar) {
+    constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_BOTTLE_ROTATION);
         this.loadImages(this.IMAGES_BOTTLE_SPLASH);
@@ -29,7 +29,7 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.height = 80;
         this.width = 65;
-        this.throw(bottleBar);
+        this.throw();
         this.animate();
     }
 

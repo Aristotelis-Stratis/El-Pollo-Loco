@@ -47,9 +47,10 @@ class World {
         this.setWorld();
         this.run();
     }
-    
+
     setWorld() {
         this.character.world = this;
+        this.endboss = new Endboss();
         this.coins.forEach(coin => coin.animate());
     }
 
@@ -59,45 +60,43 @@ class World {
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.checkThrowObjects();
+            this.checkEndbossCollisions();
         }, 100);
     }
+
+
 
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                console.log(this.character.energy);
+                // console.log('Character Energy =', this.character.energy);
                 this.statusBar.setPercentage(this.character.energy);
                 console.log('Collision occurred!');
             }
         })
     }
-    
-    checkCoinCollisions() {
-        // console.log('Anzahl der Münzen vor Kollisionserkennung:', this.coins.length);
 
+    checkCoinCollisions() {
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                console.log('Coin Collision');
                 this.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
                 this.playCoinSound();
             }
         });
-        
-        // Nach dem Durchlaufen der Münzen in checkCoinCollisions
-        // console.log('Anzahl der Münzen nach Kollisionserkennung:', this.coins.length);
-        
     }
 
     checkBottleCollisions() {
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                console.log('Bottle Collision');
+                // Lassen Sie die Flasche ihre eigenen Sammelaktionen durchführen
+                bottle.collect();
+                // Entfernen Sie die Flasche aus der Liste
                 this.bottles.splice(index, 1);
+                // Aktualisieren Sie die Anzeige für gesammelte Flaschen
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
-                this.playBottleCollectSound();
             }
         });
     }
@@ -105,21 +104,37 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.DKeyPressed && this.bottleBar.collectedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.bottleBar);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
-            console.log(this.keyboard.D);
         }
         this.DKeyPressed = this.keyboard.D;
     }
 
+    checkEndbossCollisions() {
+        // Überprüfe, ob eine geworfene Flasche den Endboss trifft
+        this.throwableObjects.forEach((bottle, index) => {
+            if (this.endboss.endbossCollision(bottle)) {
+                this.endboss.energy -=20;
+                console.log('COLLISION WITH ENDBOSS',this.endboss.energy);
+                if (this.endboss.energy <= 0){
+                    console.log('THE BOSS IS DEAD NOW');
+                }
+                // Die Flasche trifft den Endboss, füge hier den Code hinzu, um die Aktionen auszuführen, die bei einem Treffer ausgeführt werden sollen
+                this.playBottleShatterSound();
+                // Entferne die Flasche aus der Liste der geworfenen Objekte
+                this.throwableObjects.splice(index, 1);
+            }
+        });
+    }
+
     removeEnemyFromCanvas(enemy) {
         setTimeout(() => {
-          this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-          this.y -= 50;
-          this.x = this.x;
+            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+            this.y -= 50;
+            this.x = this.x;
         }, 1000);
-      }
+    }
 
 
     draw() {
@@ -181,20 +196,5 @@ class World {
         let coinSound = new Audio('audio/coin.mp3');
         coinSound.volume = 0.2;
         coinSound.play();
-    }
-
-    playBottleCollectSound() {
-        let bottleSound = new Audio('audio/bottle_collect.mp3');
-        bottleSound.play();
-    }
-
-    playBottleThrowSound() {
-        let bottleSound = new Audio('audio/bottle_throw.mp3');
-        bottleSound.play();
-    }
-
-    playBottleShatterSound() {
-        let bottleSound = new Audio('audio/bottle_shatter.mp3');
-        bottleSound.play();
     }
 }

@@ -8,7 +8,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My Character is', world.character);
-    playBackgroundMusic(); 
+    // playBackgroundMusic(); 
     HideStartScreen();
 }
 
@@ -25,24 +25,6 @@ function HideStartScreen() {
     // Zeige den Spielinhalt
     document.getElementById('content').style.display = 'block';
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39) {

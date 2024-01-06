@@ -1,7 +1,8 @@
 class Endboss extends MoveableObject {
-    height = 300;
-    width = 200;
-    y = 145;
+    height = 400;
+    width = 250;
+    y = 55;
+    energy = 100;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -50,11 +51,11 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 3250;
-        this.speed = 1.15 + Math.random() * 1.2;
-        
+        this.speed = 2.15 + Math.random() * 1.2;
+
         this.animate();
         this.offset = {
-            top: 70,    
+            top: 70,
             right: 50,
             bottom: 90,
             left: 20
@@ -63,14 +64,32 @@ class Endboss extends MoveableObject {
 
     animate() {
         setInterval(() => {
-            if (world && world.character.x > 1700) {
-                this.playAnimation(this.IMAGES_ALERT);
+            if (this.energy > 0) {
+                this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
             }
-        }, 15);
+        }, 120);
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 120);
+    }
+
+    hitBoss() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+    endbossCollision(mo) {
+        // Überprüfen, ob eine Kollision mit einem anderen Objekt (mo) stattfindet
+        return (
+            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&  // R->L // Überprüft, ob der rechte Rand des Endbosses rechts vom linken Rand des anderen Objekts liegt
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&  // T->B // Überprüft, ob der untere Rand des Endbosses unterhalb des oberen Rands des anderen Objekts liegt
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&  // L->R // Überprüft, ob der linke Rand des Endbosses links vom rechten Rand des anderen Objekts liegt
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom  // B->T // Überprüft, ob der obere Rand des Endbosses über dem unteren Rand des anderen Objekts liegt
+        );
     }
 }
