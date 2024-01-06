@@ -91,12 +91,9 @@ class World {
     checkBottleCollisions() {
         this.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                // Lassen Sie die Flasche ihre eigenen Sammelaktionen durchführen
-                bottle.collect();
-                // Entfernen Sie die Flasche aus der Liste
                 this.bottles.splice(index, 1);
-                // Aktualisieren Sie die Anzeige für gesammelte Flaschen
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
+                this.playBottleCollectSound();
             }
         });
     }
@@ -196,5 +193,20 @@ class World {
         let coinSound = new Audio('audio/coin.mp3');
         coinSound.volume = 0.2;
         coinSound.play();
+    }
+
+    playBottleCollectSound() {
+        let bottleSound = new Audio('audio/bottle_collect.mp3');
+        bottleSound.play();
+    }
+
+    playBottleThrowSound() {
+        let bottleSound = new Audio('audio/bottle_throw.mp3');
+        bottleSound.play();
+    }
+
+    playBottleShatterSound() {
+        let bottleSound = new Audio('audio/bottle_shatter.mp3');
+        bottleSound.play();
     }
 }
