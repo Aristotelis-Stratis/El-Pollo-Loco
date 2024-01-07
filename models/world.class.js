@@ -53,7 +53,7 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
-                this.playCoinSound();
+                this.playGameSound('audio/coin.mp3', 0.1);
             }
         });
     }
@@ -63,7 +63,7 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.level.bottles.splice(index, 1);
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
-                this.playBottleCollectSound();
+                this.playGameSound('audio/bottle_collect.mp3', 1);
             }
         });
     }
@@ -82,7 +82,7 @@ class World {
             if (!bottle.hasCollided && this.endboss.isColliding(bottle)) {
                 bottle.hasCollided = true;
                 this.endboss.bossIsHit();
-                this.playBottleShatterSound();
+                this.playGameSound('audio/bottle_shatter.mp3');
                 bottle.animateBottleSplash();
                 console.log('REMAINING BOSS HP = ', this.endboss.energy);
                 if (this.endboss.energy <= 0) {
@@ -159,24 +159,9 @@ class World {
         this.ctx.restore();
     }
 
-    playCoinSound() {
-        let coinSound = new Audio('audio/coin.mp3');
-        coinSound.volume = 0.1;
-        coinSound.play();
-    }
-
-    playBottleCollectSound() {
-        let bottleSound = new Audio('audio/bottle_collect.mp3');
-        bottleSound.play();
-    }
-
-    playBottleThrowSound() {
-        let bottleSound = new Audio('audio/bottle_throw.mp3');
-        bottleSound.play();
-    }
-
-    playBottleShatterSound() {
-        let bottleSound = new Audio('audio/bottle_shatter.mp3');
-        bottleSound.play();
+    playGameSound(soundFilePath, volume = 0.2) {
+        let gameSound = new Audio(soundFilePath);
+        gameSound.volume = volume;
+        gameSound.play();
     }
 }
