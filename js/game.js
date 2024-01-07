@@ -5,10 +5,11 @@ backgroundMusic = new Audio('audio/game.mp3');
 backgroundMusic.muted = true;
 
 function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    console.log('My Character is', world.character);
+    initLevel();
     // playBackgroundMusic(); 
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard, level1);
+    console.log('My Character is', world.character);
     HideStartScreen();
 }
 
