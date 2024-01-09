@@ -4,15 +4,13 @@ function initLevel() {
     try {
         level1 = new Level(
             [
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                new Endboss()
+                new Chicken(),
+                new Chicken(),
+                new Chicken(),
+                new Chicken(),
+                new Chicken(),
+                new Chicken(),
             ],
-            // ENDBOSS HERE
             [
                 new Cloud(),
                 new Cloud(),
@@ -83,6 +81,8 @@ function initLevel() {
                 new Bottles(0, 1800),
                 new Bottles(0, 2000),
             ],
+            [new Endboss()
+            ]
         );
         console.log("Level initialisiert: ", level1);
         console.log("Münzen: ", level1.coins);

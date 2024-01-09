@@ -2,8 +2,7 @@ class ThrowableObject extends MoveableObject {
     speedY = 30;
     speedX = 20;
     hasCollided;
-    rotationInterval; // Variable zum Speichern des Intervals für die Rotation
-    //keyboard Taste D zum werfen
+    rotationInterval;
 
     IMAGES_BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',

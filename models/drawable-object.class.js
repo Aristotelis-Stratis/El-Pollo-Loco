@@ -25,7 +25,7 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
-    
+
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -46,7 +46,7 @@ class DrawableObject {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height-this.offset.bottom);
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.bottom);
             ctx.stroke();
         }
     }

@@ -24,7 +24,6 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.endboss = new Endboss();
     }
 
     run() {
@@ -79,13 +78,13 @@ class World {
 
     checkEndbossCollisions() {
         this.throwableObjects.forEach((bottle, index) => {
-            if (!bottle.hasCollided && this.endboss.isColliding(bottle)) {
+            if (!bottle.hasCollided && this.level.endboss[0].isColliding(bottle)) {
                 bottle.hasCollided = true;
-                this.endboss.bossIsHit();
+                this.level.endboss[0].bossIsHit();
                 this.playGameSound('audio/bottle_shatter.mp3');
                 bottle.animateBottleSplash();
-                console.log('REMAINING BOSS HP = ', this.endboss.energy);
-                if (this.endboss.energy <= 0) {
+                console.log('REMAINING BOSS HP = ', this.level.endboss[0].energy);
+                if (this.level.endboss[0].energy <= 0) {
                     console.log('<<<THE BOSS IS DEAD NOW>>>');
                 }
 
@@ -121,6 +120,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
