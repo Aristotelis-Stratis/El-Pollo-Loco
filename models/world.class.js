@@ -32,19 +32,37 @@ class World {
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.checkThrowObjects();
-            this.checkEndbossCollisions();
+            this.checkBottleHitEndbossCollisions();
         }, 100);
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.checkCollisionsWithEnemies();
+        this.checkCollisionWithEndboss();
+    }
+    
+    checkCollisionsWithEnemies() {
+        this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                // console.log('Character Energy =', this.character.energy);
-                this.statusBar.setPercentage(this.character.energy);
-                console.log('Collision occurred!');
+                this.handleCollision();
             }
-        })
+        });
+    }
+    
+    checkCollisionWithEndboss() {
+        if (this.level.endboss && this.level.endboss.length > 0) {
+            this.level.endboss.forEach(boss => {
+                if (this.character.isColliding(boss)) {
+                    this.handleCollision();
+                }
+            });
+        }
+    }
+    
+    handleCollision() {
+        this.character.hit();
+        this.statusBar.setPercentage(this.character.energy);
+        console.log('Collision occurred!');
     }
 
     checkCoinCollisions() {
@@ -76,24 +94,36 @@ class World {
         this.DKeyPressed = this.keyboard.D;
     }
 
-    checkEndbossCollisions() {
+    checkBottleHitEndbossCollisions() {
         this.throwableObjects.forEach((bottle, index) => {
-            if (!bottle.hasCollided && this.level.endboss[0].isColliding(bottle)) {
-                bottle.hasCollided = true;
-                this.level.endboss[0].bossIsHit();
-                this.playGameSound('audio/bottle_shatter.mp3');
-                bottle.animateBottleSplash();
-                console.log('REMAINING BOSS HP = ', this.level.endboss[0].energy);
-                if (this.level.endboss[0].energy <= 0) {
-                    console.log('<<<THE BOSS IS DEAD NOW>>>');
-                }
-
-                // Verzögerung, um die Flasche zu entfernen
-                setTimeout(() => {
-                    this.throwableObjects.splice(index, 1);
-                }, 1000); // Zeit entsprechend der Dauer der Splash-Animation
+            if (this.isBottleCollidingWithEndboss(bottle)) {
+                this.handleBottleEndbossCollision(bottle, index);
             }
         });
+    }
+    
+    isBottleCollidingWithEndboss(bottle) {
+        return !bottle.hasCollided && this.level.endboss[0].isColliding(bottle);
+    }
+    
+    handleBottleEndbossCollision(bottle, index) {
+        bottle.hasCollided = true;
+        this.level.endboss[0].bossIsHit();
+        this.playGameSound('audio/bottle_shatter.mp3');
+        bottle.animateBottleSplash();
+        console.log('REMAINING BOSS HP = ', this.level.endboss[0].energy);
+    
+        if (this.level.endboss[0].energy <= 0) {
+            console.log('<<<THE BOSS IS DEAD NOW>>>');
+        }
+
+        setTimeout(() => {
+            this.removeBottleAfterCollision(index);
+        }, 1000);
+    }
+    
+    removeBottleAfterCollision(index) {
+        this.throwableObjects.splice(index, 1);
     }
 
     // removeEnemyFromCanvas(enemy) {

@@ -23,7 +23,6 @@ class MoveableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        // Überprüfen, ob die untere Linie des Charakters über der oberen Linie des anderen Objekts liegt
         return (
             this.x + this.width - this.offset.right > mo.x + mo.offset.left &&          // R->L // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&         // T->B // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
@@ -42,8 +41,8 @@ class MoveableObject extends DrawableObject {
     }
 
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timePassed = timePassed / 1000; // Difference in seconds
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
         return timePassed < 1;
     }
 
