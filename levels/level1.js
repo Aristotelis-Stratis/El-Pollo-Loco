@@ -4,12 +4,12 @@ function initLevel() {
     try {
         level1 = new Level(
             [
-                new Chicken(),
-                new Chicken(),
-                new Chicken(),
-                new Chicken(),
-                new Chicken(),
-                new Chicken(),
+                // new Chicken(),
+                // new Chicken(),
+                // new Chicken(),
+                // new Chicken(),
+                // new Chicken(),
+                // new Chicken(),
             ],
             [
                 new Cloud(),
@@ -74,6 +74,12 @@ function initLevel() {
                 new Bottles(0, 500),
                 new Bottles(0, 600),
                 new Bottles(0, 800),
+                new Bottles(0, 1000),
+                new Bottles(0, 1200),
+                new Bottles(0, 1400),
+                new Bottles(0, 1600),
+                new Bottles(0, 1800),
+                new Bottles(0, 2000),
                 new Bottles(0, 1000),
                 new Bottles(0, 1200),
                 new Bottles(0, 1400),

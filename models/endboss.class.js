@@ -3,6 +3,7 @@ class Endboss extends MoveableObject {
     width = 250;
     y = 55;
     energy = 100;
+    isDead = false;
     hadFirstContact = false;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -69,30 +70,103 @@ class Endboss extends MoveableObject {
             } else if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
-            } else if (this.bossIsHit()) {
-                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.bossIsAngry()) {
                 // this.hurt_sound.play(); //BOSS HURT SOUND 
-            } else if (this.energy <= 0) {
-                this.playAnimation(this.IMAGES_DEAD);
-            }
+            } else (this.bossIsDead())
             i++;
 
             if (world && world.character.x > 1300 && !this.hadFirstContact) {
                 i = 0;
                 this.hadFirstContact = true;
             }
-        }, 150);
+        }, 120);
     }
 
-    bossIsHit() {
-        this.energy -= 20;
-        if (this.energy < 0) {
-            this.energy = 0;
-            // Boss dead i.e GAME WON
-        } else {
-            this.lastHit = new Date().getTime();
+
+    
+    bossIsAngry() {
+        if (this.energy > 0) {
+            setInterval(() => {
+                this.playAnimation(this.IMAGES_ATTACK);
+            }, 400);
         }
-        // Aktualisieren der Endboss-Healthbar
+    }
+    bossIsHit() {
+        this.reduceEnergy();
+        this.startHurtAnimation();
         world.endbossHealthbar.setPercentage(this.energy);
     }
+    
+    reduceEnergy() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+            // Logik für das Sterben des Endbosses
+        }
+    }
+    
+    startHurtAnimation() {
+        if (!this.hurtAnimationInterval) {
+            this.stopMovement();
+            let hurtAnimationCounter = 0;
+            const hurtAnimationLength = this.IMAGES_HURT.length;
+    
+            this.hurtAnimationInterval = setInterval(() => {
+                this.playAnimation(this.IMAGES_HURT);
+                hurtAnimationCounter++;
+    
+                if (hurtAnimationCounter / hurtAnimationLength >= 1) {
+                    clearInterval(this.hurtAnimationInterval);
+                    this.hurtAnimationInterval = null;
+                    this.playAnimation(this.IMAGES_WALKING);
+                    this.resumeMovementAfterDelay(0.1); // 0.25 Sekunden warten
+                }
+            }, 180);
+        }
+    }
+    
+    stopMovement() {
+        this.speed = 0;
+    }
+    
+    resumeMovementAfterDelay(delay) {
+        setTimeout(() => {
+            this.speed = 6.15 + Math.random() * 1.2;
+        }, delay);
+    }
+    
+    
+
+    // Vergessen Sie nicht, das Intervall zu löschen, wenn der Endboss stirbt oder wenn die Animation nicht mehr benötigt wird
+    bossIsDead() {
+        if (this.energy <= 0 && !this.isDead) {
+            this.isDead = true;
+            this.stopAllAnimations();
+            this.startDeathAnimation();
+        }
+        world.endbossHealthbar.setPercentage(this.energy);
+    }
+    
+    stopAllAnimations() {
+        clearInterval(this.hurtAnimationInterval);
+        this.stopMovement();
+    }
+    
+    startDeathAnimation() {
+        let deathAnimationCounter = 0;
+        const deathAnimationLength = this.IMAGES_DEAD.length;
+    
+        this.deathAnimationInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_DEAD);
+            deathAnimationCounter++;
+    
+            if (deathAnimationCounter / deathAnimationLength >= 1) {
+                clearInterval(this.deathAnimationInterval);
+                this.deathAnimationInterval = null;
+                this.loadImage(this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]);
+            }
+        }, 180);
+    }
+    
+
 }
