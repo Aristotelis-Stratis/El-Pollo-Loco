@@ -144,7 +144,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
-        if (this.character.x > 1700) {
+        if (this.character.x > 3000) {
             this.addToMap(this.endbossHealthbar);
         }
         this.ctx.translate(this.camera_x, 0);

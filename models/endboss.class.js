@@ -52,7 +52,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
-        this.x = 2550;
+        this.x = 3250;
         this.speed = 6.15 + Math.random() * 1.2;
         this.offset = {
             top: 60,
@@ -65,7 +65,8 @@ class Endboss extends MoveableObject {
     animate() {
         let i = 0;
         setInterval(() => {
-            if (i < 10) {
+            if (world && world.character.x > 3100) {
+                console.log(i);
                 this.playAnimation(this.IMAGES_ALERT);
             } else if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
@@ -75,7 +76,7 @@ class Endboss extends MoveableObject {
             } else (this.bossIsDead())
             i++;
 
-            if (world && world.character.x > 1300 && !this.hadFirstContact) {
+            if (!this.hadFirstContact) {
                 i = 0;
                 this.hadFirstContact = true;
             }
@@ -83,7 +84,18 @@ class Endboss extends MoveableObject {
     }
 
 
-    
+    // ENDBOSS AN DIE POSITION BRINGEN
+    // COINS IN PARABELFORM FÜRS LEVEL BRINGEN
+    // FLASCHEN BESSER VERTEILEN
+    // JUMP() + JumpCollision() auf enemies
+    // removeEnemyFromCanvas
+    // Anpassen das HP nicht so schnell reduziert wird bei Collision
+    // End-Screen
+    // Restart Button
+    // Mobile + Knöpfe
+    // Finishing up
+
+
     bossIsAngry() {
         if (this.energy > 0) {
             setInterval(() => {
