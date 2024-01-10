@@ -33,7 +33,6 @@ class EndbossHealthbar extends DrawableObject {
         this.img = this.imageCache[path];
     }
     
-
     resolveImagesIndex() {
         if (this.bossEnergy == 100) {
             return 5;

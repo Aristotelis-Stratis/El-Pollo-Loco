@@ -15,7 +15,7 @@ class CoinBar extends DrawableObject {
         super();
         this.loadImages(this.IMAGES_COINS);
         this.x = 40;
-        this.y = 50; // Adjust the vertical position as needed
+        this.y = 50;
         this.width = 200;
         this.height = 60;
         this.setCollectedCoins(0);
