@@ -79,16 +79,20 @@ function initLevel() {
             ],
             [
                 new Bottles(0, 375),
-                new Bottles(75, 375),
-                new Bottles(675, 375),
-                new Bottles(975, 375),
-                new Bottles(1275, 375),
-                new Bottles(1675, 375),
-                new Bottles(1775, 375),
-                new Bottles(1875, 375),
-                new Bottles(2175, 375),
-                new Bottles(2275, 375),
-                new Bottles(2675, 375),
+                new Bottles(100, 375),
+                new Bottles(650, 375),
+                new Bottles(950, 375),
+                new Bottles(1200, 375),
+
+                new Bottles(1300, 375),
+                new Bottles(1450, 375),
+                
+                new Bottles(1650, 375),
+                new Bottles(1750, 375),
+                new Bottles(2050, 375),
+                new Bottles(2350, 375),
+                new Bottles(2550, 375),
+                new Bottles(2950, 375),
             ],
             [new Endboss()
             ]
@@ -100,3 +104,49 @@ function initLevel() {
         console.error("Fehler bei der Initialisierung des Levels: ", e);
     }
 }
+
+    // ENDBOSS AN DIE POSITION BRINGEN
+    // JUMP() + JumpCollision() auf enemies
+    // removeEnemyFromCanvas
+    // Anpassen das HP nicht so schnell reduziert wird bei Collision
+    // End-Screen
+    // Restart Button
+    // Mobile + Knöpfe
+    // Finishing up
+
+
+    // bossIsHit() {
+    //     this.reduceEnergy();
+    //     this.startHurtAnimation();
+    //     world.endbossHealthbar.setPercentage(this.energy);
+    // }
+    // reduceEnergy() {
+    //     this.energy -= 10;
+    //     if (this.energy < 0) {
+    //         this.energy = 0;
+    //         // Logik für das Sterben des Endbosses
+    //     }
+    // }
+    
+    // startHurtAnimation() {
+    //     if (!this.hurtAnimationInterval) {
+    //         this.stopMovement();
+    //         let hurtAnimationCounter = 0;
+    //         const hurtAnimationLength = this.IMAGES_HURT.length;
+    
+    //         this.hurtAnimationInterval = setInterval(() => {
+    //             this.playAnimation(this.IMAGES_HURT);
+    //             hurtAnimationCounter++;
+    
+    //             if (hurtAnimationCounter / hurtAnimationLength >= 1) {
+    //                 clearInterval(this.hurtAnimationInterval);
+    //                 this.hurtAnimationInterval = null;
+    //                 this.playAnimation(this.IMAGES_WALKING);
+    //                 this.resumeMovementAfterDelay(0.1); // 0.25 Sekunden warten
+    //             }
+    //         }, 180);
+    //     }
+    // }
+    // stopMovement() {
+    //     this.speed = 0;
+    // }

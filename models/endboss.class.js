@@ -5,6 +5,8 @@ class Endboss extends MoveableObject {
     energy = 100;
     isDead = false;
     hadFirstContact = false;
+    alertAnimationPlayed = false;
+
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -51,134 +53,133 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.animate();
-        this.x = 3250;
+        this.x = 4050;
         this.speed = 6.15 + Math.random() * 1.2;
-        this.offset = {
-            top: 60,
-            right: 20,
-            bottom: 90,
-            left: 20
-        };
+        this.offset = { top: 60, right: 20, bottom: 90, left: 20 };
+        this.animate();
     }
 
-    animate() {
-        let i = 0;
-        setInterval(() => {
-            if (world && world.character.x > 3100) {
-                console.log(i);
-                this.playAnimation(this.IMAGES_ALERT);
-            } else if (this.energy > 0) {
-                this.playAnimation(this.IMAGES_WALKING);
-                this.moveLeft();
-            } else if (this.bossIsAngry()) {
-                // this.hurt_sound.play(); //BOSS HURT SOUND 
-            } else (this.bossIsDead())
-            i++;
 
-            if (!this.hadFirstContact) {
-                i = 0;
-                this.hadFirstContact = true;
+    animate() {
+        const animationInterval = setInterval(() => {
+            if (this.shouldStartAlert()) {
+                this.startAlertAnimation(animationInterval);
             }
         }, 120);
     }
 
+    shouldStartAlert() {
+        return world && world.character.x > 3550 && !this.hadFirstContact;
+    }
 
-    // ENDBOSS AN DIE POSITION BRINGEN
-    // COINS IN PARABELFORM FÜRS LEVEL BRINGEN
-    // FLASCHEN BESSER VERTEILEN
-    // JUMP() + JumpCollision() auf enemies
-    // removeEnemyFromCanvas
-    // Anpassen das HP nicht so schnell reduziert wird bei Collision
-    // End-Screen
-    // Restart Button
-    // Mobile + Knöpfe
-    // Finishing up
+    startAlertAnimation(interval) {
+        if (!this.alertAnimationPlayed) {
+            this.playAnimation(this.IMAGES_ALERT);
+            this.alertAnimationPlayed = true;
+        } else {
+            this.hadFirstContact = true;
+            clearInterval(interval);
+            this.startWalking();
+        }
+    }
 
+    startWalking() {
+        const walkingInterval = setInterval(() => {
+            if (this.energy > 0 && !this.isDead) {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.moveLeft();
+                console.warn('DER BOSS BEWEGT SICH NACH LINKS');
+            } else if (this.bossIsAngry()) {
+                // this.hurt_sound.play(); //BOSS HURT SOUND 
+            } else if (this.bossIsDead()) {
+                clearInterval(walkingInterval);
+            }
+        }, 120);
+    }
 
     bossIsAngry() {
         if (this.energy > 0) {
-            setInterval(() => {
-                this.playAnimation(this.IMAGES_ATTACK);
-            }, 400);
+            this.startAnimationInterval(this.IMAGES_ATTACK, 400);
         }
     }
+
     bossIsHit() {
         this.reduceEnergy();
         this.startHurtAnimation();
-        world.endbossHealthbar.setPercentage(this.energy);
+        this.updateHealthBar();
     }
-    
+
     reduceEnergy() {
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
-            // Logik für das Sterben des Endbosses
-        }
+        this.energy = Math.max(this.energy - 10, 0);
     }
-    
+
     startHurtAnimation() {
         if (!this.hurtAnimationInterval) {
             this.stopMovement();
-            let hurtAnimationCounter = 0;
-            const hurtAnimationLength = this.IMAGES_HURT.length;
-    
-            this.hurtAnimationInterval = setInterval(() => {
-                this.playAnimation(this.IMAGES_HURT);
-                hurtAnimationCounter++;
-    
-                if (hurtAnimationCounter / hurtAnimationLength >= 1) {
-                    clearInterval(this.hurtAnimationInterval);
-                    this.hurtAnimationInterval = null;
-                    this.playAnimation(this.IMAGES_WALKING);
-                    this.resumeMovementAfterDelay(0.1); // 0.25 Sekunden warten
-                }
-            }, 180);
+            this.hurtAnimationInterval = this.startAnimationInterval(this.IMAGES_HURT, 180, () => {
+                this.resetToWalkingState();
+            });
         }
     }
-    
+
+    resetToWalkingState() {
+        clearInterval(this.hurtAnimationInterval);
+        this.hurtAnimationInterval = null;
+        this.playAnimation(this.IMAGES_WALKING);
+        this.resumeMovementAfterDelay(0.1);
+    }
+
     stopMovement() {
         this.speed = 0;
     }
-    
+
     resumeMovementAfterDelay(delay) {
         setTimeout(() => {
             this.speed = 6.15 + Math.random() * 1.2;
-        }, delay);
+        }, delay * 1000);
     }
-    
-    
 
-    // Vergessen Sie nicht, das Intervall zu löschen, wenn der Endboss stirbt oder wenn die Animation nicht mehr benötigt wird
     bossIsDead() {
         if (this.energy <= 0 && !this.isDead) {
             this.isDead = true;
             this.stopAllAnimations();
             this.startDeathAnimation();
         }
-        world.endbossHealthbar.setPercentage(this.energy);
+        this.updateHealthBar();
     }
-    
+
     stopAllAnimations() {
         clearInterval(this.hurtAnimationInterval);
         this.stopMovement();
     }
-    
-    startDeathAnimation() {
-        let deathAnimationCounter = 0;
-        const deathAnimationLength = this.IMAGES_DEAD.length;
-    
-        this.deathAnimationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_DEAD);
-            deathAnimationCounter++;
-    
-            if (deathAnimationCounter / deathAnimationLength >= 1) {
-                clearInterval(this.deathAnimationInterval);
-                this.deathAnimationInterval = null;
-                this.loadImage(this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]);
-            }
-        }, 180);
-    }
-    
 
+    startDeathAnimation() {
+        this.deathAnimationInterval = this.startAnimationInterval(this.IMAGES_DEAD, 180, () => {
+            this.endDeathAnimation();
+        });
+    }
+
+    endDeathAnimation() {
+        clearInterval(this.deathAnimationInterval);
+        this.deathAnimationInterval = null;
+        this.loadImage(this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]);
+    }
+
+    updateHealthBar() {
+        world.endbossHealthbar.setPercentage(this.energy);
+    }
+
+    startAnimationInterval(images, intervalTime, onComplete = null) {
+        let animationCounter = 0;
+        const animationLength = images.length;
+        const intervalId = setInterval(() => {
+            this.playAnimation(images);
+            animationCounter++;
+            if (animationCounter / animationLength >= 1) {
+                clearInterval(intervalId);
+                if (onComplete) onComplete();
+            }
+        }, intervalTime);
+        return intervalId;
+    }
 }
