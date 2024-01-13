@@ -57,14 +57,25 @@ function initLevel() {
                 new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 5),
             ],
             [
-                new Coin(250, 100),
-                new Coin(400, 150),
-                new Coin(600, 160),
-                new Coin(800, 90),
-                new Coin(1000, 50),
-                new Coin(1200, 140),
-                new Coin(1600, 200),
-                new Coin(2000, 220)
+                new Coin(200, 200),
+                new Coin(250, 150),     // 1. pack
+                new Coin(300, 200),
+
+                new Coin(1000, 100),
+                new Coin(1050, 150),    // 2. pack
+                new Coin(1050, 50),
+                new Coin(1100, 100),
+                
+                new Coin(1450, 200),    // 3. coin
+
+                new Coin(1800, 150),    // 4. pack
+                new Coin(1800, 75),
+
+                new Coin(2400, 150),
+                new Coin(2450, 200),    // 5. pack
+                new Coin(2500, 150), 
+
+                new Coin(2750, 50),     // 6. coin
             ],
             [
                 new Bottles(0, 100),
