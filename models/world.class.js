@@ -89,7 +89,7 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.canThrowBottle && this.bottleBar.collectedBottles > 0) {
+        if (this.keyboard.D && this.canThrowBottle && this.bottleBar.collectedBottles > 0 && !this.character.otherDirection) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
