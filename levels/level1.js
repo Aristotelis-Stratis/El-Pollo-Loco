@@ -57,41 +57,38 @@ function initLevel() {
                 new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 5),
             ],
             [
-                new Coin(200, 200),
-                new Coin(250, 150),     // 1. pack
-                new Coin(300, 200),
+                new Coin(200, 150),
+                new Coin(250, 100),
+                new Coin(300, 150),
 
                 new Coin(1000, 100),
-                new Coin(1050, 150),    // 2. pack
+                new Coin(1050, 150),
                 new Coin(1050, 50),
                 new Coin(1100, 100),
-                
-                new Coin(1450, 200),    // 3. coin
 
-                new Coin(1800, 150),    // 4. pack
+                new Coin(1450, 200),
+
+                new Coin(1800, 150),
                 new Coin(1800, 75),
 
                 new Coin(2400, 150),
-                new Coin(2450, 200),    // 5. pack
-                new Coin(2500, 150), 
+                new Coin(2450, 100),
+                new Coin(2500, 150),
 
-                new Coin(2750, 50),     // 6. coin
+                new Coin(2750, 50)
             ],
             [
-                new Bottles(0, 100),
-                new Bottles(0, 200),
-                new Bottles(0, 300),
-                new Bottles(0, 400),
-                new Bottles(0, 500),
-                new Bottles(0, 600),
-                new Bottles(0, 800),
-                new Bottles(0, 1000),
-                new Bottles(0, 1200),
-                new Bottles(0, 1400),
-                new Bottles(0, 1600),
-                new Bottles(0, 1800),
-                new Bottles(0, 2000),
-                
+                new Bottles(0, 375),
+                new Bottles(75, 375),
+                new Bottles(675, 375),
+                new Bottles(975, 375),
+                new Bottles(1275, 375),
+                new Bottles(1675, 375),
+                new Bottles(1775, 375),
+                new Bottles(1875, 375),
+                new Bottles(2175, 375),
+                new Bottles(2275, 375),
+                new Bottles(2675, 375),
             ],
             [new Endboss()
             ]
