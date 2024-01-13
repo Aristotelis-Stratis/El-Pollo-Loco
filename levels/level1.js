@@ -12,7 +12,10 @@ function initLevel() {
                 new Chicken(2400,275),
                 new Chicken(2700,275),
                 new Chicken(2800,275),
- 
+                new Chicken(3100,275),
+                new Chicken(3400,275),
+                new Chicken(3600,275),
+                new Chicken(3900,275),
             ],
             [
                 new Cloud(),

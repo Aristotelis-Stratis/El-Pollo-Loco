@@ -13,6 +13,7 @@ class World {
     collectedCoins = 0;
     DKeyPressed = false;
     showEndbossHealthbar = false;
+    canThrowBottle = true;
 
 
     constructor(canvas, keyboard) {
@@ -88,12 +89,16 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && !this.DKeyPressed && this.bottleBar.collectedBottles > 0) {
+        if (this.keyboard.D && this.canThrowBottle && this.bottleBar.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
+            this.canThrowBottle = false;
+
+            setTimeout(() => {
+                this.canThrowBottle = true;
+            }, 650);
         }
-        this.DKeyPressed = this.keyboard.D;
     }
 
     checkBottleHitEndbossCollisions() {

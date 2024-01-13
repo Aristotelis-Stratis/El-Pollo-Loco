@@ -83,7 +83,7 @@ class Endboss extends MoveableObject {
             clearInterval(interval);
             setTimeout(() => {
                 this.startWalking();
-            }, 500);
+            }, 100);
         }
     }
 
