@@ -55,7 +55,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 4050;
+        this.x = 5000;
         this.speed = 6.15 + Math.random() * 1.2;
         this.offset = { top: 60, right: 20, bottom: 90, left: 20 };
         this.animate();
@@ -71,7 +71,7 @@ class Endboss extends MoveableObject {
     }
 
     shouldStartAlert() {
-        return world && world.character.x > 3550 && !this.hadFirstContact;
+        return world && world.character.x > 4500 && !this.hadFirstContact;
     }
 
     startAlertAnimation(interval) {

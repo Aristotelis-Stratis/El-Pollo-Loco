@@ -4,12 +4,15 @@ function initLevel() {
     try {
         level1 = new Level(
             [
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
-                // new Chicken(),
+                new Chicken(1000,275),
+                new Chicken(1300,275),
+                new Chicken(1600,275),
+                new Chicken(1900,275),
+                new Chicken(2200,275),
+                new Chicken(2400,275),
+                new Chicken(2700,275),
+                new Chicken(2800,275),
+ 
             ],
             [
                 new Cloud(),
@@ -55,6 +58,16 @@ function initLevel() {
                 new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719 * 5),
                 new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719 * 5),
                 new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 5),
+
+                new BackgroundObject('img/5_background/layers/air.png', 719 * 6),
+                new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 719 * 6),
+                new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 * 6),
+                new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 6),
+
+                new BackgroundObject('img/5_background/layers/air.png', 719 * 7),
+                new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719 * 7),
+                new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719 * 7),
+                new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 7),
             ],
             [
                 new Coin(200, 150),
@@ -86,7 +99,7 @@ function initLevel() {
 
                 new Bottles(1300, 375),
                 new Bottles(1450, 375),
-                
+
                 new Bottles(1650, 375),
                 new Bottles(1750, 375),
                 new Bottles(2050, 375),
@@ -105,10 +118,10 @@ function initLevel() {
     }
 }
 
-    // JUMP() + JumpCollision() auf enemies
-    // removeEnemyFromCanvas
-    // Anpassen das HP nicht so schnell reduziert wird bei Collision
-    // End-Screen
-    // Restart Button
-    // Mobile + Knöpfe
-    // Finishing up
+// JUMP() + JumpCollision() auf enemies
+// removeEnemyFromCanvas
+// Anpassen das HP nicht so schnell reduziert wird bei Collision
+// End-Screen
+// Restart Button
+// Mobile + Knöpfe
+// Finishing up

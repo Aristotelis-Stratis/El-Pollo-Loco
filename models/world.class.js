@@ -171,7 +171,7 @@ class World {
     }
 
     updateEndbossHealthbarVisibility() {
-        if (this.character.x > 3550) {
+        if (this.character.x > 4500) {
             this.showEndbossHealthbar = true;
         }
     }
