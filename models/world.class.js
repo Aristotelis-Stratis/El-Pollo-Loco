@@ -36,7 +36,7 @@ class World {
             this.checkBottleCollisions();
             this.checkThrowObjects();
             this.checkBottleHitEndbossCollisions();
-        }, 100);
+        }, 10);
     }
 
     checkCollisions() {
@@ -45,9 +45,13 @@ class World {
     }
 
     checkCollisionsWithEnemies() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                this.handleCollision();
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && enemy.energy > 0) {
+                if (this.character.isAboveGround() && this.character.speedY < 0) {
+                    this.handleCollisionAboveGround(enemy);
+                } else if (this.character.energy > 0) {
+                    this.character.hit();
+                }
             }
         });
     }
@@ -132,13 +136,21 @@ class World {
         this.throwableObjects.splice(index, 1);
     }
 
-    // removeEnemyFromCanvas(enemy) {
-    //     setTimeout(() => {
-    //         this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-    //         this.y -= 50;
-    //         this.x = this.x;
-    //     }, 1000);
-    // }
+    handleCollisionAboveGround(enemy) {
+        enemy.energy--;
+        this.character.jump();
+        if (enemy.energy === 0) {
+            this.removeEnemyFromLevel(enemy);
+        }
+    }
+
+
+    removeEnemyFromLevel(enemy){
+        const index = this.level.enemies.indexOf(enemy);
+        if (index > -1) {
+            this.level.enemies.splice(index, 1);
+        }
+    }
 
     draw() {
         this.clearCanvas();
