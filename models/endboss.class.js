@@ -46,6 +46,8 @@ class Endboss extends MoveableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    hurt_sound = new Audio('audio/chicken_hurt.mp3');
+
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -79,7 +81,9 @@ class Endboss extends MoveableObject {
         } else {
             this.hadFirstContact = true;
             clearInterval(interval);
-            this.startWalking();
+            setTimeout(() => {
+                this.startWalking();
+            }, 500);
         }
     }
 
@@ -88,20 +92,12 @@ class Endboss extends MoveableObject {
             if (this.energy > 0 && !this.isDead) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
-                console.warn('DER BOSS BEWEGT SICH NACH LINKS');
-            } else if (this.bossIsAngry()) {
-                // this.hurt_sound.play(); //BOSS HURT SOUND 
-            } else if (this.bossIsDead()) {
+            }  else if (this.bossIsDead()) {
                 clearInterval(walkingInterval);
             }
         }, 120);
     }
 
-    bossIsAngry() {
-        if (this.energy > 0) {
-            this.startAnimationInterval(this.IMAGES_ATTACK, 400);
-        }
-    }
 
     bossIsHit() {
         this.reduceEnergy();
@@ -116,6 +112,7 @@ class Endboss extends MoveableObject {
     startHurtAnimation() {
         if (!this.hurtAnimationInterval) {
             this.stopMovement();
+            this.hurt_sound.play();
             this.hurtAnimationInterval = this.startAnimationInterval(this.IMAGES_HURT, 180, () => {
                 this.resetToWalkingState();
             });

@@ -105,7 +105,6 @@ function initLevel() {
     }
 }
 
-    // ENDBOSS AN DIE POSITION BRINGEN
     // JUMP() + JumpCollision() auf enemies
     // removeEnemyFromCanvas
     // Anpassen das HP nicht so schnell reduziert wird bei Collision
