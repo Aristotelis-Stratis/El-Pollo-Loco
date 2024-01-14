@@ -78,16 +78,15 @@ class Endboss extends MoveableObject {
     startAlertAnimation(interval) {
         if (!this.alertAnimationPlayed) {
             this.alert_sound.play();
-            // Verlängern des Intervalls für die Alert-Animation
             this.alertAnimationInterval = this.startAnimationInterval(this.IMAGES_ALERT, 275, () => {
                 clearInterval(this.alertAnimationInterval);
                 this.alertAnimationPlayed = true;
                 setTimeout(() => {
                     this.hadFirstContact = true;
                     this.startWalking();
-                }, 1000);  // Wartezeit nach der Alert-Animation
+                }, 1000);
             });
-            clearInterval(interval); // Stoppt das ursprüngliche Intervall
+            clearInterval(interval);
         }
     }
 
@@ -95,7 +94,6 @@ class Endboss extends MoveableObject {
         if (!this.hurtAnimationInterval) {
             this.stopMovement();
             this.hurt_sound.play();
-            // Verlängern des Intervalls für die Hurt-Animation
             this.hurtAnimationInterval = this.startAnimationInterval(this.IMAGES_HURT, 300, () => {
                 this.resetToWalkingState();
             });
@@ -105,7 +103,7 @@ class Endboss extends MoveableObject {
     startWalking() {
         const walkingInterval = setInterval(() => {
             if (this.energy > 0 && !this.isDead) {
-                this.updateSpeed(); // Aktualisieren der Geschwindigkeit
+                this.updateSpeed();
                 this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
             } else if (this.bossIsDead()) {
@@ -114,14 +112,12 @@ class Endboss extends MoveableObject {
         }, 120);
     }
     updateSpeed() {
-        // Aktualisieren Sie die Geschwindigkeit basierend auf der aktuellen Energie
         if (this.energy < 60) {
             this.speed = 24 + Math.random() * 1.2;
         } else {
             this.speed;
         }
     }
-
 
     bossIsHit() {
         this.reduceEnergy();
@@ -187,14 +183,13 @@ class Endboss extends MoveableObject {
     startAnimationInterval(images, intervalTime, onComplete = null) {
         let animationCounter = 0;
         const animationLength = images.length;
-        const intervalId = setInterval(() => {
+        return setInterval(() => {
             this.playAnimation(images);
             animationCounter++;
             if (animationCounter / animationLength >= 1) {
-                clearInterval(intervalId);
+                clearInterval(this.deathAnimationInterval);
                 if (onComplete) onComplete();
             }
         }, intervalTime);
-        return intervalId;
     }
 }
