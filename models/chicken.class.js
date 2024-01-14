@@ -13,6 +13,7 @@ class Chicken extends MoveableObject {
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
+    hurt_sound = new Audio('audio/chicken_hurt.mp3');
 
     constructor(x, y) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -47,5 +48,6 @@ class Chicken extends MoveableObject {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
         this.playAnimation(this.IMAGES_DEAD);
+        this.hurt_sound.play();
     }
 }

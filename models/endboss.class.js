@@ -46,6 +46,7 @@ class Endboss extends MoveableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    alert_sound = new Audio('audio/boss_intro_sound.mp3');
     hurt_sound = new Audio('audio/chicken_hurt.mp3');
 
     constructor() {
@@ -56,7 +57,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 5000;
-        this.speed = 6.15 + Math.random() * 1.2;
+        this.speed = 12 + Math.random() * 1.2;
         this.offset = { top: 60, right: 20, bottom: 90, left: 20 };
         this.animate();
     }
@@ -76,26 +77,49 @@ class Endboss extends MoveableObject {
 
     startAlertAnimation(interval) {
         if (!this.alertAnimationPlayed) {
-            this.playAnimation(this.IMAGES_ALERT);
-            this.alertAnimationPlayed = true;
-        } else {
-            this.hadFirstContact = true;
-            clearInterval(interval);
-            setTimeout(() => {
-                this.startWalking();
-            }, 100);
+            this.alert_sound.play();
+            // Verlängern des Intervalls für die Alert-Animation
+            this.alertAnimationInterval = this.startAnimationInterval(this.IMAGES_ALERT, 275, () => {
+                clearInterval(this.alertAnimationInterval);
+                this.alertAnimationPlayed = true;
+                setTimeout(() => {
+                    this.hadFirstContact = true;
+                    this.startWalking();
+                }, 1000);  // Wartezeit nach der Alert-Animation
+            });
+            clearInterval(interval); // Stoppt das ursprüngliche Intervall
+        }
+    }
+
+    startHurtAnimation() {
+        if (!this.hurtAnimationInterval) {
+            this.stopMovement();
+            this.hurt_sound.play();
+            // Verlängern des Intervalls für die Hurt-Animation
+            this.hurtAnimationInterval = this.startAnimationInterval(this.IMAGES_HURT, 300, () => {
+                this.resetToWalkingState();
+            });
         }
     }
 
     startWalking() {
         const walkingInterval = setInterval(() => {
             if (this.energy > 0 && !this.isDead) {
+                this.updateSpeed(); // Aktualisieren der Geschwindigkeit
                 this.playAnimation(this.IMAGES_WALKING);
                 this.moveLeft();
-            }  else if (this.bossIsDead()) {
+            } else if (this.bossIsDead()) {
                 clearInterval(walkingInterval);
             }
         }, 120);
+    }
+    updateSpeed() {
+        // Aktualisieren Sie die Geschwindigkeit basierend auf der aktuellen Energie
+        if (this.energy < 60) {
+            this.speed = 24 + Math.random() * 1.2;
+        } else {
+            this.speed;
+        }
     }
 
 
@@ -106,16 +130,10 @@ class Endboss extends MoveableObject {
     }
 
     reduceEnergy() {
-        this.energy = Math.max(this.energy - 10, 0);
-    }
-
-    startHurtAnimation() {
-        if (!this.hurtAnimationInterval) {
-            this.stopMovement();
-            this.hurt_sound.play();
-            this.hurtAnimationInterval = this.startAnimationInterval(this.IMAGES_HURT, 180, () => {
-                this.resetToWalkingState();
-            });
+        this.energy -= 10;
+        console.log(this.energy);
+        if (this.energy < 0) {
+            this.energy = 0;
         }
     }
 
