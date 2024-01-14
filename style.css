@@ -56,6 +56,18 @@ canvas {
     z-index: 2;
 }
 
+.end-screen {
+    background-image: url('img/9_intro_outro_screens/start/game_over/game over.png');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    height: 550px;
+    width: 825px;
+    display: none;
+    z-index: 3;
+    backdrop-filter: blur(5px);
+}
+
 /* Startknopf-Styling */
 .start-screen button {
     padding: 10px 20px;
@@ -66,4 +78,16 @@ canvas {
     top: 20px;
     background-color: #ff9600;
     border-radius: 15px;
+}
+
+.end-screen button {
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    display:flex;
+    position: absolute;
+    top: 20px;
+    background-color: #ff9600;
+    border-radius: 15px;
+    margin-left: 20px;
 }

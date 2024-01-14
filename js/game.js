@@ -9,7 +9,7 @@ function init() {
     playBackgroundMusic();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, level1);
-    HideStartScreen();
+    HideScreens();
 }
 
 function playBackgroundMusic() {
@@ -19,12 +19,19 @@ function playBackgroundMusic() {
 }
 
 
-function HideStartScreen() {
-    // Verstecke den Startbildschirm
+function HideScreens() {
     document.getElementById('startScreen').style.display = 'none';
-    // Zeige den Spielinhalt
     document.getElementById('content').style.display = 'block';
+    document.getElementById('EndScreen').style.display = 'none'; 
 }
+
+function showEndScreen() {
+    document.getElementById('EndScreen').style.display = 'flex';
+}
+
+
+function musicToggle() {}
+
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39) {

@@ -157,6 +157,9 @@ class Endboss extends MoveableObject {
             this.stopAllAnimations();
             this.dead_sound.play();
             this.startDeathAnimation();
+            setTimeout(() => {
+                showEndScreen();
+              }, 300);
         }
         this.updateHealthBar();
     }
