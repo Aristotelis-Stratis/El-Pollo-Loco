@@ -140,12 +140,14 @@ class World {
         enemy.energy--;
         this.character.jump();
         if (enemy.energy === 0) {
-            this.removeEnemyFromLevel(enemy);
+            enemy.playDeathAnimation();
+            setTimeout(() => {
+                this.removeEnemyFromLevel(enemy);
+            }, 500); // Wartezeit von 500ms (oder die Dauer der Todesanimation)
         }
     }
 
-
-    removeEnemyFromLevel(enemy){
+    removeEnemyFromLevel(enemy) {
         const index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
             this.level.enemies.splice(index, 1);
