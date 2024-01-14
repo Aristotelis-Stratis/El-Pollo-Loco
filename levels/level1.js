@@ -4,18 +4,18 @@ function initLevel() {
     try {
         level1 = new Level(
             [
-                // new Chicken(1000,275),
-                // new Chicken(1300,275),
-                // new Chicken(1600,275),
-                // new Chicken(1900,275),
-                // new Chicken(2200,275),
-                // new Chicken(2400,275),
-                // new Chicken(2700,275),
-                // new Chicken(2800,275),
-                // new Chicken(3100,275),
-                // new Chicken(3400,275),
-                // new Chicken(3600,275),
-                // new Chicken(3900,275),
+                new Chicken(1000, 275),
+                new Chicken(1300, 275),
+                new Chicken(1600, 275),
+                new Chicken(1900, 275),
+                new Chicken(2200, 275),
+                new Chicken(2400, 275),
+                new Chicken(2700, 275),
+                new Chicken(2800, 275),
+                new Chicken(3100, 275),
+                new Chicken(3400, 275),
+                new Chicken(3600, 275),
+                new Chicken(3900, 275),
             ],
             [
                 new Cloud(),
@@ -128,9 +128,7 @@ function initLevel() {
     }
 }
 
-// JUMP() + JumpCollision() auf enemies
-// removeEnemyFromCanvas
-// Anpassen das HP nicht so schnell reduziert wird bei Collision
+
 // End-Screen
 // Restart Button
 // Mobile + Knöpfe

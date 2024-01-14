@@ -4,7 +4,8 @@ class MoveableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2;
     energy = 100;
-    lastHit = 0;
+    lastHitTime = 0;
+    hitCooldown = 250;
 
     applyGravity() {
         setInterval(() => {
@@ -24,24 +25,29 @@ class MoveableObject extends DrawableObject {
 
     isColliding(mo) {
         return (
-            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&          // R->L // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&         // T->B // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&            // L->R // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom              // B->T // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
+            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
         );
     }
 
+
     hit() {
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        const currentTime = new Date().getTime();
+        if (currentTime - this.lastHitTime > this.hitCooldown) {
+            this.lastHitTime = currentTime;
+            this.energy -= 10;
+
+            if (this.energy < 0) {
+                this.energy = 0;
+            }
         }
     }
 
+
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit;
+        let timePassed = new Date().getTime() - this.lastHitTime;
         timePassed = timePassed / 1000;
         return timePassed < 1;
     }

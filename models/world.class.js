@@ -31,10 +31,10 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.checkThrowObjects();
+            this.checkCollisions();
             this.checkBottleHitEndbossCollisions();
         }, 10);
     }
@@ -50,7 +50,8 @@ class World {
                 if (this.character.isAboveGround() && this.character.speedY < 0) {
                     this.handleCollisionAboveGround(enemy);
                 } else if (this.character.energy > 0) {
-                    this.character.hit();
+                    this.handleCollision();
+                    console.log(this.character.energy);
                 }
             }
         });
@@ -61,15 +62,10 @@ class World {
             this.level.endboss.forEach(boss => {
                 if (this.character.isColliding(boss)) {
                     this.handleCollision();
+                    console.log(this.character.energy);
                 }
             });
         }
-    }
-
-    handleCollision() {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-        console.log('Collision occurred!');
     }
 
     checkCoinCollisions() {
@@ -125,15 +121,15 @@ class World {
         setTimeout(() => {
             this.removeBottleAfterCollision(index);
         }, 1000);
-        // console.log('REMAINING BOSS HP = ', this.level.endboss[0].energy);
-
-        // if (this.level.endboss[0].energy <= 0) {
-        //     console.log('<<<THE BOSS IS DEAD NOW>>>');
-        // }
     }
 
     removeBottleAfterCollision(index) {
         this.throwableObjects.splice(index, 1);
+    }
+
+    handleCollision() {
+        this.character.hit();
+        this.statusBar.setPercentage(this.character.energy);
     }
 
     handleCollisionAboveGround(enemy) {
@@ -143,7 +139,7 @@ class World {
             enemy.playDeathAnimation();
             setTimeout(() => {
                 this.removeEnemyFromLevel(enemy);
-            }, 500); // Wartezeit von 500ms (oder die Dauer der Todesanimation)
+            }, 500);
         }
     }
 
@@ -217,7 +213,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
