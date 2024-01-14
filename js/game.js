@@ -9,7 +9,6 @@ function init() {
     playBackgroundMusic();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, level1);
-    console.log('My Character is', world.character);
     HideStartScreen();
 }
 

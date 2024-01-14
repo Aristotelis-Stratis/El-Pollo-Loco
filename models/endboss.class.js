@@ -48,6 +48,7 @@ class Endboss extends MoveableObject {
 
     alert_sound = new Audio('audio/boss_intro_sound.mp3');
     hurt_sound = new Audio('audio/chicken_hurt.mp3');
+    dead_sound = new Audio('audio/boss_dead.mp3');
 
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
@@ -154,6 +155,7 @@ class Endboss extends MoveableObject {
         if (this.energy <= 0 && !this.isDead) {
             this.isDead = true;
             this.stopAllAnimations();
+            this.dead_sound.play();
             this.startDeathAnimation();
         }
         this.updateHealthBar();
