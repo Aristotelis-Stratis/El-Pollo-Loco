@@ -163,13 +163,11 @@ class World {
         if (!this.gameOver) {
             this.gameOver = true;
             showEndScreen();
-            // Hier können Sie alle weiteren Aktionen stoppen, wie z.B. Animationen
         }
     }
 
     draw() {
-        if (!gameActive) return; // Beendet die Funktion frühzeitig, wenn das Spiel nicht aktiv ist
-    
+        if (!gameActive) return;     
         this.clearCanvas();
         this.drawBackground();
         this.drawMainCharacter();
