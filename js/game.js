@@ -2,6 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 backgroundMusic = new Audio('audio/game.mp3');
+gameWon = new Audio('audio/game_won.mp3')
+gameLost = new Audio('audio/game_lost.mp3');
 backgroundMusic.muted = true;
 
 function init() {
@@ -26,11 +28,30 @@ function HideScreens() {
 }
 
 function showEndScreen() {
-    document.getElementById('EndScreen').style.display = 'flex';
+    let endScreen = document.getElementById('EndScreen');
+    if (world.isEndbossDefeated()) {
+        gameWonSound();
+        endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";
+    } else if (world.isCharacterDead()) {
+        gameLostSound();
+        endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/you lost.png')";
+    }
+
+    endScreen.style.display = 'flex';
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
 }
 
+function refreshPage(){
+    window.location.reload();
+} 
 
-function musicToggle() {}
+function gameWonSound(){
+    gameWon.play();
+}
+function gameLostSound(){
+    gameLost.play();
+}
 
 
 window.addEventListener("keydown", (event) => {

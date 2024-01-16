@@ -119,8 +119,9 @@ class Character extends MoveableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && !this.world.gameOver) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.world.endGame(); // Rufen Sie endGame anstelle von showEndScreen direkt auf
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.hurt_sound.play();

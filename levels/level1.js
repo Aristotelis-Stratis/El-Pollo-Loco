@@ -123,6 +123,9 @@ function initLevel() {
 
 
 // End-Screen
+// Endmusic integrieren und restart-Funktionalität mit mute etc
 // Restart Button
+// anpassen des canvas
 // Mobile + Knöpfe
+// Fullscreen
 // Finishing up

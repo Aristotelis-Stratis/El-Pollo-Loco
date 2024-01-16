@@ -13,6 +13,7 @@ class World {
     collectedCoins = 0;
     DKeyPressed = false;
     showEndbossHealthbar = false;
+    gameOver = false;
     canThrowBottle = true;
 
 
@@ -147,6 +148,22 @@ class World {
         const index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
             this.level.enemies.splice(index, 1);
+        }
+    }
+
+    isEndbossDefeated() {
+        return this.level.endboss[0] && this.level.endboss[0].isDead;
+    }
+
+    isCharacterDead() {
+        return this.character && this.character.energy <= 0;
+    }
+
+    endGame() {
+        if (!this.gameOver) {
+            this.gameOver = true;
+            showEndScreen();
+            // Hier können Sie alle weiteren Aktionen stoppen, wie z.B. Animationen
         }
     }
 
