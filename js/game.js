@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let gameActive = true;
 let keyboard = new Keyboard();
 backgroundMusic = new Audio('audio/game.mp3');
 gameWon = new Audio('audio/game_won.mp3')
@@ -7,6 +8,7 @@ gameLost = new Audio('audio/game_lost.mp3');
 backgroundMusic.muted = true;
 
 function init() {
+    gameActive = true;
     initLevel();
     playBackgroundMusic();
     canvas = document.getElementById('canvas');
@@ -28,6 +30,7 @@ function HideScreens() {
 }
 
 function showEndScreen() {
+    gameActive = false;
     let endScreen = document.getElementById('EndScreen');
     if (world.isEndbossDefeated()) {
         gameWonSound();
@@ -55,6 +58,7 @@ function gameLostSound(){
 
 
 window.addEventListener("keydown", (event) => {
+    if (!gameActive) return;
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -78,6 +82,7 @@ window.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("keyup", (event) => {
+    if (!gameActive) return;
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }

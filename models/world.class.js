@@ -168,6 +168,8 @@ class World {
     }
 
     draw() {
+        if (!gameActive) return; // Beendet die Funktion frühzeitig, wenn das Spiel nicht aktiv ist
+    
         this.clearCanvas();
         this.drawBackground();
         this.drawMainCharacter();
