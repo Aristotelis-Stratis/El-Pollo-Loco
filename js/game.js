@@ -55,6 +55,16 @@ function closeControls() {
     document.getElementById('menu').style.display = 'flex';
 }
 
+function openSettings() {
+    document.getElementById('settingsScreen').style.display = 'block';
+    document.getElementById('menu').style.display = 'none';
+}
+
+function closeSettings() {
+    document.getElementById('settingsScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
 function refreshPage(){
     window.location.reload();
 } 
