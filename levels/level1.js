@@ -122,8 +122,6 @@ function initLevel() {
 }
 
 
-// anpassen des canvas
 // Mobile + Knöpfe
-// Control-Settings
-// Fullscreen
-// Finishing up
+// Control-Settings HTML erstellen
+// Finishing up + CC check
