@@ -34,19 +34,19 @@
     <div class="title">
         <h1>El Pollo Loco</h1>
     </div>
-    <div id="startScreen" class="start-screen" style="display:flex">
-        <div class="controls">
-        <button onclick="init()">Start Game</button>
-        <button onclick="toggleFullScreen()">Vollbildmodus</button>
-    </div>
-    </div>
-    
-    <div id="content" class="content" style="display:none">
-        <canvas width="720" height="480" id="canvas"></canvas>
-    </div>
-
-    <div id="EndScreen" class="end-screen" style="display:none">
-        <button onclick="refreshPage()">Back to Menu</button>
+    <div class="canvas-container">
+        <div id="startScreen" class="start-screen" style="display:flex">
+            <div class="menu">
+                <button onclick="init()">Start Game</button>
+                <button onclick="toggleFullScreen()">Fullscreen</button>
+            </div>
+        </div>
+        <div id="EndScreen" class="end-screen" style="display:none">
+            <button onclick="refreshPage()">Back to Menu</button>
+        </div>
+        <div id="content" class="content" style="display:none">
+            <canvas width="720" height="480" id="canvas"></canvas>
+        </div>
     </div>
 </body>
 

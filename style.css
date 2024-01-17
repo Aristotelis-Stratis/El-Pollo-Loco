@@ -10,7 +10,6 @@ body {
     justify-content: center;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     background-image: url('./img/10_start_screen/start_bg-3.jpg');
-    background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
     margin: 0;
@@ -29,64 +28,50 @@ h1 {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+.canvas-container {
+    border: 2px solid yellow;
+    height: 480px;
+    width: 720px;
+    position: relative;
+}
+
 .content {
-    transform: scale(1.15);
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    height: 480px;
+    width: 720px;
 }
 
 canvas {
     background-color: black;
     display: block;
     width: 100%;
+    height: 100%;
 }
 
 .start-screen {
-    background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
+    background: url('img/9_intro_outro_screens/start/startscreen_1.png');
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 550px;
-    width: 825px;
+    background-size: 100% 100%;
+    height: 480px;
+    width: 720px;
     position: absolute;
-    display: flex;
-    justify-content: center;
     z-index: 2;
+    border: 2px solid white;
 }
 
 .end-screen {
     background-image: url('img/9_intro_outro_screens/start/game_over/game over.png');
-    background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 480px;
+    width: 720px;
     position: absolute;
-    height: 550px;
-    width: 825px;
     display: none;
     z-index: 3;
     backdrop-filter: blur(5px);
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border: 2px solid green;
-    position: relative;
-    flex-direction: row;
-    height: 100px;
-}
-
-/* Startknopf-Styling */
-.controls button {
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    top: 20px;
-    background-color: #ff9600;
-    border-radius: 15px;
 }
 
 .end-screen button {
@@ -99,4 +84,26 @@ canvas {
     background-color: #ff9600;
     border-radius: 15px;
     margin-left: 20px;
+}
+
+.menu {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+    border: 2px solid red;
+}
+
+.menu button {
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    top: 20px;
+    background-color: #ff9600;
+    border-radius: 15px;
 }
