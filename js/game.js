@@ -65,6 +65,72 @@ function closeSettings() {
     document.getElementById('menu').style.display = 'flex';
 }
 
+function toggleFullScreen() {
+    let container = document.getElementById('canvas-container');
+    let canvas = document.getElementById('canvas');
+
+    if (!container || !canvas) {
+        console.error('Container oder Canvas nicht gefunden.');
+        return;
+    }
+
+    if (!document.fullscreenElement) {
+        requestFullscreen(container);
+        setCanvasSize(canvas, '100vw', '100vh');
+    } else {
+        exitFullscreen();
+        resetCanvasSize(canvas);
+    }
+}
+
+function setCanvasSize(canvas, width, height) {
+    canvas.style.width = width;
+    canvas.style.height = height;
+}
+
+function resetCanvasSize(canvas) {
+    setCanvasSize(canvas, '720px', '480px');
+}
+
+function requestFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+function adjustCanvasSize() {
+    let canvas = document.getElementById('canvas');
+    if (document.fullscreenElement) {
+        setCanvasSize(canvas, '100vw', '100vh');
+    } else {
+        resetCanvasSize(canvas);
+    }
+}
+
+document.addEventListener("fullscreenchange", adjustCanvasSize);
+document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
+document.addEventListener("msfullscreenchange", adjustCanvasSize);
+
+
+document.addEventListener("fullscreenchange", adjustCanvasSize);
+document.addEventListener("webkitfullscreenchange", adjustCanvasSize); // Safari
+document.addEventListener("msfullscreenchange", adjustCanvasSize); // IE11
+
+
 function refreshPage(){
     window.location.reload();
 } 
