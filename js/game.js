@@ -45,6 +45,16 @@ function showEndScreen() {
     backgroundMusic.currentTime = 0;
 }
 
+function openControls() {
+    document.getElementById('controlsScreen').style.display = 'block';
+    document.getElementById('menu').style.display = 'none';
+}
+
+function closeControls() {
+    document.getElementById('controlsScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
 function refreshPage(){
     window.location.reload();
 } 

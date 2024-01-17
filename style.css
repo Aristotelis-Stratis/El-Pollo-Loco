@@ -74,6 +74,15 @@ canvas {
     backdrop-filter: blur(5px);
 }
 
+.controls-screen {
+    display: none;
+    height: 480px;
+    width: 720px;
+    position: absolute;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+}
+
 .end-screen button {
     padding: 10px 20px;
     font-size: 20px;
@@ -95,6 +104,7 @@ canvas {
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
+    gap: 15px;
     border: 2px solid red;
 }
 

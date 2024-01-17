@@ -36,10 +36,22 @@
     </div>
     <div class="canvas-container">
         <div id="startScreen" class="start-screen" style="display:flex">
-            <div class="menu">
+            <div id="menu" class="menu">
                 <button onclick="init()">Start Game</button>
-                <button onclick="toggleFullScreen()">Fullscreen</button>
+                <button onclick="openControls()">Controls</button>
+                <!-- <button onclick="toggleFullScreen()">Fullscreen</button> -->
+                <button onclick="openSettings()">Settings</button>
             </div>
+        </div>
+        <div id="controlsScreen" class="controls-screen">
+            <h2>Controls</h2>
+            <p>Erklärung der Steuerung...</p>
+            <button onclick="closeControls()">Back</button>
+        </div>
+        <div id="settingsScreen" class="settings-screen">
+            <h2>Settings</h2>
+            <p>Platz für Einstellungsoptionen...</p>
+            <button onclick="closeSettings()">Back</button>
         </div>
         <div id="EndScreen" class="end-screen" style="display:none">
             <button onclick="refreshPage()">Back to Menu</button>
