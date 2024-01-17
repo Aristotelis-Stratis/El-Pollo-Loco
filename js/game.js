@@ -22,7 +22,6 @@ function playBackgroundMusic() {
     backgroundMusic.play();
 }
 
-
 function HideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
@@ -121,16 +120,6 @@ function adjustCanvasSize() {
     }
 }
 
-document.addEventListener("fullscreenchange", adjustCanvasSize);
-document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
-document.addEventListener("msfullscreenchange", adjustCanvasSize);
-
-
-document.addEventListener("fullscreenchange", adjustCanvasSize);
-document.addEventListener("webkitfullscreenchange", adjustCanvasSize); // Safari
-document.addEventListener("msfullscreenchange", adjustCanvasSize); // IE11
-
-
 function refreshPage(){
     window.location.reload();
 } 
@@ -141,7 +130,6 @@ function gameWonSound(){
 function gameLostSound(){
     gameLost.play();
 }
-
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
@@ -191,4 +179,12 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
+document.addEventListener("fullscreenchange", adjustCanvasSize);
+document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
+document.addEventListener("msfullscreenchange", adjustCanvasSize);
+
+
+document.addEventListener("fullscreenchange", adjustCanvasSize);
+document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
+document.addEventListener("msfullscreenchange", adjustCanvasSize);
 
