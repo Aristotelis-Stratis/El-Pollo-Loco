@@ -67,13 +67,16 @@ function closeSettings() {
 function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
     let canvas = document.getElementById('canvas');
+    let fullscreenButton = document.querySelector('.fullscreen-toggle'); // Klassenname für den Fullscreen-Button
 
     if (!document.fullscreenElement) {
         requestFullscreen(container);
         setCanvasSize(canvas, '100vw', '100vh');
+        fullscreenButton.innerText = 'Fullscreen Off'; // Text ändern zu "Fullscreen Off"
     } else {
         exitFullscreen();
         resetCanvasSize(canvas);
+        fullscreenButton.innerText = 'Fullscreen On'; // Text ändern zu "Fullscreen On"
     }
 }
 
