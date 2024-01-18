@@ -82,13 +82,63 @@ canvas {
     backdrop-filter: blur(5px);
 }
 
-.controls-screen, .settings-screen {
+.controls-screen,
+.settings-screen {
     display: none;
     height: 480px;
     width: 720px;
     position: absolute;
     z-index: 3;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+}
+
+.screen-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+.screen-title h2 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.7em;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.box {
+    height: 70px;
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+.jc-left {
+    justify-content: flex-start;
+    padding-left: 40px;
+    width: 350px;
+}
+
+.box img {
+    width: 40px;
 }
 
 .end-screen button {
@@ -112,15 +162,46 @@ canvas {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
-.menu button {
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
+.button-container {
+    display: block;
+    position: relative;
+    border: 2px solid green;
+    width: fit-content;
+    height: fit-content;
+    left: 20px;
     top: 20px;
-    background-color: #ff9600;
-    border-radius: 15px;
+}
+
+.button-99 {
+    margin: 10px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: 2px solid #9f3b18 !important;
+    border-radius: 10px;
+    display: block;
+    color: white;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #f09819;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819 51%, #FF512F 100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-99:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.button-99:active {
+    transform: scale(0.95);
 }
