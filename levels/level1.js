@@ -120,8 +120,3 @@ function initLevel() {
         ]
     );
 }
-
-
-// Mobile + Knöpfe
-// Control-Settings HTML erstellen
-// Finishing up + CC check

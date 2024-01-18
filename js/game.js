@@ -68,11 +68,6 @@ function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
     let canvas = document.getElementById('canvas');
 
-    if (!container || !canvas) {
-        console.error('Container oder Canvas nicht gefunden.');
-        return;
-    }
-
     if (!document.fullscreenElement) {
         requestFullscreen(container);
         setCanvasSize(canvas, '100vw', '100vh');
@@ -182,9 +177,3 @@ window.addEventListener("keyup", (event) => {
 document.addEventListener("fullscreenchange", adjustCanvasSize);
 document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
 document.addEventListener("msfullscreenchange", adjustCanvasSize);
-
-
-document.addEventListener("fullscreenchange", adjustCanvasSize);
-document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
-document.addEventListener("msfullscreenchange", adjustCanvasSize);
-

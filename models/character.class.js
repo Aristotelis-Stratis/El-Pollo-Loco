@@ -108,7 +108,7 @@ class Character extends MoveableObject {
                     this.walking_sound.pause();
                 }
             } else {
-                this.idleTimer += 1000 / 120; //sleep while idle
+                this.idleTimer += 1000 / 120;
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -121,15 +121,14 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.isDead() && !this.world.gameOver) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.world.endGame(); // Rufen Sie endGame anstelle von showEndScreen direkt auf
-            } else if (this.isHurt()) {
+                this.world.endGame();
+            } else if (this.isHurt() && !this.world.gameOver) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.hurt_sound.play();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.idleTimer > this.IDLE_THRESHOLD) {
-                    // Play long idle animation if idle for more than 5 seconds
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
