@@ -29,7 +29,6 @@ h1 {
 }
 
 .canvas-container {
-    border: 2px solid yellow;
     height: 480px;
     width: 720px;
     position: relative;
@@ -66,7 +65,6 @@ canvas {
     width: 720px;
     position: absolute;
     z-index: 2;
-    border: 2px solid white;
 }
 
 .end-screen {
@@ -184,7 +182,6 @@ canvas {
 .button-container {
     display: block;
     position: relative;
-    border: 2px solid green;
     width: fit-content;
     height: fit-content;
     left: 20px;
