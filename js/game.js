@@ -14,6 +14,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, level1);
     HideScreens();
+    startMobileButtonTouch();
 }
 
 function playBackgroundMusic() {
@@ -25,7 +26,7 @@ function playBackgroundMusic() {
 function HideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
-    document.getElementById('EndScreen').style.display = 'none'; 
+    document.getElementById('EndScreen').style.display = 'none';
 }
 
 function showEndScreen() {
@@ -54,29 +55,19 @@ function closeControls() {
     document.getElementById('menu').style.display = 'flex';
 }
 
-function openSettings() {
-    document.getElementById('settingsScreen').style.display = 'block';
-    document.getElementById('menu').style.display = 'none';
-}
-
-function closeSettings() {
-    document.getElementById('settingsScreen').style.display = 'none';
-    document.getElementById('menu').style.display = 'flex';
-}
-
 function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
     let canvas = document.getElementById('canvas');
-    let fullscreenButton = document.querySelector('.fullscreen-toggle'); // Klassenname für den Fullscreen-Button
+    let fullscreenButton = document.querySelector('.fullscreen-toggle');
 
     if (!document.fullscreenElement) {
         requestFullscreen(container);
         setCanvasSize(canvas, '100vw', '100vh');
-        fullscreenButton.innerText = 'Fullscreen Off'; // Text ändern zu "Fullscreen Off"
+        fullscreenButton.innerText = 'Fullscreen Off';
     } else {
         exitFullscreen();
         resetCanvasSize(canvas);
-        fullscreenButton.innerText = 'Fullscreen On'; // Text ändern zu "Fullscreen On"
+        fullscreenButton.innerText = 'Fullscreen On';
     }
 }
 
@@ -118,19 +109,31 @@ function adjustCanvasSize() {
     }
 }
 
-function refreshPage(){
+function refreshPage() {
     window.location.reload();
-} 
+}
 
-function gameWonSound(){
+function gameWonSound() {
     gameWon.play();
 }
-function gameLostSound(){
+function gameLostSound() {
     gameLost.play();
+}
+
+function onFullscreenChange() {
+    let fullscreenButton = document.querySelector('.fullscreen-toggle');
+    if (document.fullscreenElement) {
+        fullscreenButton.innerText = 'Fullscreen Off';
+        setCanvasSize(document.getElementById('canvas'), '100vw', '100vh');
+    } else {
+        fullscreenButton.innerText = 'Fullscreen On';
+        resetCanvasSize(document.getElementById('canvas'));
+    }
 }
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
+
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -155,6 +158,7 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
     if (!gameActive) return;
+
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }
@@ -177,6 +181,46 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
-document.addEventListener("fullscreenchange", adjustCanvasSize);
-document.addEventListener("webkitfullscreenchange", adjustCanvasSize);
-document.addEventListener("msfullscreenchange", adjustCanvasSize);
+// Event Listener für Touch-Ereignisse auf mobilen Geräten
+function startMobileButtonTouch() {
+    const leftButton = document.getElementById("mobile-left");
+    const rightButton = document.getElementById("mobile-right");
+    const jumpButton = document.getElementById("mobile-jump");
+    const throwButton = document.getElementById("mobile-throw");
+
+    leftButton.addEventListener("touchstart", () => {
+        keyboard.LEFT = true;
+    });
+
+    leftButton.addEventListener("touchend", () => {
+        keyboard.LEFT = false;
+    });
+
+    rightButton.addEventListener("touchstart", () => {
+        keyboard.RIGHT = true;
+    });
+
+    rightButton.addEventListener("touchend", () => {
+        keyboard.RIGHT = false;
+    });
+
+    jumpButton.addEventListener("touchstart", () => {
+        keyboard.SPACE = true;
+    });
+
+    jumpButton.addEventListener("touchend", () => {
+        keyboard.SPACE = false;
+    });
+
+    throwButton.addEventListener("touchstart", () => {
+        keyboard.D = true;
+    });
+
+    throwButton.addEventListener("touchend", () => {
+        keyboard.D = false;
+    });
+}
+
+document.addEventListener("fullscreenchange", onFullscreenChange);
+document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+document.addEventListener("msfullscreenchange", onFullscreenChange);

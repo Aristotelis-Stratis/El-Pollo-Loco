@@ -30,7 +30,6 @@
 </head>
 
 <body>
-
     <div class="title">
         <h1>El Pollo Loco</h1>
     </div>
@@ -39,13 +38,9 @@
             <div id="menu" class="menu">
                 <button class="button-99" onclick="init()">Start Game</button>
                 <button class="button-99" onclick="openControls()">Controls</button>
-                <button class="button-99" onclick="openSettings()">Settings</button>
+                <button class="button-99  fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
             </div>
         </div>
-
-
-
-
 
         <div id="controlsScreen" class="controls-screen">
             <div class="button-container">
@@ -83,35 +78,22 @@
 
         </div>
 
-
-
-
-
-
-        <div id="settingsScreen" class="settings-screen">
-            <div class="button-container">
-                <button class="button-99" onclick="closeSettings()">Back</button>
-            </div>
-            <div class="screen-title">
-                <h2>Settings</h2>
-            </div>
-            <div class="settings-container">
-                <button class="button-99 s-btn-width" onclick="toggleSound()">Sound On</button>
-                <button class="button-99 s-btn-width fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
-            </div>
-        </div>
-
-
-
-
-
-
-
         <div id="EndScreen" class="end-screen" style="display:none">
-            <button class="button-99"onclick="refreshPage()">Back to Menu</button>
+            <button class="button-99" onclick="refreshPage()">Back to Menu</button>
         </div>
         <div id="content" class="content" style="display:none">
             <canvas width="720" height="480" id="canvas"></canvas>
+        </div>
+
+        <div class="mobile-button-container">
+            <div class="m-btn-image-container m-left">
+                <img id="mobile-left" class="m-btn-img" src="./img/12_icons/MOBILE_LEFT_icon.png" alt="Walk Left">
+                <img id="mobile-right" class="m-btn-img" src="./img/12_icons/MOBILE_RIGHT_icon.png" alt="Walk Right">
+            </div>
+            <div class="m-btn-image-container m-right">
+                <img id="mobile-throw" class="m-btn-img" src="./img/12_icons/MOBILE_THROW_icon.png" alt="Throw">
+                <img id="mobile-jump" class="m-btn-img" src="./img/12_icons/MOBILE_JUMP_icon.png" alt="Jump">
+            </div>
         </div>
     </div>
 </body>

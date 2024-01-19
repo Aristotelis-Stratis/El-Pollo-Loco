@@ -51,7 +51,6 @@ canvas {
 :fullscreen .canvas-container,
 :fullscreen .start-screen,
 :fullscreen .controls-screen,
-:fullscreen .settings-screen,
 :fullscreen .end-screen {
     width: 100vw;
     height: 100vh;
@@ -80,8 +79,7 @@ canvas {
     backdrop-filter: blur(5px);
 }
 
-.controls-screen,
-.settings-screen {
+.controls-screen {
     display: none;
     height: 480px;
     width: 720px;
@@ -116,21 +114,6 @@ canvas {
     font-family: 'Courier New', Courier, monospace;
     font-size: 18px;
     font-weight: 700;
-}
-
-.settings-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 18px;
-    font-weight: 700;
-    margin-left: 225px;
-    margin-right: 225px;
-    height: auto;
-    width: auto;
 }
 
 .box {
@@ -190,7 +173,7 @@ canvas {
 
 .button-99 {
     margin: 10px;
-    padding: 15px 30px;
+    padding: 12px 20px;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
@@ -218,6 +201,35 @@ canvas {
 .button-99:active {
     transform: scale(0.95);
 }
+
 .s-btn-width {
-    width:250px;
+    width: 250px;
+}
+
+.mobile-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    border: 2px solid;
+    z-index: 2;
+}
+
+.m-btn-image-container {
+    display: flex;
+    gap: 30px;
+}
+
+.m-btn-img {
+    width: 45px;
+}
+
+.m-left {
+    margin-left: 50px;
+}
+
+.m-right {
+    margin-right: 50px;
 }
