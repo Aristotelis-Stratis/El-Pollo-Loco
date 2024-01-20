@@ -26,9 +26,11 @@ class World {
         this.run();
     }
 
+
     setWorld() {
         this.character.world = this;
     }
+
 
     run() {
         setInterval(() => {
@@ -40,10 +42,12 @@ class World {
         }, 10);
     }
 
+
     checkCollisions() {
         this.checkCollisionsWithEnemies();
         this.checkCollisionWithEndboss();
     }
+
 
     checkCollisionsWithEnemies() {
         this.level.enemies.forEach((enemy) => {
@@ -57,6 +61,7 @@ class World {
         });
     }
 
+
     checkCollisionWithEndboss() {
         if (this.level.endboss && this.level.endboss.length > 0) {
             this.level.endboss.forEach(boss => {
@@ -67,6 +72,7 @@ class World {
         }
     }
 
+    
     checkCoinCollisions() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -77,6 +83,7 @@ class World {
         });
     }
 
+
     checkBottleCollisions() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -86,6 +93,7 @@ class World {
             }
         });
     }
+
 
     checkThrowObjects() {
         if (this.keyboard.D && this.canThrowBottle && this.bottleBar.collectedBottles > 0 && !this.character.otherDirection) {
@@ -100,6 +108,7 @@ class World {
         }
     }
 
+
     checkBottleHitEndbossCollisions() {
         this.throwableObjects.forEach((bottle, index) => {
             if (this.isBottleCollidingWithEndboss(bottle)) {
@@ -108,9 +117,11 @@ class World {
         });
     }
 
+
     isBottleCollidingWithEndboss(bottle) {
         return !bottle.hasCollided && this.level.endboss[0].isColliding(bottle);
     }
+
 
     handleBottleEndbossCollision(bottle, index) {
         bottle.hasCollided = true;
@@ -122,14 +133,17 @@ class World {
         }, 1000);
     }
 
+
     removeBottleAfterCollision(index) {
         this.throwableObjects.splice(index, 1);
     }
+
 
     handleCollision() {
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
     }
+
 
     handleCollisionAboveGround(enemy) {
         enemy.energy--;
@@ -142,6 +156,7 @@ class World {
         }
     }
 
+
     removeEnemyFromLevel(enemy) {
         const index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
@@ -149,13 +164,16 @@ class World {
         }
     }
 
+
     isEndbossDefeated() {
         return this.level.endboss[0] && this.level.endboss[0].isDead;
     }
 
+
     isCharacterDead() {
         return this.character && this.character.energy <= 0;
     }
+
 
     endGame() {
         if (!this.gameOver) {
@@ -163,6 +181,7 @@ class World {
             showEndScreen();
         }
     }
+
 
     draw() {
         if (!gameActive) return;     
@@ -174,9 +193,11 @@ class World {
         requestAnimationFrame(() => this.draw());
     }
 
+
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
+
 
     drawBackground() {
         this.ctx.translate(this.camera_x, 0);
@@ -184,11 +205,13 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
     }
 
+
     drawMainCharacter() {
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
     }
+
 
     drawUI() {
         this.addToMap(this.statusBar);
@@ -200,11 +223,13 @@ class World {
         }
     }
 
+
     updateEndbossHealthbarVisibility() {
         if (this.character.x > 4500) {
             this.showEndbossHealthbar = true;
         }
     }
+
 
     drawGameObjects() {
         this.ctx.translate(this.camera_x, 0);
@@ -217,11 +242,13 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
     }
 
+
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         })
     }
+
 
     addToMap(mo) {
         if (mo.otherDirection) {
@@ -235,6 +262,7 @@ class World {
         }
     }
 
+
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -242,10 +270,12 @@ class World {
         mo.x = mo.x * -1;
     }
 
+
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
 
     playGameSound(soundFilePath, volume = 0.2) {
         let gameSound = new Audio(soundFilePath);

@@ -39,6 +39,7 @@ class ThrowableObject extends MoveableObject {
         };
     }
 
+    
     throw() {
         this.speedY = 30;
         this.speedX = 30;
@@ -49,11 +50,13 @@ class ThrowableObject extends MoveableObject {
         this.playThrowSound();
     }
 
+
     animate() {
         this.rotationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
         }, 30);
     }
+
 
     animateBottleSplash() {
         clearInterval(this.rotationInterval); // Stoppt die Drehanimation
@@ -62,6 +65,7 @@ class ThrowableObject extends MoveableObject {
         this.applyGravity(false); // Deaktiviert die Schwerkraft, falls vorhanden
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH); 
     }
+
 
     playThrowSound() {
         let throwSound = new Audio('audio/bottle_throw.mp3');

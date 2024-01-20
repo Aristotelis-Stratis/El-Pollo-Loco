@@ -13,10 +13,12 @@ class DrawableObject {
         left: 0
     };
 
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
+
 
     loadImages(array) {
         array.forEach((path) => {
@@ -26,12 +28,14 @@ class DrawableObject {
         });
     }
 
+
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (e) {}
     }
 
+    
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottles || this instanceof ThrowableObject) {
             ctx.beginPath();

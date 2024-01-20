@@ -31,6 +31,7 @@ class Chicken extends MoveableObject {
         };
     }
 
+
     animate() {
         this.movementInterval = setInterval(() => {
             if (this.energy > 0) {
@@ -45,12 +46,15 @@ class Chicken extends MoveableObject {
         }, 120);
     }
 
+
     playDeathAnimation() {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
         this.playAnimation(this.IMAGES_DEAD);
         this.playSoundOnDeath();
     }
+
+    
     playSoundOnDeath(){
         this.death_sound.volume = 0.4;
         this.death_sound.play();

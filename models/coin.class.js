@@ -18,11 +18,13 @@ class Coin extends MoveableObject {
         this.animate();
     }
 
+
     animate() {
         this.animationInterval = setInterval(() => {
             this.toggleImage();
         }, 450);
     }
+
 
     toggleImage() {
         if (this.img.src.endsWith('coin_1.png')) {
@@ -32,6 +34,7 @@ class Coin extends MoveableObject {
         }
     }
 
+    
     stopAnimation() {
         clearInterval(this.animationInterval);
     }

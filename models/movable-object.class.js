@@ -15,6 +15,7 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 40);
     }
 
+
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -22,6 +23,7 @@ class MoveableObject extends DrawableObject {
             return this.y < 150;
         }
     }
+
 
     isColliding(mo) {
         return (
@@ -31,6 +33,7 @@ class MoveableObject extends DrawableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
         );
     }
+
 
     hit() {
         const currentTime = new Date().getTime();
@@ -44,15 +47,18 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHitTime;
         timePassed = timePassed / 1000;
         return timePassed < 1;
     }
 
+
     isDead() {
         return this.energy == 0;
     }
+
 
     playAnimation(images) {
         let i = this.currentImage % images.length;
@@ -61,14 +67,17 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
+
     moveRight() {
         this.x += this.speed;
     }
+
 
     moveLeft() {
         this.x -= this.speed;
     }
 
+    
     jump() {
         this.speedY = 30;
     }

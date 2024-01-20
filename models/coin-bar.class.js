@@ -21,12 +21,14 @@ class CoinBar extends DrawableObject {
         this.setCollectedCoins(0);
     }
 
+
     setCollectedCoins(count) {
         this.collectedCoins = count;
         let path = this.IMAGES_COINS[this.resolveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    
     resolveImagesIndex() {
         let percentage = (this.collectedCoins / MAX_COINS) * 100;
 

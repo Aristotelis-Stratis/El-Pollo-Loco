@@ -7,6 +7,7 @@ gameWon = new Audio('audio/game_won.mp3')
 gameLost = new Audio('audio/game_lost.mp3');
 backgroundMusic.muted = true;
 
+
 function init() {
     gameActive = true;
     initLevel();
@@ -18,17 +19,20 @@ function init() {
     MobileButtonTouch();
 }
 
+
 function playBackgroundMusic() {
     backgroundMusic.volume = 0.1;
     backgroundMusic.muted = false;
     backgroundMusic.play();
 }
 
+
 function HideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     document.getElementById('EndScreen').style.display = 'none';
 }
+
 
 function showEndScreen() {
     gameActive = false;
@@ -46,15 +50,18 @@ function showEndScreen() {
     backgroundMusic.currentTime = 0;
 }
 
+
 function openControls() {
     document.getElementById('controlsScreen').style.display = 'block';
     document.getElementById('menu').style.display = 'none';
 }
 
+
 function closeControls() {
     document.getElementById('controlsScreen').style.display = 'none';
     document.getElementById('menu').style.display = 'flex';
 }
+
 
 function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
@@ -72,14 +79,17 @@ function toggleFullScreen() {
     }
 }
 
+
 function setCanvasSize(canvas, width, height) {
     canvas.style.width = width;
     canvas.style.height = height;
 }
 
+
 function resetCanvasSize(canvas) {
     setCanvasSize(canvas, '720px', '480px');
 }
+
 
 function requestFullscreen(element) {
     if (element.requestFullscreen) {
@@ -91,6 +101,7 @@ function requestFullscreen(element) {
     }
 }
 
+
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -101,6 +112,7 @@ function exitFullscreen() {
     }
 }
 
+
 function adjustCanvasSize() {
     let canvas = document.getElementById('canvas');
     if (document.fullscreenElement) {
@@ -110,16 +122,21 @@ function adjustCanvasSize() {
     }
 }
 
+
 function refreshPage() {
     window.location.reload();
 }
 
+
 function gameWonSound() {
     gameWon.play();
 }
+
+
 function gameLostSound() {
     gameLost.play();
 }
+
 
 function onFullscreenChange() {
     let fullscreenButton = document.querySelector('.fullscreen-toggle');
@@ -132,6 +149,7 @@ function onFullscreenChange() {
     }
 }
 
+
 function toggleRotateScreen() {
     const rotateContainer = document.querySelector('.rotate-container');
 
@@ -143,6 +161,7 @@ function toggleRotateScreen() {
         rotateContainer.style.display = 'none';
     }
 }
+
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
@@ -169,6 +188,7 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
+
 window.addEventListener("keyup", (event) => {
     if (!gameActive) return;
 
@@ -193,6 +213,7 @@ window.addEventListener("keyup", (event) => {
         keyboard.D = false;
     }
 });
+
 
 function MobileButtonTouch() {
     const leftButton = document.getElementById("mobile-left");
@@ -232,6 +253,7 @@ function MobileButtonTouch() {
         keyboard.D = false;
     });
 }
+
 
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
