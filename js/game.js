@@ -14,6 +14,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, level1);
     HideScreens();
+    toggleRotateScreen();
     startMobileButtonTouch();
 }
 
@@ -131,6 +132,18 @@ function onFullscreenChange() {
     }
 }
 
+function toggleRotateScreen() {
+    const rotateContainer = document.querySelector('.rotate-container');
+
+    if (window.orientation === 90 || window.orientation === -90) {
+        rotateContainer.style.display = 'none';
+    } else if (window.innerWidth <= 1368) {
+        rotateContainer.style.display = 'flex';
+    } else {
+        rotateContainer.style.display = 'none';
+    }
+}
+
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
 
@@ -181,7 +194,6 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
-// Event Listener für Touch-Ereignisse auf mobilen Geräten
 function startMobileButtonTouch() {
     const leftButton = document.getElementById("mobile-left");
     const rightButton = document.getElementById("mobile-right");
@@ -224,3 +236,8 @@ function startMobileButtonTouch() {
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 document.addEventListener("msfullscreenchange", onFullscreenChange);
+window.addEventListener('resize', toggleRotateScreen);
+window.addEventListener('orientationchange', toggleRotateScreen);
+document.addEventListener('DOMContentLoaded', () => {
+    toggleRotateScreen();
+});

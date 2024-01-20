@@ -208,12 +208,11 @@ canvas {
 
 .mobile-button-container {
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: space-between;
     position: absolute;
     bottom: 0;
     margin-bottom: 10px;
-    border: 2px solid;
     z-index: 2;
 }
 
@@ -232,4 +231,57 @@ canvas {
 
 .m-right {
     margin-right: 50px;
+}
+
+.rotate-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #30363c;
+    backdrop-filter: blur(15px);
+    z-index: 3;
+    position: absolute;
+}
+
+.rotate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    gap: 50px;
+}
+
+.rotate img {
+    width: 100px;
+}
+
+@media only screen and (max-width:1368px) {
+    .mobile-button-container {
+        display: flex;
+    }
+
+    .canvas-container,
+    .start-screen,
+    .end-screen,
+    .content,
+    canvas {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .end-screen button {
+        bottom: 10px;
+    }
+
+    .title,
+    .fullscreen-toggle {
+        display: none;
+    }
+    .screen-title h2 {
+        margin-block-start: 0.2em;
+        margin-block-end: 0.2em;
+    }
 }
