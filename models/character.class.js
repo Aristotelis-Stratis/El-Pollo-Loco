@@ -4,7 +4,7 @@ class Character extends MoveableObject {
     width = 100;
     speed = 8;
     idleTimer = 0;
-    IDLE_THRESHOLD = 5000;
+    IDLE_THRESHOLD = 2000;
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -93,8 +93,8 @@ class Character extends MoveableObject {
     animate() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.idleTimer = 0;
                 if (this.idleTimer > this.IDLE_THRESHOLD) {
-                    this.idleTimer = 0;
                     this.playAnimation(this.IMAGES_WALKING);
                 }
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -110,11 +110,12 @@ class Character extends MoveableObject {
             } else {
                 this.idleTimer += 1000 / 120;
             }
-
+    
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.idleTimer = 0;
             }
-
+            console.log('Der idleTimer ist = ', this.idleTimer);
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
