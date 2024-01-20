@@ -124,7 +124,6 @@ class Character extends MoveableObject {
             this.jump();
             this.idleTimer = 0;
         }
-        console.log('Der idleTimer ist = ', this.idleTimer);
         this.world.camera_x = -this.x + 100;
     }
     

@@ -32,7 +32,6 @@ class MoveableObject extends DrawableObject {
         );
     }
 
-
     hit() {
         const currentTime = new Date().getTime();
         if (currentTime - this.lastHitTime > this.hitCooldown) {
@@ -44,7 +43,6 @@ class MoveableObject extends DrawableObject {
             }
         }
     }
-
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHitTime;

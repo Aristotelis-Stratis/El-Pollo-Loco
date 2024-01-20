@@ -15,7 +15,7 @@ function init() {
     world = new World(canvas, keyboard, level1);
     HideScreens();
     toggleRotateScreen();
-    startMobileButtonTouch();
+    MobileButtonTouch();
 }
 
 function playBackgroundMusic() {
@@ -194,7 +194,7 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
-function startMobileButtonTouch() {
+function MobileButtonTouch() {
     const leftButton = document.getElementById("mobile-left");
     const rightButton = document.getElementById("mobile-right");
     const jumpButton = document.getElementById("mobile-jump");

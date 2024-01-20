@@ -52,7 +52,6 @@ class World {
                     this.handleCollisionAboveGround(enemy);
                 } else if (this.character.energy > 0) {
                     this.handleCollision();
-                    console.log(this.character.energy);
                 }
             }
         });
@@ -63,7 +62,6 @@ class World {
             this.level.endboss.forEach(boss => {
                 if (this.character.isColliding(boss)) {
                     this.handleCollision();
-                    console.log(this.character.energy);
                 }
             });
         }

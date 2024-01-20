@@ -29,10 +29,7 @@ class DrawableObject {
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        } catch (e) {
-            console.warn('Error loading Image', e);
-            console.log('Could not load image, ', this.img.src)
-        }
+        } catch (e) {}
     }
 
     drawFrame(ctx) {

@@ -1,4 +1,4 @@
-const MAX_BOTTLES = 13;
+const MAX_BOTTLES = 17;
 
 class BottleBar extends DrawableObject {
     IMAGES_BOTTLES = [
@@ -23,8 +23,6 @@ class BottleBar extends DrawableObject {
     }
 
     setCollectedBottles(count) {
-        console.log(`Number of collected bottles: ${count}`);
-
         this.collectedBottles = count;
         let path = this.IMAGES_BOTTLES[this.resolveImagesIndex()];
         this.img = this.imageCache[path];
