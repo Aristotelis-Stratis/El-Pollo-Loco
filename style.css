@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'zabras';
-    src: url('../fonts/zabras.ttf') format('truetype');
+    src: url('./fonts/zabras.ttf') format('truetype');
 }
 
 body {
@@ -214,15 +214,21 @@ canvas {
     bottom: 0;
     margin-bottom: 10px;
     z-index: 2;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .m-btn-image-container {
     display: flex;
     gap: 30px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .m-btn-img {
     width: 45px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .m-left {
