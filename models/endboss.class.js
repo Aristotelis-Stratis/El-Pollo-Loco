@@ -45,7 +45,7 @@ class Endboss extends MoveableObject {
     IMAGES_DEAD = [
         'img/4_enemie_boss_chicken/5_dead/G24.png',
         'img/4_enemie_boss_chicken/5_dead/G25.png',
-        'img/4_enemie_boss_chicken/5_dead/G26.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
     alert_sound = new Audio('audio/boss_intro_sound.mp3');

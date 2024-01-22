@@ -1,11 +1,16 @@
 class Coin extends MoveableObject {
+    IMAGES_COINS = [
+        'img/8_coin/coin_1.png',
+        'img/8_coin/coin_2.png'
+    ];
     percentage = 100;
     animationInterval;
 
     constructor(x, y) {
         super();
+        this.loadImages(this.IMAGES_COINS);
         this.loadImage('img/8_coin/coin_1.png');
-        this.x = x+500;
+        this.x = x + 500;
         this.y = y;
         this.width = 100;
         this.height = 100;
@@ -20,22 +25,8 @@ class Coin extends MoveableObject {
 
 
     animate() {
-        this.animationInterval = setInterval(() => {
-            this.toggleImage();
-        }, 450);
-    }
-
-
-    toggleImage() {
-        if (this.img.src.endsWith('coin_1.png')) {
-            this.img.src = 'img/8_coin/coin_2.png';
-        } else {
-            this.img.src = 'img/8_coin/coin_1.png';
-        }
-    }
-
-    
-    stopAnimation() {
-        clearInterval(this.animationInterval);
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_COINS);
+        }, 300)
     }
 }
