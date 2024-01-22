@@ -29,6 +29,7 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.height = 80;
         this.width = 65;
+        this.throwInterval = null;
         this.throw();
         this.animate();
         this.offset = {
@@ -44,7 +45,7 @@ class ThrowableObject extends MoveableObject {
         this.speedY = 30;
         this.speedX = 30;
         this.applyGravity();
-        setInterval(() => {
+        this.throwInterval = setInterval(() => {
             this.x += 25;
         }, 60);
         this.playThrowSound();
@@ -63,6 +64,7 @@ class ThrowableObject extends MoveableObject {
         this.speedX = 0;
         this.speedY = 0;
         this.applyGravity(false);
+        clearInterval(this.throwInterval);
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH); 
     }
 

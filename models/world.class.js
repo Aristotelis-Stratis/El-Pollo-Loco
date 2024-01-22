@@ -79,6 +79,7 @@ class World {
                 this.level.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
                 this.playGameSound('audio/coin.mp3', 0.1);
+                coin.stopAnimation();
             }
         });
     }

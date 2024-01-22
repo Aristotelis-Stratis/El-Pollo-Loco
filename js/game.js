@@ -17,7 +17,7 @@ function init() {
     HideScreens();
     toggleRotateScreen();
     MobileButtonTouch();
-    document.querySelector('.mobile-button-container').style.display = 'flex';
+    toggleMobileButtonContainer();
 }
 
 
@@ -161,6 +161,16 @@ function toggleRotateScreen() {
     }
 }
 
+function toggleMobileButtonContainer() {
+    const mobileButtonContainer = document.querySelector('.mobile-button-container');
+    const isMobileMode = window.innerWidth <= 1368;
+
+    if (isMobileMode) {
+        mobileButtonContainer.style.display = 'flex';
+    } else {
+        mobileButtonContainer.style.display = 'none';
+    }
+}
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
@@ -264,5 +274,5 @@ document.addEventListener("msfullscreenchange", onFullscreenChange);
 window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
-window.addEventListener('orientationchange', toggleRotateScreen);
-window.addEventListener('resize', toggleRotateScreen);
+window.addEventListener('orientationchange', toggleRotateScreen,toggleMobileButtonContainer);
+window.addEventListener('resize', toggleRotateScreen,toggleMobileButtonContainer);
