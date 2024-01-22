@@ -225,7 +225,7 @@ function MobileButtonTouch() {
         keyboard.LEFT = true;
     });
 
-    leftButton.addEventListener("touchend", () => {
+    leftButton.addEventListener("touchend", (event) => {
         keyboard.LEFT = false;
     });
 
@@ -234,7 +234,7 @@ function MobileButtonTouch() {
         keyboard.RIGHT = true;
     });
 
-    rightButton.addEventListener("touchend", () => {
+    rightButton.addEventListener("touchend", (event) => {
         keyboard.RIGHT = false;
     });
 
@@ -243,7 +243,7 @@ function MobileButtonTouch() {
         keyboard.SPACE = true;
     });
 
-    jumpButton.addEventListener("touchend", () => {
+    jumpButton.addEventListener("touchend", (event) => {
         keyboard.SPACE = false;
     });
 
@@ -252,7 +252,7 @@ function MobileButtonTouch() {
         keyboard.D = true;
     });
 
-    throwButton.addEventListener("touchend", () => {
+    throwButton.addEventListener("touchend", (event) => {
         keyboard.D = false;
     });
 }
