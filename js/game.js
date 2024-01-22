@@ -153,9 +153,7 @@ function onFullscreenChange() {
 function toggleRotateScreen() {
     const rotateContainer = document.querySelector('.rotate-container');
 
-    if (window.orientation === 90 || window.orientation === -90) {
-        rotateContainer.style.display = 'none';
-    } else if (window.innerWidth <= 1368) {
+    if (window.innerWidth <= 1368 && window.innerHeight > window.innerWidth) {
         rotateContainer.style.display = 'flex';
     } else {
         rotateContainer.style.display = 'none';
@@ -258,8 +256,14 @@ function MobileButtonTouch() {
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 document.addEventListener("msfullscreenchange", onFullscreenChange);
-window.addEventListener('resize', toggleRotateScreen);
-window.addEventListener('orientationchange', toggleRotateScreen);
-document.addEventListener('DOMContentLoaded', () => {
+
+// Rufe die Funktion beim Laden der Seite auf
+window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
+
+// Füge ein Event-Listener für die Änderung der Bildschirmausrichtung hinzu
+window.addEventListener('orientationchange', toggleRotateScreen);
+
+// Füge ein Event-Listener für die Änderung der Fenstergröße hinzu
+window.addEventListener('resize', toggleRotateScreen);
