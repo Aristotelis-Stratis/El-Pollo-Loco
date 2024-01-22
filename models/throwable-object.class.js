@@ -59,10 +59,10 @@ class ThrowableObject extends MoveableObject {
 
 
     animateBottleSplash() {
-        clearInterval(this.rotationInterval); // Stoppt die Drehanimation
+        clearInterval(this.rotationInterval);
         this.speedX = 0;
         this.speedY = 0;
-        this.applyGravity(false); // Deaktiviert die Schwerkraft, falls vorhanden
+        this.applyGravity(false);
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH); 
     }
 
