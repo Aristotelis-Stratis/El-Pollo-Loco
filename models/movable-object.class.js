@@ -24,6 +24,21 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    
+    moveRight() {
+        this.x += this.speed;
+    }
+
+
+    moveLeft() {
+        this.x -= this.speed;
+    }
+
+    
+    jump() {
+        this.speedY = 30;
+    }
+
 
     isColliding(mo) {
         return (
@@ -65,20 +80,5 @@ class MoveableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-    }
-
-
-    moveRight() {
-        this.x += this.speed;
-    }
-
-
-    moveLeft() {
-        this.x -= this.speed;
-    }
-
-    
-    jump() {
-        this.speedY = 30;
     }
 }

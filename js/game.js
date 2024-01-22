@@ -17,6 +17,7 @@ function init() {
     HideScreens();
     toggleRotateScreen();
     MobileButtonTouch();
+    document.querySelector('.mobile-button-container').style.display = 'flex';
 }
 
 
@@ -219,7 +220,8 @@ function MobileButtonTouch() {
     const jumpButton = document.getElementById("mobile-jump");
     const throwButton = document.getElementById("mobile-throw");
 
-    leftButton.addEventListener("touchstart", () => {
+    leftButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
         keyboard.LEFT = true;
     });
 
@@ -227,7 +229,8 @@ function MobileButtonTouch() {
         keyboard.LEFT = false;
     });
 
-    rightButton.addEventListener("touchstart", () => {
+    rightButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
         keyboard.RIGHT = true;
     });
 
@@ -235,7 +238,8 @@ function MobileButtonTouch() {
         keyboard.RIGHT = false;
     });
 
-    jumpButton.addEventListener("touchstart", () => {
+    jumpButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
         keyboard.SPACE = true;
     });
 
@@ -243,7 +247,8 @@ function MobileButtonTouch() {
         keyboard.SPACE = false;
     });
 
-    throwButton.addEventListener("touchstart", () => {
+    throwButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
         keyboard.D = true;
     });
 
@@ -256,14 +261,8 @@ function MobileButtonTouch() {
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 document.addEventListener("msfullscreenchange", onFullscreenChange);
-
-// Rufe die Funktion beim Laden der Seite auf
 window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
-
-// Füge ein Event-Listener für die Änderung der Bildschirmausrichtung hinzu
 window.addEventListener('orientationchange', toggleRotateScreen);
-
-// Füge ein Event-Listener für die Änderung der Fenstergröße hinzu
 window.addEventListener('resize', toggleRotateScreen);

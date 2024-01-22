@@ -290,7 +290,5 @@ canvas {
 }
 
 @media only screen and (orientation: landscape) and (max-width: 1368px) {
-    .mobile-button-container {
-        display: flex;
-    }
+
 }
