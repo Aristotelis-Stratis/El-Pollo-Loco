@@ -64,6 +64,17 @@ function closeControls() {
 }
 
 
+function openStory() {
+    document.getElementById('storyScreen').style.display = 'flex';
+    document.getElementById('menu').style.display = 'none';
+}
+
+function closeStory() {
+    document.getElementById('storyScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+
 function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
     let canvas = document.getElementById('canvas');

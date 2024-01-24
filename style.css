@@ -51,10 +51,14 @@ canvas {
 :fullscreen .canvas-container,
 :fullscreen .start-screen,
 :fullscreen .controls-screen,
-:fullscreen .end-screen {
+:fullscreen .end-screen,
+:fullscreen .story-container {
     width: 100vw;
     height: 100vh;
 }
+
+:fullscreen .controls,
+:fullscreen .story {}
 
 .start-screen {
     background: url('img/9_intro_outro_screens/start/startscreen_1.png');
@@ -79,13 +83,18 @@ canvas {
     backdrop-filter: blur(5px);
 }
 
-.controls-screen {
+.controls-screen,
+.story-container {
     display: none;
     height: 480px;
     width: 720px;
     position: absolute;
     z-index: 3;
     backdrop-filter: blur(15px);
+}
+
+.story-container {
+    flex-direction: column;
 }
 
 .screen-title {
@@ -100,11 +109,20 @@ canvas {
     margin-block-end: 0.7em;
 }
 
-.controls {
+.controls,
+.story {
     display: flex;
     justify-content: center;
     margin-left: 100px;
     margin-right: 100px;
+}
+
+.story {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    hyphens: auto;
+    text-align: justify;
 }
 
 .controls-container {
@@ -265,6 +283,7 @@ canvas {
 }
 
 @media only screen and (max-width:1368px) {
+
     .canvas-container,
     .start-screen,
     .end-screen,
@@ -289,6 +308,4 @@ canvas {
     }
 }
 
-@media only screen and (orientation: landscape) and (max-width: 1368px) {
-
-}
+@media only screen and (orientation: landscape) and (max-width: 1368px) {}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html translate="no" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +44,7 @@
             <div id="menu" class="menu">
                 <button class="button-99" onclick="init()">Start Game</button>
                 <button class="button-99" onclick="openControls()">Controls</button>
+                <button class="button-99" onclick="openStory()">Story</button>
                 <button class="button-99  fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
             </div>
         </div>
@@ -80,6 +82,22 @@
                 </div>
             </div>
         </div>
+
+        <div id="storyScreen" class="story-container" style="display:none">
+            <div class="button-container">
+                <button class="button-99" onclick="closeStory()">Back</button>
+            </div>
+            <div class="screen-title">
+                <h2>The Legend of Pepe</h2>
+            </div>
+            <div class="story">
+                <p>Pepe, a courageous Mexican villager, resides in a peaceful little village that finds itself
+                    unexpectedly threatened by a flock of wild chickens. Known for his agility and bravery, Pepe bravely
+                    accepts the challenge to protect his village. With a calm resolve and a dash of heroism, he faces
+                    the feathered foes, aiming to bring back peace and order to the place he calls home.</p>
+            </div>
+        </div>
+
         <div id="EndScreen" class="end-screen" style="display:none">
             <button class="button-99" onclick="refreshPage()">Back to Menu</button>
         </div>
@@ -100,8 +118,3 @@
 </body>
 
 </html>
-
-
-<!-- die Flasche verschwindet wenn sie einen Gegner trifft
-
-Optional: Eine kurze Geschichte, wo erklärt wird, um was es in dem Spiel geht.  -->
