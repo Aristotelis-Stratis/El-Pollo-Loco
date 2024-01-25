@@ -14,9 +14,9 @@ function init() {
     playBackgroundMusic();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, level1);
-    HideScreens();
+    hideScreens();
     toggleRotateScreen();
-    MobileButtonTouch();
+    mobileButtonTouch();
     toggleMobileButtonContainer();
 }
 
@@ -46,7 +46,7 @@ function toggleBackgroundMusic() {
 }
 
 
-function HideScreens() {
+function hideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     document.getElementById('EndScreen').style.display = 'none';
@@ -268,7 +268,7 @@ window.addEventListener("keyup", (event) => {
 });
 
 
-function MobileButtonTouch() {
+function mobileButtonTouch() {
     const leftButton = document.getElementById("mobile-left");
     const rightButton = document.getElementById("mobile-right");
     const jumpButton = document.getElementById("mobile-jump");

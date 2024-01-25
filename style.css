@@ -306,6 +306,9 @@ canvas {
 }
 
 @media only screen and (max-width:1368px) {
+    .menu {
+        gap: 10px;
+    }
 
     .button-99 {
         margin: 0;
