@@ -45,7 +45,23 @@
                 <button class="button-99" onclick="init()">Start Game</button>
                 <button class="button-99" onclick="openControls()">Controls</button>
                 <button class="button-99" onclick="openStory()">Story</button>
-                <button class="button-99  fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
+                <button class="button-99" onclick="openSettings()">Settings</button>
+            </div>
+        </div>
+
+        <div id="settingsScreen" class="settings-screen" style="display:none">
+            <div class="button-container">
+                <button class="button-99" onclick="closeSettings()">Back</button>
+            </div>
+            <div class="fs-centered">
+                <div class="screen-title">
+                    <h2>Settings</h2>
+                </div>
+                <div id="settings" class="settings">
+                    <button class="button-99 fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
+                    <button id="music-toggle-button" class="button-99" onclick="toggleBackgroundMusic()">Sound
+                        On</button>
+                </div>
             </div>
         </div>
 

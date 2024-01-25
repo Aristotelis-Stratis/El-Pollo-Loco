@@ -52,13 +52,15 @@ canvas {
 :fullscreen .start-screen,
 :fullscreen .controls-screen,
 :fullscreen .end-screen,
-:fullscreen .story-container {
+:fullscreen .story-container,
+:fullscreen .settings-screen {
     width: 100vw;
     height: 100vh;
 }
 
 :fullscreen .controls,
-:fullscreen .story {
+:fullscreen .story,
+:fullscreen .settings {
     width: 50%;
     height: 50%;
     margin: auto;
@@ -97,7 +99,8 @@ canvas {
 }
 
 .controls-screen,
-.story-container {
+.story-container,
+.settings-screen {
     display: none;
     height: 480px;
     width: 720px;
@@ -105,6 +108,13 @@ canvas {
     z-index: 3;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .story-container {

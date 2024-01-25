@@ -2,10 +2,10 @@ let canvas;
 let world;
 let gameActive = true;
 let keyboard = new Keyboard();
-backgroundMusic = new Audio('audio/game.mp3');
-gameWon = new Audio('audio/game_won.mp3')
-gameLost = new Audio('audio/game_lost.mp3');
-backgroundMusic.muted = true;
+let backgroundMusic = new Audio('audio/game.mp3');
+let gameWon = new Audio('audio/game_won.mp3');
+let gameLost = new Audio('audio/game_lost.mp3');
+let backgroundMusicMuted = false;
 
 
 function init() {
@@ -23,8 +23,26 @@ function init() {
 
 function playBackgroundMusic() {
     backgroundMusic.volume = 0.1;
-    backgroundMusic.muted = false;
+    backgroundMusic.muted = backgroundMusicMuted;
     backgroundMusic.play();
+}
+
+
+function updateMusicToggleButton() {
+    let musicToggleButton = document.getElementById('music-toggle-button');
+    
+    if (backgroundMusicMuted) {
+        musicToggleButton.innerText = 'Sound Off';
+    } else {
+        musicToggleButton.innerText = 'Sound On';
+    }
+}
+
+
+function toggleBackgroundMusic() {
+    backgroundMusicMuted = !backgroundMusicMuted;
+    backgroundMusic.muted = backgroundMusicMuted;
+    updateMusicToggleButton();
 }
 
 
@@ -64,10 +82,23 @@ function closeControls() {
 }
 
 
+function openSettings() {
+    document.getElementById('settingsScreen').style.display = 'block';
+    document.getElementById('menu').style.display = 'none';
+}
+
+
+function closeSettings() {
+    document.getElementById('settingsScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+
 function openStory() {
     document.getElementById('storyScreen').style.display = 'flex';
     document.getElementById('menu').style.display = 'none';
 }
+
 
 function closeStory() {
     document.getElementById('storyScreen').style.display = 'none';
@@ -172,6 +203,7 @@ function toggleRotateScreen() {
     }
 }
 
+
 function toggleMobileButtonContainer() {
     const mobileButtonContainer = document.querySelector('.mobile-button-container');
     const isMobileMode = window.innerWidth <= 1368;
@@ -182,6 +214,7 @@ function toggleMobileButtonContainer() {
         mobileButtonContainer.style.display = 'none';
     }
 }
+
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
@@ -285,5 +318,5 @@ document.addEventListener("msfullscreenchange", onFullscreenChange);
 window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
-window.addEventListener('orientationchange', toggleRotateScreen,toggleMobileButtonContainer);
-window.addEventListener('resize', toggleRotateScreen,toggleMobileButtonContainer);
+window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer);
+window.addEventListener('resize', toggleRotateScreen, toggleMobileButtonContainer);
