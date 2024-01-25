@@ -58,7 +58,19 @@ canvas {
 }
 
 :fullscreen .controls,
-:fullscreen .story {}
+:fullscreen .story {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+
+}
+
+:fullscreen .fs-centered {
+    position: absolute;
+    top: 30%;
+    width: 1000px;
+    left: 30%;
+}
 
 .start-screen {
     background: url('img/9_intro_outro_screens/start/startscreen_1.png');
@@ -81,6 +93,7 @@ canvas {
     justify-content: center;
     z-index: 2;
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .controls-screen,
@@ -91,6 +104,7 @@ canvas {
     position: absolute;
     z-index: 3;
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 .story-container {
@@ -265,6 +279,7 @@ canvas {
     height: 100vh;
     background-color: #30363c;
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 4;
     position: absolute;
 }
