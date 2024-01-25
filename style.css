@@ -160,7 +160,6 @@ canvas {
 
 .box {
     height: 70px;
-    /* border: 2px solid red; */
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -194,14 +193,13 @@ canvas {
 .menu {
     display: flex;
     position: absolute;
-    width: 100%;
+    width: fit-content;
     top: 60px;
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
     gap: 15px;
-    /* border: 2px solid red; */
 }
 
 .button-container {
@@ -309,6 +307,18 @@ canvas {
 
 @media only screen and (max-width:1368px) {
 
+    .button-99 {
+        margin: 0;
+        padding: 10px 10px;
+    }
+
+    .controls-screen,
+    .story-container,
+    .settings-screen {
+        width: 100vw;
+        height: 100vh;
+    }
+
     .canvas-container,
     .start-screen,
     .end-screen,
@@ -332,5 +342,3 @@ canvas {
         margin-block-end: 0.2em;
     }
 }
-
-@media only screen and (orientation: landscape) and (max-width: 1368px) {}

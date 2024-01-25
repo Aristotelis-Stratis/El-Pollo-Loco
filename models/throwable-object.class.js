@@ -73,5 +73,4 @@ class ThrowableObject extends MoveableObject {
         let throwSound = new Audio('audio/bottle_throw.mp3');
         throwSound.play();
     }
-
 }
