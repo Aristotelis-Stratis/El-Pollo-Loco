@@ -21,6 +21,35 @@ function init() {
 }
 
 
+// function stopAllIntervals() {
+//     // Hier sollten Sie alle Intervalle, die im Spiel verwendet werden, stoppen.
+//     // Zum Beispiel: clearInterval(intervalName);
+// }
+
+
+function returnToMenu() {
+    // // Stopp alle Intervalle
+    // stopAllIntervals();
+
+    // // Setze das Spiel zurück, indem du die `init()` Funktion aufrufst
+    // init();
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+
+/**
+ * Stops all intervals used in the game.
+ */
+function stopAllIntervals() {
+    intervals.forEach((intervalId) => {
+        clearInterval(intervalId);
+    });
+    intervals = []; // Das Array leeren
+}
+
+
 function playBackgroundMusic() {
     backgroundMusic.volume = 0.1;
     backgroundMusic.muted = backgroundMusicMuted;
@@ -30,7 +59,7 @@ function playBackgroundMusic() {
 
 function updateMusicToggleButton() {
     let musicToggleButton = document.getElementById('music-toggle-button');
-    
+
     if (backgroundMusicMuted) {
         musicToggleButton.innerText = 'Sound Off';
     } else {
@@ -49,13 +78,13 @@ function toggleBackgroundMusic() {
 function hideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
-    document.getElementById('EndScreen').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'none';
 }
 
 
 function showEndScreen() {
     gameActive = false;
-    let endScreen = document.getElementById('EndScreen');
+    let endScreen = document.getElementById('endScreen');
     if (world.isEndbossDefeated()) {
         gameWonSound();
         endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";

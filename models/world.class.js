@@ -59,9 +59,52 @@ class World {
                 }
             }
         });
+    
+        this.checkBottleEnemyCollisions();
+    }
+    
+    checkBottleEnemyCollisions() {
+        this.throwableObjects.forEach((bottle, bottleIndex) => {
+            this.level.enemies.forEach((enemy, enemyIndex) => {
+                if (!bottle.hasCollided && enemy.energy > 0 && enemy.isColliding(bottle)) {
+                    this.handleBottleEnemyCollision(bottle, bottleIndex, enemy);
+                }
+            });
+        });
+    }
+    
+
+    handleBottleEnemyCollision(bottle, bottleIndex, enemy) {
+        bottle.hasCollided = true;
+        enemy.energy--;
+        
+        this.playEnemyDeathAnimation(enemy);
+        this.playBottleShatterSound();
+        bottle.animateBottleSplash();
+        this.removeBottleAndEnemyAfterCollision(bottleIndex, enemy);
+    }
+    
+    
+    playEnemyDeathAnimation(enemy) {
+        if (enemy.energy === 0) {
+            enemy.playDeathAnimation();
+        }
     }
 
+    
+    removeBottleAndEnemyAfterCollision(bottleIndex, enemy) {
+        if (enemy.energy === 0) {
+            setTimeout(() => {
+                this.removeEnemyFromLevel(enemy);
+            }, 500);
+        }
+        
+        setTimeout(() => {
+            this.removeBottleAfterCollision(bottleIndex);
+        }, 1000);
+    }
 
+    
     checkCollisionWithEndboss() {
         if (this.level.endboss && this.level.endboss.length > 0) {
             this.level.endboss.forEach(boss => {
@@ -72,7 +115,7 @@ class World {
         }
     }
 
-    
+
     checkCoinCollisions() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -127,7 +170,7 @@ class World {
     handleBottleEndbossCollision(bottle, index) {
         bottle.hasCollided = true;
         this.level.endboss[0].bossIsHit();
-        this.playGameSound('audio/bottle_shatter.mp3');
+        playBottleShatterSound();
         bottle.animateBottleSplash();
         setTimeout(() => {
             this.removeBottleAfterCollision(index);
@@ -185,7 +228,7 @@ class World {
 
 
     draw() {
-        if (!gameActive) return;     
+        if (!gameActive) return;
         this.clearCanvas();
         this.drawBackground();
         this.drawMainCharacter();
@@ -256,7 +299,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        
+
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -282,5 +325,9 @@ class World {
         let gameSound = new Audio(soundFilePath);
         gameSound.volume = volume;
         gameSound.play();
+    }
+
+    playBottleShatterSound() {
+        this.playGameSound('audio/bottle_shatter.mp3');
     }
 }

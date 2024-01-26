@@ -1,4 +1,4 @@
-MAX_COINS = 10;
+MAX_COINS = 25;
 class CoinBar extends DrawableObject {
     IMAGES_COINS = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
@@ -14,7 +14,7 @@ class CoinBar extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES_COINS);
-        this.x = 40;
+        this.x = 15;
         this.y = 50;
         this.width = 200;
         this.height = 60;

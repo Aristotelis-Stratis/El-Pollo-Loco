@@ -49,6 +49,18 @@
             </div>
         </div>
 
+
+
+        <div class="ingame-menu">
+
+            <button class="button-99 pd" onclick="closeSettings()"><img class="ig-btn"src="./img/12_icons/SOUND_ON_icon.png"></button>
+            <button class="button-99 pd" onclick="closeSettings()"><img class="ig-btn"src="./img/12_icons/SETTINGS_icon.png"></button>
+            <button class="button-99 pd fullscreen-toggle" onclick="toggleFullScreen()"><img class="ig-btn"src="./img/12_icons/FULLSCREEN_ON_icon.png"></button>
+
+        </div>
+
+
+
         <div id="settingsScreen" class="settings-screen" style="display:none">
             <div class="button-container">
                 <button class="button-99" onclick="closeSettings()">Back</button>
@@ -120,8 +132,8 @@
             </div>
         </div>
 
-        <div id="EndScreen" class="end-screen" style="display:none">
-            <button class="button-99" onclick="refreshPage()">Back to Menu</button>
+        <div id="endScreen" class="end-screen" style="display:none">
+            <button class="button-99" onclick="returnToMenu()">Back to Menu</button>
         </div>
         <div id="content" class="content" style="display:none">
             <canvas width="720" height="480" id="canvas"></canvas>
@@ -140,3 +152,15 @@
 </body>
 
 </html>
+
+<!-- 
+// Settings-Menü auch ingame abrufbar machen                                            --- FUNKTIONALITÄT FEHLT, DESIGN OK
+// kleine Chicken auch mit Flaschen abwerfen                                            --- ERLEDIGT
+// MAX_COINS korrigieren                                                                --- ERLEDIGT
+// Boss HP erhöhen bzw. schwieriger machen                                                             
+// Deathanimation vom endboss länger durchlaufen lassen                                 --- ERLEDIGT
+// resolveImagesIndex in drawableObject auslagern und darauf zugreifen 
+// character animate-Funktionen auslagern und CC
+// bei "Back To Menu" seite nicht neu laden lassen, sondern nur das game neu starten
+// JSDoc3 generieren 
+-->

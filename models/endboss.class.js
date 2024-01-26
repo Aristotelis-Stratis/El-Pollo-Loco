@@ -172,7 +172,7 @@ class Endboss extends MoveableObject {
             this.startDeathAnimation();
             setTimeout(() => {
                 showEndScreen();
-              }, 300);
+              }, 1000);
         }
         this.updateHealthBar();
     }
@@ -185,7 +185,7 @@ class Endboss extends MoveableObject {
 
 
     startDeathAnimation() {
-        this.deathAnimationInterval = this.startAnimationInterval(this.IMAGES_DEAD, 180, () => {
+        this.deathAnimationInterval = this.startAnimationInterval(this.IMAGES_DEAD, 250, () => {
             this.endDeathAnimation();
         });
     }
