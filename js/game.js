@@ -18,7 +18,6 @@ function init() {
     toggleRotateScreen();
     mobileButtonTouch();
     toggleMobileButtonContainer();
-    console.log(intervals);
 }
 
 
