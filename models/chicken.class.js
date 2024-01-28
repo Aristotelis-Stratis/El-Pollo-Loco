@@ -22,6 +22,8 @@ class Chicken extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = x;
         this.speed = 0.15 + Math.random() * 0.25;
+        this.movementInterval = null;
+        this.animationInterval = null;
         this.animate();
         this.offset = {
             top: 5,
@@ -46,16 +48,21 @@ class Chicken extends MoveableObject {
         }, 120);
     }
 
-
-    playDeathAnimation() {
+    
+    stopIntervals() {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
+    }
+
+
+    playDeathAnimation() {
+        this.stopIntervals();
         this.playAnimation(this.IMAGES_DEAD);
         this.playSoundOnDeath();
     }
 
-    
-    playSoundOnDeath(){
+
+    playSoundOnDeath() {
         this.death_sound.volume = 0.4;
         this.death_sound.play();
     }

@@ -60,8 +60,9 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 5000;
-        this.speed = 12 + Math.random() * 1.2;
+        this.speed = 18;
         this.offset = { top: 60, right: 20, bottom: 90, left: 20 };
+        this.animationIntervals = [];
         this.animate();
     }
 
@@ -72,6 +73,9 @@ class Endboss extends MoveableObject {
                 this.startAlertAnimation(animationInterval);
             }
         }, 120);
+        this.animationIntervals.push(animationInterval);
+        
+        addInterval(animationInterval);
     }
 
 
@@ -137,7 +141,7 @@ class Endboss extends MoveableObject {
 
 
     reduceEnergy() {
-        this.energy -= 10;
+        this.energy -= 8;
         if (this.energy < 0) {
             this.energy = 0;
         }
@@ -148,7 +152,7 @@ class Endboss extends MoveableObject {
         clearInterval(this.hurtAnimationInterval);
         this.hurtAnimationInterval = null;
         this.playAnimation(this.IMAGES_WALKING);
-        this.resumeMovementAfterDelay(0.1);
+        this.resumeMovementAfterDelay(0.05);
     }
 
 
@@ -159,7 +163,7 @@ class Endboss extends MoveableObject {
 
     resumeMovementAfterDelay(delay) {
         setTimeout(() => {
-            this.speed = 6.15 + Math.random() * 1.2;
+            this.speed = 12 + Math.random() * 1.2;
         }, delay * 1000);
     }
 
@@ -172,9 +176,22 @@ class Endboss extends MoveableObject {
             this.startDeathAnimation();
             setTimeout(() => {
                 showEndScreen();
-              }, 1000);
+            }, 1000);
+            this.clearIntervals();
         }
         this.updateHealthBar();
+    }
+
+
+    clearIntervals() {
+        this.animationIntervals.forEach(interval => clearInterval(interval));
+        this.animationIntervals = [];
+        this.animationIntervals.forEach(interval => {
+            const index = intervals.indexOf(interval);
+            if (index !== -1) {
+                intervals.splice(index, 1);
+            }
+        });
     }
 
 

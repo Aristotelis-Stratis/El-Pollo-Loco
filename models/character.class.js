@@ -93,62 +93,109 @@ class Character extends MoveableObject {
         };
     }
 
+
     animate() {
-        setInterval(() => {
+        intervals.push(setInterval(() => {
             this.animateCharacter();
-        }, 1000 / 60);
+        }, 1000 / 60));
     
-        setInterval(() => {
+        intervals.push(setInterval(() => {
             this.animateCharacterState();
-        }, 100);
+        }, 100));
     }
 
 
     animateCharacter() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.idleTimer = 0;
-            if (this.idleTimer > this.IDLE_THRESHOLD) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.walking_sound.play();
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.walking_sound.pause();
-            }
+        this.handleIdleTimer();
+        this.handleWalking();
+        this.handleJumping();
+        this.handleCamera();
+    }
+
+
+    animateCharacterState() {
+        if (this.isDead() && !this.world.gameOver) {
+            this.handleDeadState();
+        } else if (this.isHurt() && !this.world.gameOver) {
+            this.handleHurtState();
+        } else if (this.isAboveGround()) {
+            this.handleJumpingState();
         } else {
-            this.idleTimer += 1000 / 120;
+            if (this.idleTimer > this.IDLE_THRESHOLD) {
+                this.handleLongIdleState();
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.handleWalkingState();
+            } else {
+                this.handleIdleState();
+            }
         }
-    
+    }
+
+
+    handleIdleTimer() {
+        if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+            this.idleTimer += 1000 / 120;
+        } else {
+            this.idleTimer = 0;
+        }
+    }
+
+
+    handleWalking() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.walking_sound.play();
+        }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.walking_sound.pause();
+        }
+    }
+
+
+    handleJumping() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
             this.idleTimer = 0;
         }
+    }
+
+
+    handleCamera() {
         this.world.camera_x = -this.x + 100;
+    }
+
+    
+    handleDeadState() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.world.endGame();
+    }
+    
+
+    handleHurtState() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.hurt_sound.play();
+    }
+    
+
+    handleJumpingState() {
+        this.playAnimation(this.IMAGES_JUMPING);
+    }
+    
+
+    handleLongIdleState() {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+    }
+    
+
+    handleWalkingState() {
+        this.playAnimation(this.IMAGES_WALKING);
     }
     
     
-    animateCharacterState() {
-        if (this.isDead() && !this.world.gameOver) {
-            this.playAnimation(this.IMAGES_DEAD);
-            this.world.endGame();
-        } else if (this.isHurt() && !this.world.gameOver) {
-            this.playAnimation(this.IMAGES_HURT);
-            this.hurt_sound.play();
-        } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else {
-            if (this.idleTimer > this.IDLE_THRESHOLD) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
-        }
+    handleIdleState() {
+        this.playAnimation(this.IMAGES_IDLE);
     }
 }

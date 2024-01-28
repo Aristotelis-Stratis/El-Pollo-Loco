@@ -25,26 +25,8 @@ class BottleBar extends DrawableObject {
 
     setCollectedBottles(count) {
         this.collectedBottles = count;
-        let path = this.IMAGES_BOTTLES[this.resolveImagesIndex()];
-        this.img = this.imageCache[path];
-    }
-
-    
-    resolveImagesIndex() {
         let percentage = (this.collectedBottles / MAX_BOTTLES) * 100;
-
-        if (percentage >= 80) {
-            return 5;
-        } else if (percentage >= 60) {
-            return 4;
-        } else if (percentage >= 40) {
-            return 3;
-        } else if (percentage >= 20) {
-            return 2;
-        } else if (percentage > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        let path = this.IMAGES_BOTTLES[this.resolveImagesIndex(percentage)];
+        this.img = this.imageCache[path];
     }
 }

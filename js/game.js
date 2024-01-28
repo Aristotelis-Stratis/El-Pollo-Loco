@@ -6,7 +6,7 @@ let backgroundMusic = new Audio('audio/game.mp3');
 let gameWon = new Audio('audio/game_won.mp3');
 let gameLost = new Audio('audio/game_lost.mp3');
 let backgroundMusicMuted = false;
-
+let intervals = [];
 
 function init() {
     gameActive = true;
@@ -18,35 +18,28 @@ function init() {
     toggleRotateScreen();
     mobileButtonTouch();
     toggleMobileButtonContainer();
+    console.log(intervals);
 }
 
 
-// function stopAllIntervals() {
-//     // Hier sollten Sie alle Intervalle, die im Spiel verwendet werden, stoppen.
-//     // Zum Beispiel: clearInterval(intervalName);
-// }
-
-
-function returnToMenu() {
-    // // Stopp alle Intervalle
-    // stopAllIntervals();
-
-    // // Setze das Spiel zurück, indem du die `init()` Funktion aufrufst
-    // init();
-    document.getElementById('endScreen').style.display = 'none';
-    document.getElementById('startScreen').style.display = 'flex';
-    document.getElementById('menu').style.display = 'flex';
+function addInterval(interval) {
+    intervals.push(interval);
 }
 
 
-/**
- * Stops all intervals used in the game.
- */
 function stopAllIntervals() {
     intervals.forEach((intervalId) => {
         clearInterval(intervalId);
     });
-    intervals = []; // Das Array leeren
+    intervals = [];
+}
+
+
+function returnToMenu() {
+    stopAllIntervals();
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('menu').style.display = 'flex';
 }
 
 
@@ -96,6 +89,7 @@ function showEndScreen() {
     endScreen.style.display = 'flex';
     backgroundMusic.pause();
     backgroundMusic.currentTime = 0;
+    stopAllIntervals();
 }
 
 

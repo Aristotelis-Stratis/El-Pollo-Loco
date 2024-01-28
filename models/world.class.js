@@ -84,7 +84,7 @@ class World {
         this.removeBottleAndEnemyAfterCollision(bottleIndex, enemy);
     }
     
-    
+
     playEnemyDeathAnimation(enemy) {
         if (enemy.energy === 0) {
             enemy.playDeathAnimation();
@@ -170,7 +170,7 @@ class World {
     handleBottleEndbossCollision(bottle, index) {
         bottle.hasCollided = true;
         this.level.endboss[0].bossIsHit();
-        playBottleShatterSound();
+        this.playBottleShatterSound();
         bottle.animateBottleSplash();
         setTimeout(() => {
             this.removeBottleAfterCollision(index);

@@ -29,25 +29,9 @@ class EndbossHealthbar extends DrawableObject {
         if (this.bossEnergy === 100) {
             path = this.IMAGES_BOSS_HEALTH_FULL[0];
         } else {
-            path = this.IMAGES_BOSS_HEALTH[this.resolveImagesIndex()];
+            let percentage = (this.bossEnergy / 100) * 100;
+            path = this.IMAGES_BOSS_HEALTH[this.resolveImagesIndex(percentage)];
         }
         this.img = this.imageCache[path];
-    }
-    
-    
-    resolveImagesIndex() {
-        if (this.bossEnergy == 100) {
-            return 5;
-        } else if (this.bossEnergy > 80) {
-            return 4;
-        } else if (this.bossEnergy > 60) {
-            return 3;
-        } else if (this.bossEnergy > 40) {
-            return 2;
-        } else if (this.bossEnergy > 20) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 }
