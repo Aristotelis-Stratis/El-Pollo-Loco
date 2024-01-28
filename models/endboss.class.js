@@ -163,7 +163,7 @@ class Endboss extends MoveableObject {
 
     resumeMovementAfterDelay(delay) {
         setTimeout(() => {
-            this.speed = 12 + Math.random() * 1.2;
+            this.speed = 16 + Math.random() * 1.2;
         }, delay * 1000);
     }
 

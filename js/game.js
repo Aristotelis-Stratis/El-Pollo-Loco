@@ -49,21 +49,24 @@ function playBackgroundMusic() {
 }
 
 
-function updateMusicToggleButton() {
+function updateSoundStatus() {
+    backgroundMusicMuted = !backgroundMusicMuted;
+    backgroundMusic.muted = backgroundMusicMuted;
+    
     let musicToggleButton = document.getElementById('music-toggle-button');
+    let soundIcon = document.getElementById('sound-icon');
 
     if (backgroundMusicMuted) {
         musicToggleButton.innerText = 'Sound Off';
+        soundIcon.src = './img/12_icons/SOUND_OFF_icon.png';
     } else {
         musicToggleButton.innerText = 'Sound On';
+        soundIcon.src = './img/12_icons/SOUND_ON_icon.png';
     }
 }
 
-
-function toggleBackgroundMusic() {
-    backgroundMusicMuted = !backgroundMusicMuted;
-    backgroundMusic.muted = backgroundMusicMuted;
-    updateMusicToggleButton();
+function toggleSoundAndImage() {
+    updateSoundStatus();
 }
 
 

@@ -53,9 +53,13 @@
 
         <div class="ingame-menu">
 
-            <button class="button-99 pd" onclick="closeSettings()"><img class="ig-btn"src="./img/12_icons/SOUND_ON_icon.png"></button>
-            <button class="button-99 pd" onclick="closeSettings()"><img class="ig-btn"src="./img/12_icons/SETTINGS_icon.png"></button>
-            <button class="button-99 pd fullscreen-toggle" onclick="toggleFullScreen()"><img class="ig-btn"src="./img/12_icons/FULLSCREEN_ON_icon.png"></button>
+            <button class="button-99 pd" onclick="toggleSoundAndImage()">
+                <img id="sound-icon" class="ig-btn" src="./img/12_icons/SOUND_ON_icon.png">
+            </button>
+            <button class="button-99 pd" onclick="closeSettings()"><img class="ig-btn"
+                    src="./img/12_icons/SETTINGS_icon.png"></button>
+            <button class="button-99 pd fullscreen-toggle" onclick="toggleFullScreen()"><img class="ig-btn"
+                    src="./img/12_icons/FULLSCREEN_ON_icon.png"></button>
 
         </div>
 
@@ -71,7 +75,7 @@
                 </div>
                 <div id="settings" class="settings">
                     <button class="button-99 fullscreen-toggle" onclick="toggleFullScreen()">Fullscreen On</button>
-                    <button id="music-toggle-button" class="button-99" onclick="toggleBackgroundMusic()">Sound
+                    <button id="music-toggle-button" class="button-99" onclick="toggleSoundAndImage()">Sound
                         On</button>
                 </div>
             </div>
@@ -161,6 +165,6 @@
 // Deathanimation vom endboss länger durchlaufen lassen                                 --- ERLEDIGT
 // resolveImagesIndex in drawableObject auslagern und darauf zugreifen                  --- ERLEDIGT
 // character animate-Funktionen auslagern und CC                                        --- ERLEDIGT
-// bei "Back To Menu" seite nicht neu laden lassen, sondern nur das game neu starten
+// bei "Back To Menu" seite nicht neu laden lassen, sondern nur das game neu starten    --- ERLEDIGT
 // JSDoc3 generieren 
 -->
