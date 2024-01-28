@@ -49,6 +49,12 @@ function playBackgroundMusic() {
 }
 
 
+function stopBackgroundMusic() {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+}
+
+
 function updateSoundStatus() {
     backgroundMusicMuted = !backgroundMusicMuted;
     backgroundMusic.muted = backgroundMusicMuted;
@@ -65,6 +71,7 @@ function updateSoundStatus() {
     }
 }
 
+
 function toggleSoundAndImage() {
     updateSoundStatus();
 }
@@ -79,19 +86,32 @@ function hideScreens() {
 
 function showEndScreen() {
     gameActive = false;
-    let endScreen = document.getElementById('endScreen');
+    const endScreen = document.getElementById('endScreen');
+    const mobileButtonContainer = document.querySelector('.mobile-button-container');
+
     if (world.isEndbossDefeated()) {
-        gameWonSound();
-        endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";
+        showGameWonScreen(endScreen, mobileButtonContainer);
     } else if (world.isCharacterDead()) {
-        gameLostSound();
-        endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/you lost.png')";
+        showGameLostScreen(endScreen, mobileButtonContainer);
     }
 
     endScreen.style.display = 'flex';
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
+    stopBackgroundMusic();
     stopAllIntervals();
+}
+
+
+function showGameWonScreen(endScreen, mobileButtonContainer) {
+    gameWonSound();
+    endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";
+    mobileButtonContainer.style.display = 'none';
+}
+
+
+function showGameLostScreen(endScreen, mobileButtonContainer) {
+    gameLostSound();
+    endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/you lost.png')";
+    mobileButtonContainer.style.display = 'none';
 }
 
 
