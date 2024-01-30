@@ -13,9 +13,9 @@ function init() {
     hideScreens();
     toggleRotateScreen();
     mobileButtonTouch();
+    toggleIngameMenu();
     toggleMobileButtonContainer();
     muteSounds();
-    console.log('BOSS HP ===', world.level.endboss.energy);
 }
 
 
@@ -214,6 +214,17 @@ function toggleMobileButtonContainer() {
 }
 
 
+function toggleIngameMenu() {
+    const ingameMenu = document.getElementById('ig-menu');
+    const isMobileMode = window.innerWidth <= 1368;
+
+    if (isMobileMode) {
+        ingameMenu.style.display = 'flex';
+    } else {
+        ingameMenu.style.display = 'none';
+    }
+}
+
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
 
@@ -316,5 +327,5 @@ document.addEventListener("msfullscreenchange", onFullscreenChange);
 window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
-window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer);
-window.addEventListener('resize', toggleRotateScreen, toggleMobileButtonContainer);
+window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer,toggleIngameMenu);
+window.addEventListener('resize', toggleRotateScreen, toggleMobileButtonContainer, toggleIngameMenu);

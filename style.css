@@ -208,11 +208,11 @@ canvas {
 }
 
 .ingame-menu {
+    display:none;
     position: absolute;
     top: 15px;
     left: 0;
     right: 0;
-    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2;
