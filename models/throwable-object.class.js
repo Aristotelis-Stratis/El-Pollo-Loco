@@ -70,7 +70,9 @@ class ThrowableObject extends MoveableObject {
 
 
     playThrowSound() {
-        let throwSound = new Audio('audio/bottle_throw.mp3');
-        throwSound.play();
+        if (!isGameMuted) {
+            let throwSound = new Audio('audio/bottle_throw.mp3');
+            throwSound.play();
+        }
     }
 }

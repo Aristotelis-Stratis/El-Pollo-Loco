@@ -121,7 +121,9 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
                 this.coinBar.setCollectedCoins(this.coinBar.collectedCoins + 1);
-                this.playGameSound('audio/coin.mp3', 0.1);
+                if (!isGameMuted) {
+                    this.playGameSound('audio/coin.mp3', 0.1);
+                }
                 coin.stopAnimation();
             }
         });
@@ -133,7 +135,9 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.level.bottles.splice(index, 1);
                 this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles + 1);
-                this.playGameSound('audio/bottle_collect.mp3', 1);
+                if (!isGameMuted) {
+                    this.playGameSound('audio/bottle_collect.mp3', 1);
+                }
             }
         });
     }
@@ -328,6 +332,8 @@ class World {
     }
 
     playBottleShatterSound() {
-        this.playGameSound('audio/bottle_shatter.mp3');
+        if (!isGameMuted) {
+            this.playGameSound('audio/bottle_shatter.mp3');
+        }
     }
 }

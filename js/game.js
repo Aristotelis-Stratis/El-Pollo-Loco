@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 let backgroundMusic = new Audio('audio/game.mp3');
 let gameWon = new Audio('audio/game_won.mp3');
 let gameLost = new Audio('audio/game_lost.mp3');
+let isGameMuted = false;
 let backgroundMusicMuted = false;
 let intervals = [];
 
@@ -58,7 +59,7 @@ function stopBackgroundMusic() {
 function updateSoundStatus() {
     backgroundMusicMuted = !backgroundMusicMuted;
     backgroundMusic.muted = backgroundMusicMuted;
-    
+
     let musicToggleButton = document.getElementById('music-toggle-button');
     let soundIcon = document.getElementById('sound-icon');
 
@@ -72,8 +73,67 @@ function updateSoundStatus() {
 }
 
 
+function muteSounds() {
+    if (backgroundMusic) {
+        backgroundMusic.muted = isGameMuted;
+    }
+
+    muteChickenSounds();
+    muteCharacterSounds();
+    muteEndbossSounds();
+}
+
+
 function toggleSoundAndImage() {
+    isGameMuted = !isGameMuted;
     updateSoundStatus();
+    muteSounds();
+}
+
+
+function muteChickenSounds() {
+    if (world && world.level && world.level.enemies) {
+        world.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Chicken) {
+                enemy.death_sound.muted = isGameMuted;
+            }
+        });
+    }
+}
+
+
+function muteEndbossSounds() {
+    if (world && world.level.endboss && world.level.endboss.length > 0) {
+        world.level.endboss.forEach((endboss) => {
+            endboss.alert_sound.muted = isGameMuted;
+            endboss.hurt_sound.muted = isGameMuted;
+            endboss.dead_sound.muted = isGameMuted;
+        });
+    }
+}
+
+function muteCoinSounds() {
+    if (world && world.level.coins) {
+        world.level.coins.forEach((coin) => {
+            coin.collect_sound.muted = isGameMuted;
+        });
+    }
+}
+
+function muteBottleSounds() {
+    if (world && world.level.bottles) {
+        world.level.bottles.forEach((bottle) => {
+            bottle.collect_sound.muted = isGameMuted;
+        });
+    }
+}
+
+
+function muteCharacterSounds() {
+    if (world && world.character) {
+        world.character.walking_sound.muted = isGameMuted;
+        world.character.hurt_sound.muted = isGameMuted;
+    }
 }
 
 
@@ -217,12 +277,16 @@ function refreshPage() {
 
 
 function gameWonSound() {
-    gameWon.play();
+    if (!isGameMuted) {
+        gameWon.play();
+    }
 }
 
 
 function gameLostSound() {
-    gameLost.play();
+    if (!isGameMuted) {
+        gameLost.play();
+    }
 }
 
 
