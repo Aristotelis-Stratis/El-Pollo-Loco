@@ -3,17 +3,17 @@ let level1;
 function initLevel() {
     level1 = new Level(
         [
-            new Chicken(1000, 275),
-            new Chicken(1250, 275),
-            new Chicken(1450, 275),
-            new Chicken(1700, 275),
-            new Chicken(2050, 275),
-            new Chicken(2400, 275),
-            new Chicken(2700, 275),
-            new Chicken(2900, 275),
-            new Chicken(3100, 275),
-            new Chicken(3400, 275),
-            new Chicken(3900, 275),
+            // new Chicken(1000, 275),
+            // new Chicken(1250, 275),
+            // new Chicken(1450, 275),
+            // new Chicken(1700, 275),
+            // new Chicken(2050, 275),
+            // new Chicken(2400, 275),
+            // new Chicken(2700, 275),
+            // new Chicken(2900, 275),
+            // new Chicken(3100, 275),
+            // new Chicken(3400, 275),
+            // new Chicken(3900, 275),
             new Chicken(4100, 275),
         ],
         [
