@@ -1,5 +1,3 @@
-// eventListeners.js
-
 /**
  * Handle keyboard keydown events.
  * @param {KeyboardEvent} event - The keyboard event object.
@@ -28,7 +26,6 @@ window.addEventListener("keydown", (event) => {
         keyboard.D = true;
     }
 });
-
 
 /**
  * Handle keyboard keyup events.
