@@ -9,24 +9,25 @@ class EndbossHealthbar extends DrawableObject {
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',
     ];
 
-    bossEnergy = 100;
+    bossEnergy = 120;
 
     constructor() {
         super();
+        this.id = EndbossHealthbar.counter;
         this.loadImages(this.IMAGES_BOSS_HEALTH_FULL);
         this.loadImages(this.IMAGES_BOSS_HEALTH);
         this.x = 500;
         this.y = 0;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(100);
+        this.setPercentage(this.bossEnergy);
     }
 
 
     setPercentage(bossEnergy) {
         this.bossEnergy = bossEnergy;
         let path;
-        if (this.bossEnergy === 100) {
+        if (this.bossEnergy === 120) {
             path = this.IMAGES_BOSS_HEALTH_FULL[0];
         } else {
             let percentage = (this.bossEnergy / 100) * 100;

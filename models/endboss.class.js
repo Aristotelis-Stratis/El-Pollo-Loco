@@ -2,7 +2,7 @@ class Endboss extends MoveableObject {
     height = 400;
     width = 250;
     y = 55;
-    energy = 100;
+    energy = 120;
     isDead = false;
     hadFirstContact = false;
     alertAnimationPlayed = false;
@@ -141,7 +141,7 @@ class Endboss extends MoveableObject {
 
 
     reduceEnergy() {
-        this.energy -= 8;
+        this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
         }
@@ -179,7 +179,7 @@ class Endboss extends MoveableObject {
             }, 1000);
             this.clearIntervals();
         }
-        this.updateHealthBar();
+        // this.updateHealthBar();
     }
 
 

@@ -1,3 +1,5 @@
+let requestAnimationFrameId = 0;
+
 class World {
     character = new Character();
     coinBar = new CoinBar();
@@ -59,31 +61,31 @@ class World {
                 }
             }
         });
-    
+
         this.checkBottleEnemyCollisions();
     }
-    
+
     checkBottleEnemyCollisions() {
         this.throwableObjects.forEach((bottle, bottleIndex) => {
-            this.level.enemies.forEach((enemy, enemyIndex) => {
+            this.level.enemies.forEach((enemy) => {
                 if (!bottle.hasCollided && enemy.energy > 0 && enemy.isColliding(bottle)) {
                     this.handleBottleEnemyCollision(bottle, bottleIndex, enemy);
                 }
             });
         });
     }
-    
+
 
     handleBottleEnemyCollision(bottle, bottleIndex, enemy) {
         bottle.hasCollided = true;
         enemy.energy--;
-        
+
         this.playEnemyDeathAnimation(enemy);
         this.playBottleShatterSound();
         bottle.animateBottleSplash();
         this.removeBottleAndEnemyAfterCollision(bottleIndex, enemy);
     }
-    
+
 
     playEnemyDeathAnimation(enemy) {
         if (enemy.energy === 0) {
@@ -91,20 +93,20 @@ class World {
         }
     }
 
-    
+
     removeBottleAndEnemyAfterCollision(bottleIndex, enemy) {
         if (enemy.energy === 0) {
             setTimeout(() => {
                 this.removeEnemyFromLevel(enemy);
             }, 500);
         }
-        
+
         setTimeout(() => {
             this.removeBottleAfterCollision(bottleIndex);
         }, 1000);
     }
 
-    
+
     checkCollisionWithEndboss() {
         if (this.level.endboss && this.level.endboss.length > 0) {
             this.level.endboss.forEach(boss => {
@@ -226,6 +228,8 @@ class World {
     endGame() {
         if (!this.gameOver) {
             this.gameOver = true;
+            this.bottleBar.setCollectedBottles(0);
+            this.throwableObjects = [];
             showEndScreen();
         }
     }
@@ -238,7 +242,7 @@ class World {
         this.drawMainCharacter();
         this.drawUI();
         this.drawGameObjects();
-        requestAnimationFrame(() => this.draw());
+        requestAnimationFrameId = requestAnimationFrame(() => this.draw());
     }
 
 

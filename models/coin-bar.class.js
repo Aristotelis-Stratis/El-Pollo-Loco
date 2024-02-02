@@ -1,4 +1,4 @@
-MAX_COINS = 25;
+MAX_COINS = 20;
 class CoinBar extends DrawableObject {
     IMAGES_COINS = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',

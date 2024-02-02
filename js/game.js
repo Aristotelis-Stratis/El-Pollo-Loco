@@ -4,7 +4,9 @@ let gameActive = true;
 let keyboard = new Keyboard();
 let intervals = [];
 
+
 function init() {
+    resetGame();
     gameActive = true;
     initLevel();
     playBackgroundMusic();
@@ -19,12 +21,28 @@ function init() {
 }
 
 
+function resetAnimationFrameId() {
+    if (requestAnimationFrameId !== 0) {
+        cancelAnimationFrame(requestAnimationFrameId);
+    }
+    requestAnimationFrameId = 0;
+}
+
+
+function resetGame() {
+    keyboard = new Keyboard();
+    intervals = [];
+    world = null;
+}
+
+
 function addInterval(interval) {
     intervals.push(interval);
 }
 
 
 function stopAllIntervals() {
+    resetAnimationFrameId();
     intervals.forEach((intervalId) => {
         clearInterval(intervalId);
     });
@@ -37,6 +55,7 @@ function returnToMenu() {
     document.getElementById('endScreen').style.display = 'none';
     document.getElementById('startScreen').style.display = 'flex';
     document.getElementById('menu').style.display = 'flex';
+    document.getElementById('ig-menu').style.display = 'none';
 }
 
 
@@ -216,14 +235,9 @@ function toggleMobileButtonContainer() {
 
 function toggleIngameMenu() {
     const ingameMenu = document.getElementById('ig-menu');
-    const isMobileMode = window.innerWidth <= 1368;
-
-    if (isMobileMode) {
-        ingameMenu.style.display = 'flex';
-    } else {
-        ingameMenu.style.display = 'none';
-    }
+    ingameMenu.style.display = 'flex';
 }
+
 
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
@@ -327,5 +341,5 @@ document.addEventListener("msfullscreenchange", onFullscreenChange);
 window.addEventListener('DOMContentLoaded', () => {
     toggleRotateScreen();
 });
-window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer,toggleIngameMenu);
+window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer, toggleIngameMenu);
 window.addEventListener('resize', toggleRotateScreen, toggleMobileButtonContainer, toggleIngameMenu);
