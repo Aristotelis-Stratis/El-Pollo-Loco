@@ -1,14 +1,9 @@
-/**
- * The requestAnimationFrame identifier for controlling game loops.
- * @type {number}
- */
 let requestAnimationFrameId = 0;
 
 /**
  * Represents the game world where characters and objects interact.
  * @class
  */
-
 class World {
     character = new Character();
     coinBar = new CoinBar();
@@ -27,7 +22,6 @@ class World {
     gameOver = false;
     canThrowBottle = true;
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -37,14 +31,12 @@ class World {
         this.run();
     }
 
-
     /**
      * Sets the reference to the game world for the character.
      */
     setWorld() {
         this.character.world = this;
     }
-
 
     /**
      * Starts the game loop that checks for collisions.
@@ -59,15 +51,10 @@ class World {
         }, 10);
     }
 
-
-    /**
-     * Checks collisions in the game.
-     */
     checkCollisions() {
         this.checkCollisionsWithEnemies();
         this.checkCollisionWithEndboss();
     }
-
 
     /**
      * Checks collisions of the character with enemies.
@@ -82,10 +69,8 @@ class World {
                 }
             }
         });
-
         this.checkBottleEnemyCollisions();
     }
-
 
     /**
      * Checks collisions between throwable objects (bottles) and enemies.
@@ -100,14 +85,12 @@ class World {
         });
     }
 
-
     /**
      * Handles the collision between a bottle and an enemy.
      */
     handleBottleEnemyCollision(bottle, bottleIndex, enemy) {
         bottle.hasCollided = true;
         enemy.energy--;
-
         this.playEnemyDeathAnimation(enemy);
         this.playBottleShatterSound();
         bottle.animateBottleSplash();
@@ -123,7 +106,6 @@ class World {
         }
     }
 
-
     /**
      * Removes the bottle and enemy after a collision.
      */
@@ -133,12 +115,10 @@ class World {
                 this.removeEnemyFromLevel(enemy);
             }, 500);
         }
-
         setTimeout(() => {
             this.removeBottleAfterCollision(bottleIndex);
         }, 1000);
     }
-
 
     /**
      * Checks collision between the character and an endboss.
@@ -152,7 +132,6 @@ class World {
             });
         }
     }
-
 
     /**
      * Checks collisions between the character and coins, updates collected coins, and plays a sound.
@@ -170,7 +149,6 @@ class World {
         });
     }
 
-
     /**
      * Checks collisions between the character and bottles, updates collected bottles, and plays a sound.
      */
@@ -186,7 +164,6 @@ class World {
         });
     }
 
-
     /**
      * Checks if the character can throw a bottle and adds a throwable object to the game.
      */
@@ -196,13 +173,11 @@ class World {
             this.throwableObjects.push(bottle);
             this.bottleBar.setCollectedBottles(this.bottleBar.collectedBottles - 1);
             this.canThrowBottle = false;
-
             setTimeout(() => {
                 this.canThrowBottle = true;
             }, 650);
         }
     }
-
 
     /**
      * Checks collisions between throwable objects (bottles) and the endboss.
@@ -215,21 +190,16 @@ class World {
         });
     }
 
-
     /**
      * Checks if a bottle is colliding with the endboss.
-     *
      * @param {ThrowableObject} bottle - The throwable object (bottle) to check for collision.
-     * @returns {boolean} True if the bottle is colliding with the endboss, false otherwise.
      */
     isBottleCollidingWithEndboss(bottle) {
         return !bottle.hasCollided && this.level.endboss[0].isColliding(bottle);
     }
 
-
     /**
      * Handles the collision between a bottle and the end boss.
-     *
      * @param {ThrowableObject} bottle - The bottle that collided with the end boss.
      * @param {number} index - The index of the bottle in the throwable objects array.
      */
@@ -243,16 +213,13 @@ class World {
         }, 1000);
     }
 
-
     /**
      * Removes a bottle from the throwable objects array after a collision.
-     *
      * @param {number} index - The index of the bottle to remove from the array.
      */
     removeBottleAfterCollision(index) {
         this.throwableObjects.splice(index, 1);
     }
-
 
     /**
      * Handles collisions between the character and enemies or end boss, reducing character's energy and updating the status bar.
@@ -262,10 +229,8 @@ class World {
         this.statusBar.setPercentage(this.character.energy);
     }
 
-
     /**
      * Handles the collision between the character and an enemy above the ground.
-     *
      * @param {Enemy} enemy - The enemy with which the character collided.
      */
     handleCollisionAboveGround(enemy) {
@@ -279,10 +244,8 @@ class World {
         }
     }
 
-
     /**
      * Removes an enemy from the level.
-     *
      * @param {Enemy} enemy - The enemy to remove from the level.
      */
     removeEnemyFromLevel(enemy) {
@@ -292,30 +255,22 @@ class World {
         }
     }
 
-
     /**
      * Checks if the endboss is defeated.
-     *
-     * @returns {boolean} True if the endboss is defeated (dead), false otherwise.
      */
     isEndbossDefeated() {
         return this.level.endboss[0] && this.level.endboss[0].isDead;
     }
 
-
     /**
      * Checks if the character is dead (out of energy).
-     *
-     * @returns {boolean} True if the character is dead, false otherwise.
      */
     isCharacterDead() {
         return this.character && this.character.energy <= 0;
     }
 
-
     /**
-     * Ends the game by setting the game over state, resetting collected bottles, clearing throwable objects,
-     * and displaying the end screen.
+     * Ends the game by setting the game over state, resetting collected bottles, clearing throwable objects and displaying the end screen.
      */
     endGame() {
         if (!this.gameOver) {
@@ -326,10 +281,8 @@ class World {
         }
     }
 
-
     /**
      * Draws the entire game including background, characters, UI, and game objects.
-     * This function is called recursively using requestAnimationFrame to continuously update the game screen.
      */
     draw() {
         if (!gameActive) return;
@@ -341,14 +294,12 @@ class World {
         requestAnimationFrameId = requestAnimationFrame(() => this.draw());
     }
 
-
     /**
      * Clears the canvas by erasing its contents.
      */
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-
 
     /**
      * Draws the background of the game world, including background objects.
@@ -359,7 +310,6 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
     }
 
-
     /**
      * Draws the main character on the game screen.
      */
@@ -368,7 +318,6 @@ class World {
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
     }
-
 
     /**
      * Draws the user interface (UI) elements such as the status bar, bottle bar, coin bar, and endboss health bar.
@@ -383,7 +332,6 @@ class World {
         }
     }
 
-
     /**
      * Updates the visibility of the endboss health bar based on the character's position in the game world.
      */
@@ -392,7 +340,6 @@ class World {
             this.showEndbossHealthbar = true;
         }
     }
-
 
     /**
      * Draws various game objects including enemies, coins, endboss, bottles, clouds, and throwable objects.
@@ -408,10 +355,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
     }
 
-
     /**
      * Adds multiple objects to the game map for drawing.
-     *
      * @param {Object[]} objects - An array of objects to add to the map.
      */
     addObjectsToMap(objects) {
@@ -420,10 +365,8 @@ class World {
         })
     }
 
-
     /**
      * Adds a single object to the game map for drawing and handles flipping the image if needed.
-     *
      * @param {DrawableObject} mo - The object to add to the map.
      */
     addToMap(mo) {
@@ -431,16 +374,13 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
 
-
     /**
      * Flips the image horizontally for a given drawable object and adjusts its position.
-     *
      * @param {DrawableObject} mo - The object for which the image is flipped.
      */
     flipImage(mo) {
@@ -450,10 +390,8 @@ class World {
         mo.x = mo.x * -1;
     }
 
-
     /**
      * Restores the image to its original orientation after being flipped.
-     *
      * @param {DrawableObject} mo - The object for which the image is restored.
      */
     flipImageBack(mo) {
@@ -461,10 +399,8 @@ class World {
         this.ctx.restore();
     }
 
-
     /**
      * Plays a game sound with the given file path and optional volume.
-     *
      * @param {string} soundFilePath - The file path of the sound to be played.
      * @param {number} [volume=0.2] - The volume level of the sound (default is 0.2).
      */
@@ -473,7 +409,6 @@ class World {
         gameSound.volume = volume;
         gameSound.play();
     }
-
 
     /**
      * Plays the bottle shatter sound effect if the game is not muted.
