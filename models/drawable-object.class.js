@@ -77,6 +77,7 @@ class DrawableObject {
         }
     }
 
+    
     /**
      * Resolves the index of the image to use based on a given percentage.
      * @function
