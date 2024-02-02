@@ -67,6 +67,9 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Animate the endboss's behavior, including starting an alert animation.
+     */
     animate() {
         const animationInterval = setInterval(() => {
             if (this.shouldStartAlert()) {
@@ -74,16 +77,26 @@ class Endboss extends MoveableObject {
             }
         }, 120);
         this.animationIntervals.push(animationInterval);
-        
+
         addInterval(animationInterval);
     }
 
 
+    /**
+     * Checks if the alert animation should start based on specific conditions.
+     *
+     * @returns {boolean} True if the alert animation should start, false otherwise.
+     */
     shouldStartAlert() {
         return world && world.character.x > 4500 && !this.hadFirstContact;
     }
 
 
+    /**
+     * Start the alert animation for the endboss character.
+     *
+     * @param {number} interval - The interval at which to check for starting the alert animation.
+     */
     startAlertAnimation(interval) {
         if (!this.alertAnimationPlayed) {
             this.alert_sound.play();
@@ -100,6 +113,10 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Start the hurt animation for the endboss character.
+     * This animation occurs when the endboss is hit.
+     */
     startHurtAnimation() {
         if (!this.hurtAnimationInterval) {
             this.stopMovement();
@@ -111,6 +128,10 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+    * Start the walking behavior for the endboss character.
+    * The endboss will move left while alive and not dead.
+    */
     startWalking() {
         const walkingInterval = setInterval(() => {
             if (this.energy > 0 && !this.isDead) {
@@ -124,6 +145,10 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Update the endboss's speed based on its energy level.
+     * Lower energy results in increased speed variation.
+     */
     updateSpeed() {
         if (this.energy < 60) {
             this.speed = 24 + Math.random() * 1.2;
@@ -133,6 +158,10 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Handle when the endboss is hit.
+     * Reduces the endboss's energy, starts the hurt animation, and updates the health bar.
+     */
     bossIsHit() {
         this.reduceEnergy();
         this.startHurtAnimation();
@@ -140,6 +169,9 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Reduce the endboss's energy by 10 and ensure it doesn't go below 0.
+     */
     reduceEnergy() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -148,6 +180,9 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Reset the endboss to its walking state after the hurt animation.
+     */
     resetToWalkingState() {
         clearInterval(this.hurtAnimationInterval);
         this.hurtAnimationInterval = null;
@@ -156,11 +191,20 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Stop the endboss's movement by setting its speed to 0.
+     */
     stopMovement() {
         this.speed = 0;
     }
 
 
+    /**
+     * Resume the endboss's movement after a specified delay.
+     * Adjusts the endboss's speed based on energy.
+     *
+     * @param {number} delay - The delay in seconds before resuming movement.
+     */
     resumeMovementAfterDelay(delay) {
         setTimeout(() => {
             this.speed = 16 + Math.random() * 1.2;
@@ -168,6 +212,11 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Check if the endboss is dead based on its energy level.
+     * If the energy is zero or below and the endboss is not already dead,
+     * initiate the death process.
+     */
     bossIsDead() {
         if (this.energy <= 0 && !this.isDead) {
             this.isDead = true;
@@ -179,10 +228,12 @@ class Endboss extends MoveableObject {
             }, 1000);
             this.clearIntervals();
         }
-        // this.updateHealthBar();
     }
 
 
+    /**
+     * Clear all animation intervals associated with the endboss.
+     */
     clearIntervals() {
         this.animationIntervals.forEach(interval => clearInterval(interval));
         this.animationIntervals = [];
@@ -194,13 +245,18 @@ class Endboss extends MoveableObject {
         });
     }
 
-
+    /**
+     * Stop all animations for the endboss, including hurt animation and movement.
+     */
     stopAllAnimations() {
         clearInterval(this.hurtAnimationInterval);
         this.stopMovement();
     }
 
 
+    /**
+     * Start the death animation for the endboss.
+     */
     startDeathAnimation() {
         this.deathAnimationInterval = this.startAnimationInterval(this.IMAGES_DEAD, 250, () => {
             this.endDeathAnimation();
@@ -208,18 +264,32 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * End the death animation for the endboss and load the final image.
+     */
     endDeathAnimation() {
         clearInterval(this.deathAnimationInterval);
         this.deathAnimationInterval = null;
         this.loadImage(this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]);
     }
 
-
+    /**
+     * Update the health bar of the endboss in the game world.
+     */
     updateHealthBar() {
         world.endbossHealthbar.setPercentage(this.energy);
     }
 
-    
+
+    /**
+     * Start an animation interval for a set of images.
+     * This function plays the animation and triggers the onComplete callback when finished.
+     *
+     * @param {Array<string>} images - Array of image paths for the animation frames.
+     * @param {number} intervalTime - The time interval between each frame in milliseconds.
+     * @param {function|null} onComplete - Callback function to execute when the animation is complete.
+     * @returns {number} - The ID of the animation interval.
+     */
     startAnimationInterval(images, intervalTime, onComplete = null) {
         let animationCounter = 0;
         const animationLength = images.length;

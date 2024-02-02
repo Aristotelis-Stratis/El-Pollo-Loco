@@ -1,3 +1,8 @@
+/**
+ * Represents a coin object that can be collected by the character.
+ * @extends MoveableObject
+ */
+
 class Coin extends MoveableObject {
     IMAGES_COINS = [
         'img/8_coin/coin_1.png',
@@ -24,12 +29,21 @@ class Coin extends MoveableObject {
     }
 
 
+    /**
+    * Animates the coin's appearance by cycling through its animation frames.
+    * @function
+    */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_COINS);
         }, 300)
     }
 
+
+    /**
+    * Stops the coin's animation.
+    * @function
+    */
     stopAnimation() {
         clearInterval(this.animationInterval);
     }

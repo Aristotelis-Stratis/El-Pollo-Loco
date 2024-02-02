@@ -1,10 +1,16 @@
+/**
+ * Global variables
+ */
+
 let canvas;
 let world;
 let gameActive = true;
 let keyboard = new Keyboard();
 let intervals = [];
 
-
+/**
+ * Initialize the game.
+ */
 function init() {
     resetGame();
     gameActive = true;
@@ -20,7 +26,9 @@ function init() {
     muteSounds();
 }
 
-
+/**
+ * Reset the requestAnimationFrame ID.
+ */
 function resetAnimationFrameId() {
     if (requestAnimationFrameId !== 0) {
         cancelAnimationFrame(requestAnimationFrameId);
@@ -28,19 +36,26 @@ function resetAnimationFrameId() {
     requestAnimationFrameId = 0;
 }
 
-
+/**
+ * Reset the game.
+ */
 function resetGame() {
     keyboard = new Keyboard();
     intervals = [];
     world = null;
 }
 
-
+/**
+ * Add an interval to the intervals array.
+ * @param {number} interval - The ID of the interval.
+ */
 function addInterval(interval) {
     intervals.push(interval);
 }
 
-
+/**
+ * Stop all intervals and requestAnimationFrame.
+ */
 function stopAllIntervals() {
     resetAnimationFrameId();
     intervals.forEach((intervalId) => {
@@ -49,7 +64,9 @@ function stopAllIntervals() {
     intervals = [];
 }
 
-
+/**
+ * Return to the main menu.
+ */
 function returnToMenu() {
     stopAllIntervals();
     document.getElementById('endScreen').style.display = 'none';
@@ -58,14 +75,18 @@ function returnToMenu() {
     document.getElementById('ig-menu').style.display = 'none';
 }
 
-
+/**
+ * Hide various screens.
+ */
 function hideScreens() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     document.getElementById('endScreen').style.display = 'none';
 }
 
-
+/**
+ * Show the end game screen.
+ */
 function showEndScreen() {
     gameActive = false;
     const endScreen = document.getElementById('endScreen');
@@ -82,57 +103,79 @@ function showEndScreen() {
     stopAllIntervals();
 }
 
-
+/**
+ * Show the game won screen.
+ * @param {HTMLElement} endScreen - The end screen element.
+ * @param {HTMLElement} mobileButtonContainer - The mobile button container element.
+ */
 function showGameWonScreen(endScreen, mobileButtonContainer) {
     gameWonSound();
     endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";
     mobileButtonContainer.style.display = 'none';
 }
 
-
+/**
+ * Show the game lost screen.
+ * @param {HTMLElement} endScreen - The end screen element.
+ * @param {HTMLElement} mobileButtonContainer - The mobile button container element.
+ */
 function showGameLostScreen(endScreen, mobileButtonContainer) {
     gameLostSound();
     endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/you lost.png')";
     mobileButtonContainer.style.display = 'none';
 }
 
-
+/**
+ * Open the controls screen.
+ */
 function openControls() {
     document.getElementById('controlsScreen').style.display = 'block';
     document.getElementById('menu').style.display = 'none';
 }
 
-
+/**
+ * Close the controls screen.
+ */
 function closeControls() {
     document.getElementById('controlsScreen').style.display = 'none';
     document.getElementById('menu').style.display = 'flex';
 }
 
-
+/**
+ * Open the settings screen.
+ */
 function openSettings() {
     document.getElementById('settingsScreen').style.display = 'block';
     document.getElementById('menu').style.display = 'none';
 }
 
-
+/**
+ * Close the settings screen.
+ */
 function closeSettings() {
     document.getElementById('settingsScreen').style.display = 'none';
     document.getElementById('menu').style.display = 'flex';
 }
 
-
+/**
+ * Open the story screen.
+ */
 function openStory() {
     document.getElementById('storyScreen').style.display = 'flex';
     document.getElementById('menu').style.display = 'none';
 }
 
-
+/**
+ * Close the story screen.
+ */
 function closeStory() {
     document.getElementById('storyScreen').style.display = 'none';
     document.getElementById('menu').style.display = 'flex';
 }
 
-
+/**
+ * Toggle fullscreen mode.
+ */
 function toggleFullScreen() {
     let container = document.getElementById('canvas-container');
     let canvas = document.getElementById('canvas');
@@ -149,18 +192,29 @@ function toggleFullScreen() {
     }
 }
 
-
+/**
+ * Set the canvas size.
+ * @param {HTMLElement} canvas - The canvas element.
+ * @param {string} width - The width of the canvas.
+ * @param {string} height - The height of the canvas.
+ */
 function setCanvasSize(canvas, width, height) {
     canvas.style.width = width;
     canvas.style.height = height;
 }
 
-
+/**
+ * Reset the canvas size to default.
+ * @param {HTMLElement} canvas - The canvas element.
+ */
 function resetCanvasSize(canvas) {
     setCanvasSize(canvas, '720px', '480px');
 }
 
-
+/**
+ * Request fullscreen mode.
+ * @param {HTMLElement} element - The element to make fullscreen.
+ */
 function requestFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -171,7 +225,9 @@ function requestFullscreen(element) {
     }
 }
 
-
+/**
+ * Exit fullscreen mode.
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -182,7 +238,9 @@ function exitFullscreen() {
     }
 }
 
-
+/**
+ * Adjust canvas size based on fullscreen state.
+ */
 function adjustCanvasSize() {
     let canvas = document.getElementById('canvas');
     if (document.fullscreenElement) {
@@ -192,12 +250,16 @@ function adjustCanvasSize() {
     }
 }
 
-
+/**
+ * Refresh the page.
+ */
 function refreshPage() {
     window.location.reload();
 }
 
-
+/**
+ * Handle fullscreen change event.
+ */
 function onFullscreenChange() {
     let fullscreenButton = document.querySelector('.fullscreen-toggle');
     if (document.fullscreenElement) {
@@ -209,7 +271,9 @@ function onFullscreenChange() {
     }
 }
 
-
+/**
+ * Toggle the rotate screen container based on window dimensions.
+ */
 function toggleRotateScreen() {
     const rotateContainer = document.querySelector('.rotate-container');
 
@@ -220,7 +284,9 @@ function toggleRotateScreen() {
     }
 }
 
-
+/**
+ * Toggle the mobile button container based on window dimensions.
+ */
 function toggleMobileButtonContainer() {
     const mobileButtonContainer = document.querySelector('.mobile-button-container');
     const isMobileMode = window.innerWidth <= 1368;
@@ -232,13 +298,18 @@ function toggleMobileButtonContainer() {
     }
 }
 
-
+/**
+ * Toggle the in-game menu.
+ */
 function toggleIngameMenu() {
     const ingameMenu = document.getElementById('ig-menu');
     ingameMenu.style.display = 'flex';
 }
 
-
+/**
+ * Handle keyboard keydown events.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
 window.addEventListener("keydown", (event) => {
     if (!gameActive) return;
 
@@ -264,7 +335,10 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
-
+/**
+ * Handle keyboard keyup events.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
 window.addEventListener("keyup", (event) => {
     if (!gameActive) return;
 
@@ -290,7 +364,9 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
-
+/**
+ * Handle touch events for mobile buttons.
+ */
 function mobileButtonTouch() {
     const leftButton = document.getElementById("mobile-left");
     const rightButton = document.getElementById("mobile-right");
@@ -333,7 +409,6 @@ function mobileButtonTouch() {
         keyboard.D = false;
     });
 }
-
 
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);

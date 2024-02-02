@@ -1,3 +1,9 @@
+/**
+ * Represents a health bar for the end boss.
+ * @class
+ * @extends DrawableObject
+ */
+
 class EndbossHealthbar extends DrawableObject {
     IMAGES_BOSS_HEALTH_FULL = ['img/7_statusbars/2_statusbar_endboss/blue.png'];
     IMAGES_BOSS_HEALTH = [
@@ -24,6 +30,11 @@ class EndbossHealthbar extends DrawableObject {
     }
 
 
+    /**
+     * Sets the boss's energy percentage and updates the health bar image accordingly.
+     * @function
+     * @param {number} bossEnergy - The current energy level of the end boss.
+     */
     setPercentage(bossEnergy) {
         this.bossEnergy = bossEnergy;
         let path;

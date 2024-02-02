@@ -1,4 +1,13 @@
-MAX_COINS = 20;
+/**
+* The maximum number of coins that the CoinBar can display.
+*/
+const MAX_COINS = 20;
+
+/**
+* Represents a graphical bar that displays the collected coins.
+* Extends the DrawableObject class.
+*/
+
 class CoinBar extends DrawableObject {
     IMAGES_COINS = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
@@ -22,6 +31,10 @@ class CoinBar extends DrawableObject {
     }
 
 
+    /**
+    * Sets the number of collected coins and updates the visual representation of the coin bar.
+    * @param {number} count - The number of collected coins.
+    */
     setCollectedCoins(count) {
         this.collectedCoins = count;
         let percentage = (this.collectedCoins / MAX_COINS) * 100;

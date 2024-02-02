@@ -1,3 +1,8 @@
+/**
+ * Represents a game level containing enemies, clouds, background objects, coins, bottles, and an end boss.
+ * @class
+ */
+
 class Level {
     enemies;
     clouds;

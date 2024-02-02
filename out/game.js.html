@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Global variables
+ */
+
+let canvas;
+let world;
+let gameActive = true;
+let keyboard = new Keyboard();
+let intervals = [];
+
+/**
+ * Initialize the game.
+ */
+function init() {
+    resetGame();
+    gameActive = true;
+    initLevel();
+    playBackgroundMusic();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard, level1);
+    hideScreens();
+    toggleRotateScreen();
+    mobileButtonTouch();
+    toggleIngameMenu();
+    toggleMobileButtonContainer();
+    muteSounds();
+}
+
+/**
+ * Reset the requestAnimationFrame ID.
+ */
+function resetAnimationFrameId() {
+    if (requestAnimationFrameId !== 0) {
+        cancelAnimationFrame(requestAnimationFrameId);
+    }
+    requestAnimationFrameId = 0;
+}
+
+/**
+ * Reset the game.
+ */
+function resetGame() {
+    keyboard = new Keyboard();
+    intervals = [];
+    world = null;
+}
+
+/**
+ * Add an interval to the intervals array.
+ * @param {number} interval - The ID of the interval.
+ */
+function addInterval(interval) {
+    intervals.push(interval);
+}
+
+/**
+ * Stop all intervals and requestAnimationFrame.
+ */
+function stopAllIntervals() {
+    resetAnimationFrameId();
+    intervals.forEach((intervalId) => {
+        clearInterval(intervalId);
+    });
+    intervals = [];
+}
+
+/**
+ * Return to the main menu.
+ */
+function returnToMenu() {
+    stopAllIntervals();
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('menu').style.display = 'flex';
+    document.getElementById('ig-menu').style.display = 'none';
+}
+
+/**
+ * Hide various screens.
+ */
+function hideScreens() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    document.getElementById('endScreen').style.display = 'none';
+}
+
+/**
+ * Show the end game screen.
+ */
+function showEndScreen() {
+    gameActive = false;
+    const endScreen = document.getElementById('endScreen');
+    const mobileButtonContainer = document.querySelector('.mobile-button-container');
+
+    if (world.isEndbossDefeated()) {
+        showGameWonScreen(endScreen, mobileButtonContainer);
+    } else if (world.isCharacterDead()) {
+        showGameLostScreen(endScreen, mobileButtonContainer);
+    }
+
+    endScreen.style.display = 'flex';
+    stopBackgroundMusic();
+    stopAllIntervals();
+}
+
+/**
+ * Show the game won screen.
+ * @param {HTMLElement} endScreen - The end screen element.
+ * @param {HTMLElement} mobileButtonContainer - The mobile button container element.
+ */
+function showGameWonScreen(endScreen, mobileButtonContainer) {
+    gameWonSound();
+    endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/game over.png')";
+    mobileButtonContainer.style.display = 'none';
+}
+
+/**
+ * Show the game lost screen.
+ * @param {HTMLElement} endScreen - The end screen element.
+ * @param {HTMLElement} mobileButtonContainer - The mobile button container element.
+ */
+function showGameLostScreen(endScreen, mobileButtonContainer) {
+    gameLostSound();
+    endScreen.style.backgroundImage = "url('img/9_intro_outro_screens/start/game_over/you lost.png')";
+    mobileButtonContainer.style.display = 'none';
+}
+
+/**
+ * Open the controls screen.
+ */
+function openControls() {
+    document.getElementById('controlsScreen').style.display = 'block';
+    document.getElementById('menu').style.display = 'none';
+}
+
+/**
+ * Close the controls screen.
+ */
+function closeControls() {
+    document.getElementById('controlsScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+/**
+ * Open the settings screen.
+ */
+function openSettings() {
+    document.getElementById('settingsScreen').style.display = 'block';
+    document.getElementById('menu').style.display = 'none';
+}
+
+/**
+ * Close the settings screen.
+ */
+function closeSettings() {
+    document.getElementById('settingsScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+/**
+ * Open the story screen.
+ */
+function openStory() {
+    document.getElementById('storyScreen').style.display = 'flex';
+    document.getElementById('menu').style.display = 'none';
+}
+
+/**
+ * Close the story screen.
+ */
+function closeStory() {
+    document.getElementById('storyScreen').style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+}
+
+/**
+ * Toggle fullscreen mode.
+ */
+function toggleFullScreen() {
+    let container = document.getElementById('canvas-container');
+    let canvas = document.getElementById('canvas');
+    let fullscreenButton = document.querySelector('.fullscreen-toggle');
+
+    if (!document.fullscreenElement) {
+        requestFullscreen(container);
+        setCanvasSize(canvas, '100vw', '100vh');
+        fullscreenButton.innerText = 'Fullscreen Off';
+    } else {
+        exitFullscreen();
+        resetCanvasSize(canvas);
+        fullscreenButton.innerText = 'Fullscreen On';
+    }
+}
+
+/**
+ * Set the canvas size.
+ * @param {HTMLElement} canvas - The canvas element.
+ * @param {string} width - The width of the canvas.
+ * @param {string} height - The height of the canvas.
+ */
+function setCanvasSize(canvas, width, height) {
+    canvas.style.width = width;
+    canvas.style.height = height;
+}
+
+/**
+ * Reset the canvas size to default.
+ * @param {HTMLElement} canvas - The canvas element.
+ */
+function resetCanvasSize(canvas) {
+    setCanvasSize(canvas, '720px', '480px');
+}
+
+/**
+ * Request fullscreen mode.
+ * @param {HTMLElement} element - The element to make fullscreen.
+ */
+function requestFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+/**
+ * Exit fullscreen mode.
+ */
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+/**
+ * Adjust canvas size based on fullscreen state.
+ */
+function adjustCanvasSize() {
+    let canvas = document.getElementById('canvas');
+    if (document.fullscreenElement) {
+        setCanvasSize(canvas, '100vw', '100vh');
+    } else {
+        resetCanvasSize(canvas);
+    }
+}
+
+/**
+ * Refresh the page.
+ */
+function refreshPage() {
+    window.location.reload();
+}
+
+/**
+ * Handle fullscreen change event.
+ */
+function onFullscreenChange() {
+    let fullscreenButton = document.querySelector('.fullscreen-toggle');
+    if (document.fullscreenElement) {
+        fullscreenButton.innerText = 'Fullscreen Off';
+        setCanvasSize(document.getElementById('canvas'), '100vw', '100vh');
+    } else {
+        fullscreenButton.innerText = 'Fullscreen On';
+        resetCanvasSize(document.getElementById('canvas'));
+    }
+}
+
+/**
+ * Toggle the rotate screen container based on window dimensions.
+ */
+function toggleRotateScreen() {
+    const rotateContainer = document.querySelector('.rotate-container');
+
+    if (window.innerWidth &lt;= 1368 &amp;&amp; window.innerHeight > window.innerWidth) {
+        rotateContainer.style.display = 'flex';
+    } else {
+        rotateContainer.style.display = 'none';
+    }
+}
+
+/**
+ * Toggle the mobile button container based on window dimensions.
+ */
+function toggleMobileButtonContainer() {
+    const mobileButtonContainer = document.querySelector('.mobile-button-container');
+    const isMobileMode = window.innerWidth &lt;= 1368;
+
+    if (isMobileMode) {
+        mobileButtonContainer.style.display = 'flex';
+    } else {
+        mobileButtonContainer.style.display = 'none';
+    }
+}
+
+/**
+ * Toggle the in-game menu.
+ */
+function toggleIngameMenu() {
+    const ingameMenu = document.getElementById('ig-menu');
+    ingameMenu.style.display = 'flex';
+}
+
+/**
+ * Handle keyboard keydown events.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
+window.addEventListener("keydown", (event) => {
+    if (!gameActive) return;
+
+    if (event.keyCode == 39) {
+        keyboard.RIGHT = true;
+    }
+    if (event.keyCode == 37) {
+        keyboard.LEFT = true;
+    }
+
+    if (event.keyCode == 38) {
+        keyboard.UP = true;
+    }
+    if (event.keyCode == 40) {
+        keyboard.DOWN = true;
+    }
+
+    if (event.keyCode == 32) {
+        keyboard.SPACE = true;
+    }
+    if (event.keyCode == 68) {
+        keyboard.D = true;
+    }
+});
+
+/**
+ * Handle keyboard keyup events.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
+window.addEventListener("keyup", (event) => {
+    if (!gameActive) return;
+
+    if (event.keyCode == 39) {
+        keyboard.RIGHT = false;
+    }
+    if (event.keyCode == 37) {
+        keyboard.LEFT = false;
+    }
+
+    if (event.keyCode == 38) {
+        keyboard.UP = false;
+    }
+    if (event.keyCode == 40) {
+        keyboard.DOWN = false;
+    }
+
+    if (event.keyCode == 32) {
+        keyboard.SPACE = false;
+    }
+    if (event.keyCode == 68) {
+        keyboard.D = false;
+    }
+});
+
+/**
+ * Handle touch events for mobile buttons.
+ */
+function mobileButtonTouch() {
+    const leftButton = document.getElementById("mobile-left");
+    const rightButton = document.getElementById("mobile-right");
+    const jumpButton = document.getElementById("mobile-jump");
+    const throwButton = document.getElementById("mobile-throw");
+
+    leftButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    leftButton.addEventListener("touchend", (event) => {
+        keyboard.LEFT = false;
+    });
+
+    rightButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    rightButton.addEventListener("touchend", (event) => {
+        keyboard.RIGHT = false;
+    });
+
+    jumpButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        keyboard.SPACE = true;
+    });
+
+    jumpButton.addEventListener("touchend", (event) => {
+        keyboard.SPACE = false;
+    });
+
+    throwButton.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        keyboard.D = true;
+    });
+
+    throwButton.addEventListener("touchend", (event) => {
+        keyboard.D = false;
+    });
+}
+
+document.addEventListener("fullscreenchange", onFullscreenChange);
+document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+document.addEventListener("msfullscreenchange", onFullscreenChange);
+window.addEventListener('DOMContentLoaded', () => {
+    toggleRotateScreen();
+});
+window.addEventListener('orientationchange', toggleRotateScreen, toggleMobileButtonContainer, toggleIngameMenu);
+window.addEventListener('resize', toggleRotateScreen, toggleMobileButtonContainer, toggleIngameMenu);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addInterval">addInterval</a></li><li><a href="global.html#adjustCanvasSize">adjustCanvasSize</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#closeControls">closeControls</a></li><li><a href="global.html#closeSettings">closeSettings</a></li><li><a href="global.html#closeStory">closeStory</a></li><li><a href="global.html#exitFullscreen">exitFullscreen</a></li><li><a href="global.html#hideScreens">hideScreens</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mobileButtonTouch">mobileButtonTouch</a></li><li><a href="global.html#onFullscreenChange">onFullscreenChange</a></li><li><a href="global.html#openControls">openControls</a></li><li><a href="global.html#openSettings">openSettings</a></li><li><a href="global.html#openStory">openStory</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#requestFullscreen">requestFullscreen</a></li><li><a href="global.html#resetAnimationFrameId">resetAnimationFrameId</a></li><li><a href="global.html#resetCanvasSize">resetCanvasSize</a></li><li><a href="global.html#resetGame">resetGame</a></li><li><a href="global.html#returnToMenu">returnToMenu</a></li><li><a href="global.html#setCanvasSize">setCanvasSize</a></li><li><a href="global.html#showEndScreen">showEndScreen</a></li><li><a href="global.html#showGameLostScreen">showGameLostScreen</a></li><li><a href="global.html#showGameWonScreen">showGameWonScreen</a></li><li><a href="global.html#stopAllIntervals">stopAllIntervals</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#toggleIngameMenu">toggleIngameMenu</a></li><li><a href="global.html#toggleMobileButtonContainer">toggleMobileButtonContainer</a></li><li><a href="global.html#toggleRotateScreen">toggleRotateScreen</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 16:10:20 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

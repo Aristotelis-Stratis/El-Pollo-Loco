@@ -1,21 +1,28 @@
-let level1;
-
+/**
+ * Initialize the game level with specified entities and objects.
+ */
 function initLevel() {
+    /**
+     * The game level, containing chickens, clouds, background objects, coins, bottles, and an endboss.
+     * @type {Level}
+     */
     level1 = new Level(
+        // Chickens array
         [
-            // new Chicken(1000, 275),
-            // new Chicken(1250, 275),
-            // new Chicken(1450, 275),
-            // new Chicken(1700, 275),
-            // new Chicken(2050, 275),
-            // new Chicken(2400, 275),
-            // new Chicken(2700, 275),
-            // new Chicken(2900, 275),
-            // new Chicken(3100, 275),
-            // new Chicken(3400, 275),
-            // new Chicken(3900, 275),
+            new Chicken(1000, 275),
+            new Chicken(1250, 275),
+            new Chicken(1450, 275),
+            new Chicken(1700, 275),
+            new Chicken(2050, 275),
+            new Chicken(2400, 275),
+            new Chicken(2700, 275),
+            new Chicken(2900, 275),
+            new Chicken(3100, 275),
+            new Chicken(3400, 275),
+            new Chicken(3900, 275),
             new Chicken(4100, 275),
         ],
+        // Clouds array
         [
             new Cloud(),
             new Cloud(),
@@ -25,6 +32,7 @@ function initLevel() {
             new Cloud(),
             new Cloud(),
         ],
+        // Background objects array
         [
             new BackgroundObject('img/5_background/layers/air.png', -719),
             new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -719),
@@ -63,6 +71,7 @@ function initLevel() {
             new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719 * 7),
             new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 7),
         ],
+        // Coins array
         [
             new Coin(200, 150),
             new Coin(250, 100),
@@ -85,6 +94,7 @@ function initLevel() {
             new Coin(3600, 150),
             new Coin(4000, 50),
         ],
+        // Bottles array
         [
             new Bottles(0, 375),
             new Bottles(100, 375),
@@ -104,7 +114,7 @@ function initLevel() {
             new Bottles(3700, 375),
             new Bottles(3950, 375),
         ],
-        [new Endboss()
-        ]
+        // Endboss
+        [new Endboss()]
     );
 }

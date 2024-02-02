@@ -7,6 +7,12 @@ class MoveableObject extends DrawableObject {
     lastHitTime = 0;
     hitCooldown = 250;
 
+
+    /**
+     * Applies gravity to the moveable object, causing it to fall or move upwards.
+     * @function
+     */
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0)
@@ -16,6 +22,11 @@ class MoveableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks if the moveable object is above the ground or falling.
+     * @function
+     * @returns {boolean} True if above the ground, otherwise false.
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -24,22 +35,39 @@ class MoveableObject extends DrawableObject {
         }
     }
 
-    
+    /**
+     * Moves the moveable object to the right.
+     * @function
+     */
     moveRight() {
         this.x += this.speed;
     }
 
 
+    /**
+     * Moves the moveable object to the left.
+     * @function
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
-    
+
+    /**
+     * Makes the moveable object jump.
+     * @function
+     */
     jump() {
         this.speedY = 30;
     }
 
 
+    /**
+     * Checks if the moveable object is colliding with another moveable object.
+     * @function
+     * @param {MoveableObject} mo - The other moveable object to check collision with.
+     * @returns {boolean} True if colliding, otherwise false.
+     */
     isColliding(mo) {
         return (
             this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -50,6 +78,10 @@ class MoveableObject extends DrawableObject {
     }
 
 
+    /**
+     * Handles the hit event on the moveable object, reducing its energy.
+     * @function
+     */
     hit() {
         const currentTime = new Date().getTime();
         if (currentTime - this.lastHitTime > this.hitCooldown) {
@@ -63,6 +95,11 @@ class MoveableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks if the moveable object is hurt based on the hit cooldown.
+     * @function
+     * @returns {boolean} True if hurt, otherwise false.
+     */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHitTime;
         timePassed = timePassed / 1000;
@@ -70,11 +107,21 @@ class MoveableObject extends DrawableObject {
     }
 
 
+    /**
+     * Checks if the moveable object is dead based on energy.
+     * @function
+     * @returns {boolean} True if dead, otherwise false.
+     */
     isDead() {
         return this.energy == 0;
     }
 
 
+    /**
+     * Plays an animation on the moveable object by updating its image.
+     * @function
+     * @param {string[]} images - An array of image paths to use for animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];

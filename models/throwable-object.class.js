@@ -1,3 +1,9 @@
+/**
+ * Represents a throwable object that can be thrown and animated.
+ * @class
+ * @extends MoveableObject
+ */
+
 class ThrowableObject extends MoveableObject {
     speedY = 30;
     speedX = 20;
@@ -40,7 +46,10 @@ class ThrowableObject extends MoveableObject {
         };
     }
 
-    
+
+    /**
+     * Throws the object with a specific trajectory and initiates animation.
+     */
     throw() {
         this.speedY = 30;
         this.speedX = 30;
@@ -52,6 +61,9 @@ class ThrowableObject extends MoveableObject {
     }
 
 
+    /**
+     * Animates the rotation of the throwable object.
+     */
     animate() {
         this.rotationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
@@ -59,16 +71,22 @@ class ThrowableObject extends MoveableObject {
     }
 
 
+    /**
+     * Animates the splash effect when the throwable object hits a target.
+     */
     animateBottleSplash() {
         clearInterval(this.rotationInterval);
         this.speedX = 0;
         this.speedY = 0;
         this.applyGravity(false);
         clearInterval(this.throwInterval);
-        this.playAnimation(this.IMAGES_BOTTLE_SPLASH); 
+        this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
     }
 
 
+    /**
+     * Plays the sound effect when the throwable object is thrown.
+     */
     playThrowSound() {
         if (!isGameMuted) {
             let throwSound = new Audio('audio/bottle_throw.mp3');

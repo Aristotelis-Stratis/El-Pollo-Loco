@@ -1,3 +1,8 @@
+/**
+ * Represents a keyboard input handler.
+ * @class
+ */
+
 class Keyboard {
     LEFT = false;
     RIGHT = false;

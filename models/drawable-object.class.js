@@ -1,3 +1,8 @@
+/**
+* Represents a drawable object in the game.
+* @class
+*/
+
 class DrawableObject {
     x = 120;
     y = 365;
@@ -14,12 +19,22 @@ class DrawableObject {
     };
 
 
+    /**
+     * Loads an image from the given path and assigns it to the object's 'img' property.
+     * @function
+     * @param {string} path - The path to the image file.
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
 
+    /**
+     * Loads an array of images and stores them in the image cache.
+     * @function
+     * @param {string[]} array - An array of image paths to load.
+     */
     loadImages(array) {
         array.forEach((path) => {
             let img = new Image();
@@ -29,6 +44,11 @@ class DrawableObject {
     }
 
 
+    /**
+     * Draws the object on the canvas context.
+     * @function
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -36,6 +56,11 @@ class DrawableObject {
     }
 
     
+    /**
+     * Draws a frame around the object for debugging purposes.
+     * @function
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottles || this instanceof ThrowableObject) {
             ctx.beginPath();
@@ -52,7 +77,12 @@ class DrawableObject {
         }
     }
 
-    
+    /**
+     * Resolves the index of the image to use based on a given percentage.
+     * @function
+     * @param {number} percentage - The percentage value (0-100) used to determine the image index.
+     * @returns {number} - The index of the image to use.
+     */
     resolveImagesIndex(percentage) {
         if (percentage >= 100) {
             return 5;

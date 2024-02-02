@@ -1,3 +1,8 @@
+/**
+ * Class representing a chicken character in the game.
+ * @extends MoveableObject
+ */
+
 class Chicken extends MoveableObject {
     y = 350;
     height = 80;
@@ -34,6 +39,9 @@ class Chicken extends MoveableObject {
     }
 
 
+    /**
+    * Initiates intervals for chicken movement and animation.
+    */
     animate() {
         this.movementInterval = setInterval(() => {
             if (this.energy > 0) {
@@ -49,19 +57,29 @@ class Chicken extends MoveableObject {
     }
 
 
+    /**
+    * Stops the chickens movement and animation intervals.
+    */
     stopIntervals() {
         clearInterval(this.movementInterval);
         clearInterval(this.animationInterval);
     }
 
 
+    /**
+    * Initiates the death animation for the chicken.
+    * Stops movement and plays the death animation and sound.
+    */
     playDeathAnimation() {
         this.stopIntervals();
         this.playAnimation(this.IMAGES_DEAD);
         this.playSoundOnDeath();
     }
 
-
+    /**
+    * Plays a sound effect when the chicken dies.
+    * Adjusts the volume and plays the sound effect.
+    */
     playSoundOnDeath() {
         this.death_sound.volume = 0.4;
         this.death_sound.play();

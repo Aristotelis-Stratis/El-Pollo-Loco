@@ -1,3 +1,8 @@
+/**
+ * Class representing a background object in the game.
+ * @extends MoveableObject
+ */
+
 class BackgroundObject extends MoveableObject {
 
     width = 720;

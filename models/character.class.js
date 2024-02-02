@@ -1,3 +1,8 @@
+/**
+ * Represents the main character in the game.
+ * @extends MoveableObject
+ */
+
 class Character extends MoveableObject {
     y = -20;
     height = 275;
@@ -94,17 +99,23 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Animates the character's movements and state transitions.
+     */
     animate() {
         intervals.push(setInterval(() => {
             this.animateCharacter();
         }, 1000 / 60));
-    
+
         intervals.push(setInterval(() => {
             this.animateCharacterState();
         }, 100));
     }
 
 
+    /**
+    * Animates the character's basic movements.
+    */
     animateCharacter() {
         this.handleIdleTimer();
         this.handleWalking();
@@ -113,6 +124,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+    * Handles state transitions based on the character's current state.
+    */
     animateCharacterState() {
         if (this.isDead() && !this.world.gameOver) {
             this.handleDeadState();
@@ -132,6 +146,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Updates the idle timer based on user input.
+     */
     handleIdleTimer() {
         if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
             this.idleTimer += 1000 / 120;
@@ -141,6 +158,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Handles character movement (walking).
+     */
     handleWalking() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -155,6 +175,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+    * Handles character jumping.
+    */
     handleJumping() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
@@ -163,38 +186,59 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+    * Handles the camera position based on character's x-coordinate.
+    */
     handleCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
-    
+
+    /**
+    * Handles character's state when dead.
+    */
     handleDeadState() {
         this.playAnimation(this.IMAGES_DEAD);
         this.world.endGame();
     }
-    
 
+
+    /**
+    * Handles character's state when hurt.
+    */
     handleHurtState() {
         this.playAnimation(this.IMAGES_HURT);
         this.hurt_sound.play();
     }
-    
 
+
+    /**
+    * Handles character's state when jumping.
+    */
     handleJumpingState() {
         this.playAnimation(this.IMAGES_JUMPING);
     }
-    
 
+
+    /**
+    * Handles character's state during long idle periods.
+    */
     handleLongIdleState() {
         this.playAnimation(this.IMAGES_LONG_IDLE);
     }
-    
 
+    
+    /**
+    * Handles character's state during walking periods.
+    */
     handleWalkingState() {
         this.playAnimation(this.IMAGES_WALKING);
     }
-    
-    
+
+
+    /**
+    * Handles character's state when idle.
+    */
     handleIdleState() {
         this.playAnimation(this.IMAGES_IDLE);
     }

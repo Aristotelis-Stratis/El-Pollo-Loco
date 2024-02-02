@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: audio.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: audio.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Background music audio element.
+ * @type {HTMLAudioElement}
+ */
+let backgroundMusic = new Audio('audio/game.mp3');
+
+/**
+ * Audio element for the game won sound.
+ * @type {HTMLAudioElement}
+ */
+let gameWon = new Audio('audio/game_won.mp3');
+
+/**
+ * Audio element for the game lost sound.
+ * @type {HTMLAudioElement}
+ */
+let gameLost = new Audio('audio/game_lost.mp3');
+
+/**
+ * Indicates whether the game audio is muted.
+ * @type {boolean}
+ */
+let isGameMuted = false;
+
+/**
+ * Indicates whether the background music is muted.
+ * @type {boolean}
+ */
+let backgroundMusicMuted = false;
+
+/**
+ * Plays the game won sound if the game is not muted.
+ */
+function gameWonSound() {
+    if (!isGameMuted) {
+        gameWon.play();
+    }
+}
+
+/**
+ * Plays the game lost sound if the game is not muted.
+ */
+function gameLostSound() {
+    if (!isGameMuted) {
+        gameLost.play();
+    }
+}
+
+/**
+ * Sets the volume and mute status for the background music and plays it.
+ */
+function playBackgroundMusic() {
+    backgroundMusic.volume = 0.1;
+    backgroundMusic.muted = backgroundMusicMuted;
+    backgroundMusic.play();
+}
+
+/**
+ * Stops the background music and resets its playback position to the beginning.
+ */
+function stopBackgroundMusic() {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+}
+
+/**
+ * Toggles the mute status of the background music and updates the UI accordingly.
+ */
+function updateSoundStatus() {
+    backgroundMusicMuted = !backgroundMusicMuted;
+    backgroundMusic.muted = backgroundMusicMuted;
+    let musicToggleButton = document.getElementById('music-toggle-button');
+    let soundIcon = document.getElementById('sound-icon');
+    if (backgroundMusicMuted) {
+        musicToggleButton.innerText = 'Sound Off';
+        soundIcon.src = './img/12_icons/SOUND_OFF_icon.png';
+    } else {
+        musicToggleButton.innerText = 'Sound On';
+        soundIcon.src = './img/12_icons/SOUND_ON_icon.png';
+    }
+    if (gameActive) {
+        muteSounds();
+    }
+}
+
+/**
+ * Toggles the mute status of the game audio and updates the UI.
+ */
+function toggleSoundAndImage() {
+    isGameMuted = !isGameMuted;
+    updateSoundStatus();
+    muteSounds();
+}
+
+/**
+ * Mutes or unmutes all game audio elements based on the game mute status.
+ */
+function muteSounds() {
+    if (backgroundMusic) {
+        backgroundMusic.muted = isGameMuted;
+    }
+    muteChickenSounds();
+    muteCharacterSounds();
+    muteEndbossSounds();
+}
+
+/**
+ * Mutes or unmutes chicken enemy sounds based on the game mute status.
+ */
+function muteChickenSounds() {
+    if (world &amp;&amp; world.level &amp;&amp; world.level.enemies) {
+        world.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Chicken) {
+                enemy.death_sound.muted = isGameMuted;
+            }
+        });
+    }
+}
+
+/**
+ * Mutes or unmutes endboss enemy sounds based on the game mute status.
+ */
+function muteEndbossSounds() {
+    if (world &amp;&amp; world.level &amp;&amp; world.level.endboss) {
+        world.level.endboss.forEach((endboss) => {
+            endboss.alert_sound.muted = isGameMuted;
+            endboss.hurt_sound.muted = isGameMuted;
+            endboss.dead_sound.muted = isGameMuted;
+        });
+    }
+}
+
+/**
+ * Mutes or unmutes coin collect sounds based on the game mute status.
+ */
+function muteCoinSounds() {
+    if (world &amp;&amp; world.level &amp;&amp; world.level.coins) {
+        world.level.coins.forEach((coin) => {
+            coin.collect_sound.muted = isGameMuted;
+        });
+    }
+}
+
+/**
+ * Mutes or unmutes bottle collect sounds based on the game mute status.
+ */
+function muteBottleSounds() {
+    if (world &amp;&amp; world.level &amp;&amp; world.level.bottles) {
+        world.level.bottles.forEach((bottle) => {
+            bottle.collect_sound.muted = isGameMuted;
+        });
+    }
+}
+
+/**
+ * Mutes or unmutes character sounds based on the game mute status.
+ */
+function muteCharacterSounds() {
+    if (world &amp;&amp; world.character) {
+        world.character.walking_sound.muted = isGameMuted;
+        world.character.hurt_sound.muted = isGameMuted;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#backgroundMusic">backgroundMusic</a></li><li><a href="global.html#backgroundMusicMuted">backgroundMusicMuted</a></li><li><a href="global.html#gameLost">gameLost</a></li><li><a href="global.html#gameLostSound">gameLostSound</a></li><li><a href="global.html#gameWon">gameWon</a></li><li><a href="global.html#gameWonSound">gameWonSound</a></li><li><a href="global.html#isGameMuted">isGameMuted</a></li><li><a href="global.html#muteBottleSounds">muteBottleSounds</a></li><li><a href="global.html#muteCharacterSounds">muteCharacterSounds</a></li><li><a href="global.html#muteChickenSounds">muteChickenSounds</a></li><li><a href="global.html#muteCoinSounds">muteCoinSounds</a></li><li><a href="global.html#muteEndbossSounds">muteEndbossSounds</a></li><li><a href="global.html#muteSounds">muteSounds</a></li><li><a href="global.html#playBackgroundMusic">playBackgroundMusic</a></li><li><a href="global.html#stopBackgroundMusic">stopBackgroundMusic</a></li><li><a href="global.html#toggleSoundAndImage">toggleSoundAndImage</a></li><li><a href="global.html#updateSoundStatus">updateSoundStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 16:10:13 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
