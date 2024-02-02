@@ -226,6 +226,7 @@ canvas {
 
 .ig-btn {
     width: 30px;
+    cursor: pointer;
 }
 
 .w-25 {
