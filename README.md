@@ -22,11 +22,6 @@ To run the game locally, follow these steps:
 
 ## Screenshots
 <img width="250" alt="image" src="https://github.com/Aristotelis-Stratis/El-Pollo-Loco/assets/118734020/0e8cac6f-1501-4d31-9224-fbe30873e449">
-<img width="250" alt="image" src="https://github.com/Aristotelis-Stratis/El-Pollo-Loco/assets/118734020/9bd78065-c268-4632-ba44-944865a0ed09">
-<img width="250" alt="image" src="https://github.com/Aristotelis-Stratis/El-Pollo-Loco/assets/118734020/5739088e-7076-42db-a46f-811fdf668656">
-
-
-
 
 ## Author
 Aristotelis Stratis - [GitHub Profile](https://github.com/Aristotelis-Stratis)
