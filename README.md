@@ -21,7 +21,8 @@ To run the game locally, follow these steps:
 - Press the 'D' key to throw the collected salsa bottles.
 
 ## Screenshots
-Include screenshots of gameplay, levels, and any other relevant images to showcase the game.
+![image](https://github.com/Aristotelis-Stratis/El-Pollo-Loco/assets/118734020/d27bed99-01f3-44d1-9946-c27988e632dd)
+
 
 ## Author
 Aristotelis Stratis - [GitHub Profile](https://github.com/Aristotelis-Stratis)
