@@ -1,4 +1,4 @@
-# El Pollo Loco - Adventure Game
+# El Pollo Loco - Jump&Run Game
 
 ## Description
 This is a simple adventure game built with HTML, CSS, and JavaScript. The game features a character navigating through a level, collecting bottles and coins while battling enemies.
